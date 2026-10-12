@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/mission",
+	"version": "0.1.0",
+	"title": "Mission",
+    "category": "suburban",
+    "icon": "admin-site-alt3",
+    "description": "A block for displaying the mission statement with an image and call-to-action.",
+    "textdomain": "suburbancm",
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": "Our Mission"
+        },
+        "description": {
+            "type": "string",
+            "default": "To deliver exceptional construction services through unwavering commitment to quality, safety, integrity, and client satisfaction. We strive to be the partner of choice for complex projects, transforming visions into tangible realities."
+        },
+        "buttonText": {
+            "type": "string",
+            "default": "Partner With Us"
+        },
+        "buttonUrl": {
+            "type": "string",
+            "default": "/contact"
+        },
+        "imageUrl": {
+            "type": "string",
+            "default": "https://fakeimg.pl/600x400/cccccc/909090?text=Team+Working"
+        },
+        "imageAlt": {
+            "type": "string",
+            "default": "Team collaborating on blueprints"
+        },
+        "rowReverse": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php",
+	"viewScript": "file:./view.js"
+}

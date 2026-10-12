@@ -1,0 +1,13 @@
+.wp-block-suburbancm-testimonials {
+	.components-button{
+		color:white;
+	}
+
+	.testimony .absolute {
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+	.testimony:hover .absolute {
+		opacity: 1;
+	}
+}

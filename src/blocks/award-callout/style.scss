@@ -1,0 +1,19 @@
+.suburbancm-award-callout {
+	/* Soft gold glow behind the badge so it reads as an award, not a generic image. */
+	&__badge {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -12%;
+			border-radius: 9999px;
+			background: radial-gradient(circle, rgba(228, 209, 152, 0.35) 0%, rgba(228, 209, 152, 0) 70%);
+			pointer-events: none;
+		}
+
+		img {
+			position: relative;
+		}
+	}
+}

@@ -1,0 +1,78 @@
+{
+    "apiVersion": 2,
+    "name": "suburbancm/additional-actions",
+    "title": "Additional Actions",
+    "category": "suburban",
+    "icon": "admin-links",
+    "description": "A block to display additional actions with titles, descriptions, and links.",
+    "textdomain": "suburbancm",
+    "supports": {
+        "html": false,
+		"align": ["full", "wide"]
+    },
+    "attributes": {
+		"title": {
+			"type": "string",
+			"default": "Additional Actions"
+		},
+        "title1": {
+            "type": "string",
+            "default": "Get Started"
+        },
+        "description1": {
+            "type": "string",
+            "default": "Learn more about our services and how we can help you."
+        },
+        "link1": {
+            "type": "string",
+            "default": "#"
+        },
+		"linkText1": {
+			"type": "string",
+			"default": "Learn More"
+		},
+        "icon1": {
+            "type": "string",
+            "default": "fas fa-briefcase"
+        },
+        "title2": {
+            "type": "string",
+            "default": "Contact Us"	
+        },
+        "description2": {
+            "type": "string",
+            "default": "Get in touch with us for any inquiries or support."
+        },
+        "link2": {
+            "type": "string",
+            "default": "#"
+        },
+		"linkText2": {
+			"type": "string",
+			"default": "Get in Touch"
+		},
+        "icon2": {
+            "type": "string",
+            "default": "fas fa-shield-alt"
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style.css",
+    "render": "file:./view.php",
+    "example": {
+        "attributes": {
+			"title": "Additional Actions",
+            "title1": "Get Started",
+            "description1": "Learn more about our services and how we can help you.",
+            "link1": "#services",
+			"linkText1": "Learn More",
+            "icon1": "fas fa-briefcase",
+            "title2": "Contact Us",
+            "description2": "Get in touch with us for any inquiries or support.",
+            "link2": "#contact",
+			"linkText2": "Get in Touch",
+            "icon2": "fas fa-shield-alt"
+        }
+    }
+}

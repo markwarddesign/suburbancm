@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/phases",
+	"version": "0.1.0",
+	"title": "Phases",
+	"category": "suburban",
+	"icon": "schedule",
+	"description": "A multi-phase process block with repeatable steps for each phase.",
+	"attributes": {
+		"phases": {
+		"type": "array",
+		"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"textdomain": "suburbancm",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php",
+	"viewScript": "file:./view.js"
+}

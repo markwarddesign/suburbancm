@@ -1,0 +1,66 @@
+/* Style the gallery placeholder to remove the default background */
+.wp-block-suburbancm-project-page .wp-block-gallery .block-editor-media-placeholder {
+    background: transparent;
+    color:white;
+    border: 2px dashed #a0aec0; /* Use a neutral dashed border to indicate the drop zone */
+}
+
+/* Style the primary "Upload" button with a gold outline */
+.wp-block-suburbancm-project-page .wp-block-gallery .components-button.is-primary {
+    background-color: transparent;
+    border: 2px solid #e4d198;
+    color: #e4d198;
+}
+
+.wp-block-suburbancm-project-page .wp-block-gallery .components-button.is-primary:hover {
+    background-color: rgba(228, 209, 152, 0.1); /* Add a subtle hover effect */
+    color: #e4d198;
+}
+
+/* Style the secondary "Media Library" button text to match */
+.wp-block-suburbancm-project-page .wp-block-gallery .components-button.is-secondary {
+    color: #e4d198;
+}
+
+/* Replicate the grid layout in the editor */
+.wp-block-suburbancm-project-page .project-layout-grid {
+    gap: 2rem; /* Corresponds to gap-8 */
+}
+
+/* Style the "Project Overview" title to match the frontend */
+.wp-block-suburbancm-project-page .project-overview-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 600; /* font-semibold */
+    color: #e4d198;
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+/* Ensure the editor content uses the full width */
+.wp-block-suburbancm-project-page {
+    max-width: none;
+}
+
+/* Add vertical spacing between blocks in project page columns */
+.wp-block-suburbancm-project-page .wp-block-column > * + * {
+    margin-top: 2rem;
+}
+
+/* Add vertical spacing between blocks using block-list__layout for better compatibility */
+.wp-block-suburbancm-project-page .block-editor-block-list__layout > * + * {
+    margin-top: 2rem;
+}
+
+.wp-block-suburban-project-page {
+	display: flex;
+	gap: 2rem;
+}
+
+.meta-column {
+	flex: 1 1 33.33%;
+	max-width: 33.33%;
+}
+
+.inner-blocks-column {
+	flex: 1 1 66.67%;
+	max-width: 66.67%;
+}

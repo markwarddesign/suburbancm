@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/showcase-card",
+	"version": "0.1.0",
+	"title": "Showcase Card",
+	"category": "suburban",
+	"icon": "id-alt",
+	"description": "A card with an image, heading, and text for showcasing expertise or commitment.",
+	"attributes": {
+		"image": {
+		"type": "string",
+		"default": "https://placehold.co/150x150/a38f50/ffffff/png?text=Local+Expertise"
+		},
+		"imageAlt": {
+		"type": "string",
+		"default": "Symbol of local commitment, e.g., Twin Falls landmark"
+		},
+		"title": {
+		"type": "string",
+		"default": ""
+		},
+		"text": {
+		"type": "string",
+		"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"textdomain": "suburbancm",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php",
+	"viewScript": "file:./view.js"
+}

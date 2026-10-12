@@ -1,0 +1,86 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "suburbancm/why-choose-us",
+    "version": "1.0.0",
+    "title": "Why Choose Us Section",
+    "category": "design",
+    "icon": "star-filled",
+    "description": "A section highlighting key reasons to choose the company, with three feature points and a call to action.",
+    "attributes": {
+        "heading": {
+            "type": "string",
+            "default": "Building Trust, Delivering Excellence"
+        },
+        "subheading": {
+            "type": "string",
+            "default": "We bring expertise, integrity, and a commitment to quality to every project, ensuring your vision becomes a reality."
+        },
+        "features": {
+            "type": "array",
+            "default": [
+                {
+                    "title": "Proven Expertise",
+                    "description": "Decades of combined experience managing complex construction projects across diverse sectors.",
+                    "icon": "info"
+                },
+                {
+                    "title": "Uncompromising Quality",
+                    "description": "Commitment to the highest standards of craftsmanship, materials, and safety protocols on every job site.",
+                    "icon": "checkmark"
+                },
+                {
+                    "title": "Transparent Communication",
+                    "description": "Clear, consistent updates and a collaborative approach to keep you informed every step of the way.",
+                    "icon": "clipboard"
+                }
+            ]
+        },
+        "buttonText": {
+            "type": "string",
+            "default": "Request Your Consultation"
+        },
+        "buttonLink": {
+            "type": "string",
+            "default": "#cta1"
+        },
+        "align": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "example": {
+        "attributes": {
+            "heading": "Why Choose Us",
+            "subheading": "We deliver excellence in every project.",
+            "features": [
+                {
+                    "title": "Expertise",
+                    "description": "Years of experience in the industry.",
+                    "icon": "info"
+                },
+                {
+                    "title": "Quality",
+                    "description": "Top-notch materials and craftsmanship.",
+                    "icon": "checkmark"
+                },
+                {
+                    "title": "Communication",
+                    "description": "Clear and transparent updates.",
+                    "icon": "clipboard"
+                }
+            ],
+            "buttonText": "Learn More",
+            "buttonLink": "#"
+        }
+    } ,
+    "supports": {
+        "html": false,
+        "align": [ "full", "wide" ]
+    },
+    "textdomain": "suburbancm",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "render": "file:./why-choose-us.php"
+  }

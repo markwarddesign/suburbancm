@@ -1,0 +1,16 @@
+.wp-block-suburbancm-team {
+
+	.components-button{
+		color:white;
+		@apply text-white;
+	}
+	
+	.team-member .absolute {
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
+	.team-member:hover .absolute {
+		opacity: 1;
+	}
+
+}

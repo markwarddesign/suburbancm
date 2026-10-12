@@ -1,0 +1,139 @@
+/* filepath: /Users/kramdraw85/Local Sites/suburban-cm/app/public/wp-content/themes/suburban/assets/css/src/editor.scss */
+
+/* Typefaces
+--------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Icons
+--------------------------------------------- */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Headings
+--------------------------------------------- */
+@layer base {
+  h1 {
+    @apply text-4xl font-extrabold text-[#000000] text-white mb-6 sm:text-5xl md:text-6xl leading-tight;
+    /* Notes:
+       - Sizes from hero section.
+       - leading-tight from hero h1.
+       - mb-6 for substantial spacing below a main page title.
+    */
+  }
+  h2 {
+    @apply text-3xl font-bold text-[#000000] text-white mb-5 sm:text-4xl;
+    /* Notes:
+       - Sizes from section titles.
+       - font-bold is common for h2s in your example.
+       - mb-5 for section title spacing.
+    */
+  }
+  h3 {
+    @apply text-2xl font-semibold text-[#000000] text-white mb-4;
+    /* Notes:
+       - text-2xl is a common size for h3s (e.g., service item titles).
+       - mb-4 for sub-section title spacing.
+    */
+  }
+  h4 {
+    @apply text-xl font-semibold text-[#000000] text-white mb-3;
+    /* Notes:
+       - text-xl from smaller headings like "Why Choose Us" items.
+       - mb-3 for spacing.
+    */
+  }
+  h5 {
+    @apply text-lg font-semibold text-[#000000] text-white mb-2;
+    /* Notes:
+       - text-lg as a logical step down.
+       - mb-2 for smaller spacing.
+    */
+  }
+
+  .heading-description {
+    @apply text-lg text-[#80703a] text-[#e4d198]/80 leading-relaxed max-w-3xl;
+    /* Notes:
+       - This class is intended for paragraphs directly following a heading.
+       - Headings already have bottom margins (mb-*), so this description
+         class doesn't typically need its own top margin (mt-*).
+       - The max-width helps with readability for longer description texts.
+       - If the description should be centered (e.g., after a centered heading),
+         you can add `mx-auto text-center` utilities directly to the paragraph element.
+         Example: <p class="heading-description mx-auto text-center">...</p>
+    */
+  }
+
+  .h1-accent { @apply text-4xl font-extrabold text-[#a38f50] text-[#e4d198] mb-6 sm:text-5xl md:text-6xl leading-tight; }
+  .h2-accent { @apply text-3xl font-bold text-[#a38f50] text-[#e4d198] mb-5 sm:text-4xl; }
+
+}
+
+
+/* Buttons
+--------------------------------------------- */
+a {
+    text-decoration: none;
+}
+.btn, .components-button.btn {
+    height: unset;
+    @apply font-inter inline-flex items-center justify-center no-underline px-8 py-3 
+                   rounded-md text-lg transition duration-200 ease-in-out transform hover:scale-105;
+
+    &.primary {
+        @apply bg-[#a38f50] hover:bg-[#e4d198] 
+        text-[#1f1f1f] hover:text-[#1f1f1f]; 
+    }
+    &.primary-inverse {
+        @apply  bg-[#a38f50] hover:bg-[#e4d198] text-[#1f1f1f] hover:text-[#1f1f1f]
+    }
+    &.secondary {
+        @apply border bg-[#444444] text-[#e4d198] border-[#80703a] hover:bg-[#555555];
+    }
+    &.secondary-inverse {
+        @apply text-[#1f1f1f] bg-[#e4d198] hover:bg-[#a38f50] hover:text-white;
+    }
+}
+
+// Block Group Styles
+.wp-block-group {
+    @apply py-12 md:py-16 lg:py-20;
+}
+
+
+
+.wp-block-post-content {
+    @apply bg-[#1f1f1f] text-[#000000] text-[#e4d198] antialiased py-8;
+}
+
+// Editor Page Title - light gray bg, black text   
+.editor-visual-editor__post-title-wrapper{
+    @apply !mt-2;
+} 
+.editor-visual-editor .wp-block-post-title {
+    @apply border-b-2 border-medium-gold text-black text-lg mt-0;
+}
+// Editor Page Title - dark gray bg
+
+/* Paragraph Prose Styles
+--------------------------------------------- */
+p {
+  @apply text-base text-white leading-relaxed mb-5;
+  /* For gold-accented paragraphs, add .prose-gold class below */
+}
+.prose-gold {
+  @apply text-[#e4d198] leading-relaxed;
+}
+
+
+/* Gutenberg Block List Styles (Tailwind)
+--------------------------------------------- */
+.wp-block-list {
+  @apply list-disc pl-6 mb-6 text-base text-[#e4d198] mt-6;
+}
+.wp-block-list li {
+  @apply mb-2 leading-relaxed text-white;
+}

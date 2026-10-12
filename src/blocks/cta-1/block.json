@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/cta-1",
+	"version": "0.1.0",
+	"title": "CTA One",
+	"category": "suburban",
+	"icon": "heart",
+	"description": "A bootstrapped block. Build something beautiful!",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Ready to Start Your Next Project?"
+		},
+		"description": {
+			"type": "string",
+			"default": "Whether you need a General Contractor or Construction Manager, let our expert team guide your project from concept to completion. Contact us today for a consultation."
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Contact Us Today"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": "#"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"textdomain": "suburbancm",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php",
+	"viewScript": "file:./view.js"
+}

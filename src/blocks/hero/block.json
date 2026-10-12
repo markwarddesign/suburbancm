@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "suburbancm/hero",
+    "version": "1.0.0",
+    "title": "Suburban Primary Hero",
+    "category": "suburban",
+    "icon": "cover-image",
+    "description": "A hero section with heading, paragraph, two buttons, and optional background image.",
+    "attributes": {
+      "headingLine1": {
+        "type": "string",
+        "default": "Building Your Vision, "
+      },
+      "headingHighlight": {
+        "type": "string",
+        "default": "Managing Every Detail"
+      },
+      "paragraph": {
+        "type": "string",
+        "default": "Expert construction management services ensuring your project is completed on time, within budget, and to the highest standards."
+      },
+      "button1Text": {
+        "type": "string",
+        "default": "Request a Consultation"
+      },
+      "button1Link": {
+        "type": "string",
+        "default": "#cta1"
+      },
+      "button2Text": {
+        "type": "string",
+        "default": "View Our Projects"
+      },
+      "button2Link": {
+        "type": "string",
+        "default": "#projects"
+      },
+      "backgroundImageId": {
+        "type": "number"
+      },
+      "backgroundImageUrl": {
+        "type": "string",
+        "default": ""
+      }
+    },
+    "supports": {
+      "html": false,
+      "align": [ "full", "wide" ]
+    },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style.css",
+  "render": "file:./view.php",
+  "example": {
+    "attributes": {
+      "headingLine1": "Building Your Vision, ",
+      "headingHighlight": "Managing Every Detail",
+      "paragraph": "Expert construction management services ensuring your project is completed on time, within budget, and to the highest standards.",
+      "button1Text": "Request a Consultation",
+      "button1Link": "#cta1",
+      "button2Text": "View Our Projects",
+      "button2Link": "#projects"
+    }
+  }
+}

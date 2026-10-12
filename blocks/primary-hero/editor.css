@@ -1,0 +1,5 @@
+.suburbancm-primary-hero {
+	&__title {
+		color: red;
+	}
+}

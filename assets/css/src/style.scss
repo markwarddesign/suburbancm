@@ -1,0 +1,299 @@
+/* Typefaces
+--------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Icons
+--------------------------------------------- */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Headings
+--------------------------------------------- */
+@layer base {
+  h1 {
+    @apply text-4xl font-extrabold text-white mb-6 sm:text-5xl md:text-6xl leading-tight;
+    /* Notes:
+       - Sizes from hero section.
+       - leading-tight from hero h1.
+       - mb-6 for substantial spacing below a main page title.
+    */
+  }
+  h2 {
+    @apply text-3xl font-bold text-white mb-5 sm:text-4xl;
+    /* Notes:
+       - Sizes from section titles.
+       - font-bold is common for h2s in your example.
+       - mb-5 for section title spacing.
+    */
+  }
+  h3 {
+    @apply text-2xl font-semibold text-white mb-4;
+    /* Notes:
+       - text-2xl is a common size for h3s (e.g., service item titles).
+       - mb-4 for sub-section title spacing.
+    */
+  }
+  h4 {
+    @apply text-xl font-semibold text-white mb-3;
+    /* Notes:
+       - text-xl from smaller headings like "Why Choose Us" items.
+       - mb-3 for spacing.
+    */
+  }
+  h5 {
+    @apply text-lg font-semibold text-white mb-2;
+    /* Notes:
+       - text-lg as a logical step down.
+       - mb-2 for smaller spacing.
+    */
+  }
+
+  .heading-description {
+    @apply text-lg text-[#e4d198]/80 leading-relaxed max-w-3xl;
+    /* Notes:
+       - This class is intended for paragraphs directly following a heading.
+       - Headings already have bottom margins (mb-*), so this description
+         class doesn't typically need its own top margin (mt-*).
+       - The max-width helps with readability for longer description texts.
+       - If the description should be centered (e.g., after a centered heading),
+         you can add `mx-auto text-center` utilities directly to the paragraph element.
+         Example: <p class="heading-description mx-auto text-center">...</p>
+    */
+  }
+
+  .h1-accent { @apply text-4xl font-extrabold text-[#e4d198] mb-6 sm:text-5xl md:text-6xl leading-tight; }
+  .h2-accent { @apply text-3xl font-bold text-[#e4d198] mb-5 sm:text-4xl; }
+
+}
+
+
+/* Buttons
+--------------------------------------------- */
+a {
+    text-decoration: none;
+}
+.icon-bullet{
+    @apply w-5 h-5 text-[#e4d198] mr-3;
+}
+.btn {
+    @apply inline-flex items-center justify-center no-underline px-8 py-3 
+                   rounded-md text-lg transition duration-200 ease-in-out transform hover:scale-105;
+
+    &.primary {
+        @apply bg-[#a38f50] hover:bg-[#e4d198] 
+        text-[#1f1f1f] hover:text-[#1f1f1f]; 
+    }
+    &.primary-inverse {
+        @apply bg-[#a38f50] hover:bg-[#e4d198] text-[#1f1f1f] hover:text-[#1f1f1f]
+    }
+    &.secondary {
+        @apply border bg-[#444444] text-[#e4d198] border-[#80703a] hover:bg-[#555555];
+    }
+    &.secondary-inverse {
+        @apply text-[#1f1f1f] bg-[#e4d198] hover:bg-[#a38f50] hover:text-white;
+    }
+}
+
+
+/* Header
+--------------------------------------------- */
+
+.hidden {
+    display: none;
+}
+
+/* Full-width mega menu */
+#projects-mega-menu,
+#services-mega-menu {
+    width: 100%; /* Make the mega menu full width */
+    left: 0; /* Align to the left edge */
+}
+
+/* Dropdown icon styling */
+.dropdown-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-icon.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.menu-item:active, .menu-item:hover{
+    .menu-link{
+        @apply relative;
+    }
+    .menu-link:after{
+        @apply absolute w-full left-0 bottom-0;
+        content: '';
+    }
+}
+
+/* Mobile menu */
+/* Full-screen mobile menu */
+#mobile-menu {
+    position: fixed;
+    inset: 0; /* Covers the entire screen */
+    z-index: 50; /* Ensure it appears above other elements */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+#mobile-menu.hidden {
+    display: none; /* Hide the menu */
+}
+
+#mobile-menu nav {
+    flex-grow: 1; /* Push the footer to the bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    gap: 2rem; /* Add spacing between menu items */
+    width: 100%; /* Ensure nav takes full width */
+    text-align: center
+}
+
+#mobile-menu nav a {
+    @apply text-2xl font-semibold text-[#e4d198] transition-colors duration-200 ease-in-out;
+    text-align: center; /* Center text */
+}
+
+#mobile-menu nav a:hover {
+    @apply text-[#ffffff];
+}
+
+#mobile-menu-close-button {
+    align-self: flex-end; /* Align the close button to the top-right */
+}
+
+.custom-logo-link {
+    @apply max-w-[300px] max-h-[53px] inline-block transition-transform duration-200 ease-in-out hover:scale-105
+}
+
+
+// Regular Dropdown Menu
+
+// Mobile dropdown menu
+@media (max-width: 767px) {
+    .sub-menu {
+        @apply p-4 size-3 border-t border-[#e4d198] bg-[#2a2a2a] text-[#e4d198] flex flex-col gap-2;
+    }
+}
+/* Show dropdown on hover for desktop */
+@media (min-width: 768px) {
+  .menu-item-has-children:hover > .sub-menu {
+    display: block;
+  }
+  .sub-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: #2a2a2a;
+    min-width: 200px;
+    z-index: 50;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  }
+
+  .sub-menu li {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .sub-menu li a {
+    color: #e4d198;
+    padding: 0.75rem 1.25rem;
+    display: block;
+    white-space: nowrap;
+    width: 100%;
+  }
+  .sub-menu li a:hover {
+    background: #80703a;
+    color: #fff;
+  }
+  .menu-item-has-children {
+    position: relative;
+  }
+}
+
+.cta-button{
+    height: auto;
+
+    a{
+        @apply px-4 py-2 bg-[#a38f50] text-[#ffffff] rounded-md text-sm transition duration-200 ease-in-out transform hover:scale-105;
+        &:hover {
+            @apply bg-[#e4d198] text-[#1f1f1f] border-none;
+            &:after{
+                display:none;
+            }
+        }
+    }
+}
+
+// Remove position: relative for mega menu parents
+.menu-item-has-children[class*="mega-menu-"] {
+    position: unset !important;
+}
+
+// Block Group Styles
+.wp-block-group {
+    @apply py-12 md:py-16 lg:py-20;
+}
+
+mark{
+  background-color: unset;
+}
+
+.bg-dark-wave{
+  background-color: #080809;
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #080809 7px ), repeating-linear-gradient( #28282855, #282828 );
+}
+
+.bg-gold-graph{
+  --s: 61px; /* control the size*/
+  --c1: #72602c;
+  --c2: #62521e;
+  
+  --_g: #0000 90deg,var(--c1) 0;
+  background: 
+    conic-gradient(from 90deg at 2px 2px,var(--_g)),
+    conic-gradient(from 90deg at 1px 1px,var(--_g)),
+    var(--c2);
+  background-size: var(--s) var(--s), calc(var(--s)/5) calc(var(--s)/5);
+}
+
+.noise1{
+  background-image: url(/wp-content/themes/suburban/assets/images/noise.jpeg);
+  background-repeat: repeat;
+  background-position: center;
+}
+.noise2{
+  background-image: url(/wp-content/themes/suburban/assets/images/noise2.png);
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Paragraph Prose Styles
+--------------------------------------------- */
+p {
+  @apply text-base text-white leading-relaxed mb-5;
+  /* For gold-accented paragraphs, add .prose-gold class below */
+}
+.prose-gold {
+  @apply text-[#e4d198] leading-relaxed;
+}
+
+/* Gutenberg Block List Styles (Tailwind)
+--------------------------------------------- */
+.wp-block-list {
+  @apply list-disc pl-6 mb-6 text-base text-[#e4d198] mt-6;
+}
+.wp-block-list li {
+  @apply mb-2 leading-relaxed text-white;
+}

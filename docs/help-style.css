@@ -1,0 +1,42 @@
+/* NOTE: This is a regular css file */
+
+/* Make the content a readable width */
+[class*="suburbancm-docs"] #wpbody-content {
+	display: flex;
+	flex-direction: column;
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+[class*="suburbancm-docs"] #wpbody-content {
+	font-size: 18px;
+}
+
+[class*="suburbancm-docs"] #wpbody-content h1,
+[class*="suburbancm-docs"] #wpbody-content h2,
+[class*="suburbancm-docs"] #wpbody-content h3,
+[class*="suburbancm-docs"] #wpbody-content h4 {
+	margin-bottom: 0;
+	line-height: 1.2;
+}
+
+[class*="suburbancm-docs"] #wpbody-content h3 {
+	font-size: 1.1em;
+}
+
+[class*="suburbancm-docs"] #wpbody-content h3 + p {
+	margin-block-start: 0.5em;
+}
+
+[class*="suburbancm-docs"] #wpbody-content p {
+	font-size: inherit;
+}
+
+[class*="suburbancm-docs"] #wpbody-content p + p {
+	margin-block-start: 0;
+	font-size: inherit;
+}
+
+[class*="suburbancm-docs"] #wpbody-content img {
+	max-width: 100%;
+}

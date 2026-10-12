@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/award-callout",
+	"version": "0.1.0",
+	"title": "Award Callout",
+	"category": "suburban",
+	"icon": "awards",
+	"description": "A highlighted callout for an award or recognition, with a logo, headline, description and links. Defaults to the BoiseDev Peak 43 #1 win.",
+	"attributes": {
+		"image": {
+			"type": "string",
+			"default": ""
+		},
+		"imageAlt": {
+			"type": "string",
+			"default": "Peak 43 2026 Winner"
+		},
+		"eyebrow": {
+			"type": "string",
+			"default": "BoiseDev Peak 43 · 2026"
+		},
+		"title": {
+			"type": "string",
+			"default": "Ranked #1 Fastest-Growing Business in Idaho"
+		},
+		"description": {
+			"type": "string",
+			"default": "SuburbanCM was honored as the #1 company on BoiseDev's 2026 Peak 43 list, which ranks Idaho's fastest-growing businesses by revenue growth. We're grateful to the clients, partners and team members who made this possible."
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "See the Peak 43 List"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": "https://boisedev.com/peak43"
+		},
+		"secondaryText": {
+			"type": "string",
+			"default": "Watch Our Story"
+		},
+		"secondaryUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"textdomain": "suburbancm",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php"
+}

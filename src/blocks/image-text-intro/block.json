@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "suburbancm/image-text-intro",
+	"version": "0.1.0",
+	"title": "Image + Text Intro",
+	"category": "suburban",
+	"icon": "format-image",
+	"description": "A two-column section with an image and intro text.",
+	"attributes": {
+		"image": {
+		"type": "string",
+		"default": "https://placehold.co/600x450/e4d198/80703a/png?text=Collaborative+Planning"
+		},
+		"imageAlt": {
+		"type": "string",
+		"default": "Team collaborating on project plans"
+		},
+		"text": {
+		"type": "string",
+		"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
+	"textdomain": "suburbancm",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./view.php",
+	"viewScript": "file:./view.js"
+}

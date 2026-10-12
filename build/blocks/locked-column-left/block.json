@@ -1,0 +1,14 @@
+{
+  "apiVersion": 3,
+  "name": "suburbancm/locked-column-left",
+  "title": "Locked Column (Left)",
+  "category": "layout",
+  "icon": "align-pull-left",
+  "description": "Left column for Project Details only.",
+  "supports": {
+    "html": false,
+    "multiple": false
+  },
+  "attributes": {},
+  "editorScript": "file:./index.js"
+}

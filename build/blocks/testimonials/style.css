@@ -1,0 +1,6 @@
+.suburbancm-testimonials__title {
+		text-align: center;
+		text-decoration: underline;
+		/* stylelint-disable-next-line color-named */
+		text-decoration-color: red;
+	}

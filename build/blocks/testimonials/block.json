@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/testimonials",
+  "version": "0.1.0",
+  "title": "Testimonials",
+  "category": "suburban",
+  "icon": "format-quote",
+  "description": "A block to display client testimonials.",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Client Testimonials"
+    },
+    "testimonials": {
+      "type": "array",
+      "default": [
+        {
+          "image": "https://fakeimg.pl/80x80/cccccc/909090",
+          "alt": "User Avatar",
+          "quote": "This is a sample testimonial.",
+          "name": "John Doe",
+          "role": "CEO, Example Company"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ],
+    "color": {
+      "background": true
+    }
+  },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php",
+  "viewScript": "file:./view.js"
+}

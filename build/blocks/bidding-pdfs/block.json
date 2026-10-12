@@ -1,0 +1,21 @@
+{
+  "apiVersion": 2,
+  "name": "suburbancm/bidding-pdfs",
+  "title": "Bidding PDFs",
+  "category": "widgets",
+  "icon": "media-document",
+  "description": "Upload, name, and reorder PDF documents for bidding projects.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "pdfs": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php"
+}

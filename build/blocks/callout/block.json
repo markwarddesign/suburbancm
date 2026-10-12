@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/callout",
+  "version": "0.1.0",
+  "title": "Callout",
+  "category": "suburban",
+  "icon": "shield",
+  "description": "A highlighted callout block for safety or other key messages.",
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "default": "fa-shield-alt"
+    },
+    "title": {
+      "type": "string",
+      "default": "Safety: Our Unwavering Commitment"
+    },
+    "description": {
+      "type": "string",
+      "default": "At SuburbanCM, safety is paramount. It's a non-negotiable core value integrated into every phase of our work. We are dedicated to creating and maintaining the safest possible environments for our team, subcontractors, clients, and the communities we serve."
+    },
+    "list": {
+      "type": "array",
+      "default": [
+        "Rigorous adherence to all OSHA standards and local safety regulations.",
+        "Continuous safety training, certifications, and toolbox talks for all personnel.",
+        "Development and implementation of site-specific safety plans tailored to each project.",
+        "Proactive hazard identification, risk assessment, and regular safety audits.",
+        "Fostering a culture where every individual is empowered and responsible for safety."
+      ]
+    },
+    "afterText": {
+      "type": "string",
+      "default": "Our goal is zero incidents. We firmly believe that a safe project is fundamental to a successful project."
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
+  },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php",
+  "viewScript": "file:./view.js"
+}

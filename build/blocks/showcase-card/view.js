@@ -1,0 +1,1 @@
+console.log("Hello from suburbancm/showcase-card view.js!");

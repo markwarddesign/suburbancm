@@ -1,0 +1,1 @@
+console.log("Hello from suburbancm/callout view.js!");

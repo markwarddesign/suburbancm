@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/project-page",
+  "version": "0.1.0",
+  "title": "Project Page Layout",
+  "category": "suburban",
+  "icon": "layout",
+  "description": "A container block that structures the entire project page layout.",
+  "usesContext": [
+    "postType",
+    "postId"
+  ],
+  "attributes": {
+    "client": {
+      "type": "string",
+      "default": ""
+    },
+    "location": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "string",
+      "default": ""
+    },
+    "startDate": {
+      "type": "string",
+      "default": ""
+    },
+    "completionDate": {
+      "type": "string",
+      "default": ""
+    },
+    "shortDescription": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php"
+}

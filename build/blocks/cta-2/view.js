@@ -1,0 +1,1 @@
+console.log("Hello from suburbancm/cta-2 view.js!");

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "suburbancm/why-choose-us",
+  "title": "Why Choose Us",
+  "category": "suburban",
+  "icon": "admin-users",
+  "description": "A block to showcase reasons to choose your services with a title, description, features, and a call-to-action button.",
+  "textdomain": "suburbancm",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Why Choose Us"
+    },
+    "description": {
+      "type": "string",
+      "default": "We bring expertise, integrity, and a commitment to quality."
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Request Your Consultation"
+    },
+    "buttonLink": {
+      "type": "string",
+      "default": "#cta1"
+    },
+    "items": {
+      "type": "array",
+      "query": {
+        "icon": {
+          "type": "string",
+          "default": "fa-star"
+        },
+        "title": {
+          "type": "string",
+          "default": "Expertise"
+        },
+        "description": {
+          "type": "string",
+          "default": "Our team brings years of experience and knowledge to every project."
+        }
+      }
+    }
+  },
+  "example": {
+    "attributes": {
+      "title": "Building Trust, Delivering Excellence",
+      "description": "We bring expertise, integrity, and a commitment to quality to every project, ensuring your vision becomes a reality.",
+      "buttonText": "Request Your Consultation",
+      "buttonLink": "#cta1",
+      "items": [
+        {
+          "icon": "fa-star",
+          "title": "Expertise",
+          "description": "Our team brings years of experience and knowledge to every project."
+        },
+        {
+          "icon": "fa-shield-alt",
+          "title": "Integrity",
+          "description": "We believe in transparency and honesty in all our dealings."
+        },
+        {
+          "icon": "fa-thumbs-up",
+          "title": "Commitment to Quality",
+          "description": "We strive for excellence in every aspect of our work."
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php"
+}

@@ -1,0 +1,1 @@
+console.log("Hello from suburbancm/section-title view.js!");

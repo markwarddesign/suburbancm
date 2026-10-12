@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/team",
+  "version": "0.1.0",
+  "title": "Team",
+  "category": "suburban",
+  "icon": "heart",
+  "description": "A bootstrapped block. Build something beautiful!",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "hideTitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "showAll": {
+      "type": "boolean",
+      "default": true
+    },
+    "selectedTeamMembers": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
+  },
+  "textdomain": "team",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style.css",
+  "render": "file:./view.php",
+  "viewScript": "file:./view.js"
+}

@@ -985,8 +985,6 @@ body.scm-menu-open { overflow: hidden; }
 
 .scm-post-meta { margin: 0; font-size: 15px; font-weight: 600; color: var(--scm-muted-on-dark); }
 
-.scm-post-meta span { margin: 0 6px; }
-
 .scm .scm-post-body { padding-top: clamp(48px, 6vw, 88px) !important; }
 
 .scm .scm-post-body > p:first-child { font-size: clamp(20px, 1.8vw, 24px); line-height: 1.5; font-weight: 600; color: var(--scm-ink); }

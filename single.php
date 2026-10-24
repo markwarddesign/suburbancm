@@ -26,17 +26,7 @@ while ( have_posts() ) :
 			<?php if ( has_excerpt() ) : ?>
 				<p class="scm-lede"><?php echo esc_html( get_the_excerpt() ); ?></p>
 			<?php endif; ?>
-			<p class="scm-post-meta">
-				<?php // A bare username ("adipietro") reads badly as a byline; show it only once the profile has a real name. ?>
-				<?php if ( str_contains( trim( (string) get_the_author() ), ' ' ) ) : ?>
-					<?php
-					/* translators: %s: author name */
-					printf( esc_html__( 'By %s', 'suburbancm' ), esc_html( get_the_author() ) );
-					?>
-					<span aria-hidden="true">·</span>
-				<?php endif; ?>
-				<?php echo esc_html( suburbancm_post_meta_line( $post_id ) ); ?>
-			</p>
+			<p class="scm-post-meta"><?php echo esc_html( suburbancm_post_meta_line( $post_id ) ); ?></p>
 		</header>
 
 		<?php if ( has_post_thumbnail() ) : ?>

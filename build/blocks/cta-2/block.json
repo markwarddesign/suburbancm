@@ -6,7 +6,7 @@
   "title": "CTA Two",
   "category": "suburban",
   "icon": "megaphone",
-  "description": "A call-to-action block with two buttons.",
+  "description": "Charcoal call-to-action band: headline with an optional gold second line and two buttons.",
   "textdomain": "suburbancm",
   "attributes": {
     "title": {
@@ -44,6 +44,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
-  "render": "file:./view.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./view.php"
 }

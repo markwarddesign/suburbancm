@@ -1,3 +1,7 @@
-.suburbancm-bid-header {
-	/* Custom styles go here */
+.scm-bid-header--inline {
+	max-width: 900px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 24px var(--scm-gutter) 0;
 }
+.scm-bid-header .scm-project-head .scm-btn { align-self: flex-start; }

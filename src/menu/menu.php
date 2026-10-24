@@ -308,16 +308,111 @@ class Suburban_Walker_Nav_Menu extends Walker_Nav_Menu {
 }
 
 function suburbancm_enqueue_menu_script() {
-    // Enqueue the menu.js script
+    // Mobile menu. The hover megamenus (assets/js/menu.js) were retired for a flat nav.
     wp_enqueue_script(
-        'suburbancm-menu-script', // Handle for the script
-        get_theme_file_uri('/assets/js/menu.js'), // Path to the script
-        ['jquery'], // Dependencies (if any, e.g., jQuery)
-        filemtime(get_theme_file_path('/assets/js/menu.js')), // Version based on file modification time
-        true // Load in the footer
+        'suburbancm-site',
+        get_theme_file_uri('/assets/js/site.js'),
+        [],
+        filemtime(get_theme_file_path('/assets/js/site.js')),
+        true
     );
 }
 add_action('wp_enqueue_scripts', 'suburbancm_enqueue_menu_script');
+
+// Client portal on ProjectAire, linked from the footer and mobile menu.
+if ( ! defined( 'SUBURBANCM_CLIENT_LOGIN_URL' ) ) {
+    define( 'SUBURBANCM_CLIENT_LOGIN_URL', 'https://projectaire.app/login' );
+}
+
+/**
+ * Links used when a menu location has no menu assigned yet.
+ *
+ * @param string $set 'primary' or 'footer'.
+ * @return array[] Each item: label, url, class.
+ */
+function suburbancm_default_links( $set ) {
+    $primary = [
+        [ 'label' => __( 'Projects', 'suburbancm' ), 'url' => home_url( '/projects/' ), 'class' => '' ],
+        [ 'label' => __( 'Services', 'suburbancm' ), 'url' => home_url( '/services/' ), 'class' => '' ],
+        [ 'label' => __( 'About', 'suburbancm' ), 'url' => home_url( '/about/' ), 'class' => '' ],
+        [ 'label' => __( 'The Difference', 'suburbancm' ), 'url' => home_url( '/the-suburban-difference/' ), 'class' => '' ],
+        [ 'label' => __( 'Bidding', 'suburbancm' ), 'url' => home_url( '/bidding/' ), 'class' => '' ],
+        [ 'label' => __( 'Request a consultation', 'suburbancm' ), 'url' => home_url( '/contact/' ), 'class' => 'cta-button' ],
+    ];
+    if ( 'primary' === $set ) {
+        return $primary;
+    }
+    return [
+        [ 'label' => __( 'Projects', 'suburbancm' ), 'url' => home_url( '/projects/' ), 'class' => '' ],
+        [ 'label' => __( 'Services', 'suburbancm' ), 'url' => home_url( '/services/' ), 'class' => '' ],
+        [ 'label' => __( 'About', 'suburbancm' ), 'url' => home_url( '/about/' ), 'class' => '' ],
+        [ 'label' => __( 'The Difference', 'suburbancm' ), 'url' => home_url( '/the-suburban-difference/' ), 'class' => '' ],
+        [ 'label' => __( 'Bid opportunities', 'suburbancm' ), 'url' => home_url( '/bidding/' ), 'class' => '' ],
+        [ 'label' => __( 'Safety report', 'suburbancm' ), 'url' => home_url( '/safety-report/' ), 'class' => '' ],
+        [ 'label' => __( 'Contact', 'suburbancm' ), 'url' => home_url( '/contact/' ), 'class' => '' ],
+        [ 'label' => __( 'Privacy policy', 'suburbancm' ), 'url' => home_url( '/privacy-policy/' ), 'class' => '' ],
+    ];
+}
+
+/**
+ * Print a flat menu for a location, falling back to the default links.
+ *
+ * @param string $location     Menu location slug.
+ * @param string $fallback_set Set passed to suburbancm_default_links().
+ * @param array  $extra        Extra items appended after the menu (label, url, class, external).
+ */
+function suburbancm_flat_menu( $location, $fallback_set, $extra = [] ) {
+    $extra_html = '';
+    foreach ( $extra as $link ) {
+        $target      = ! empty( $link['external'] ) ? ' target="_blank" rel="noopener"' : '';
+        $extra_html .= sprintf(
+            '<li class="%s"><a href="%s"%s>%s</a></li>',
+            esc_attr( $link['class'] ),
+            esc_url( $link['url'] ),
+            $target,
+            esc_html( $link['label'] )
+        );
+    }
+
+    if ( has_nav_menu( $location ) ) {
+        wp_nav_menu( [
+            'theme_location' => $location,
+            'container'      => false,
+            'depth'          => 1,
+            'items_wrap'     => '<ul>%3$s' . $extra_html . '</ul>',
+            'fallback_cb'    => false,
+        ] );
+        return;
+    }
+
+    echo '<ul>';
+    foreach ( suburbancm_default_links( $fallback_set ) as $link ) {
+        $current = untrailingslashit( $link['url'] ) === untrailingslashit( home_url( add_query_arg( [] ) ) ) ? ' current-menu-item' : '';
+        printf(
+            '<li class="%s"><a href="%s">%s</a></li>',
+            esc_attr( trim( $link['class'] . $current ) ),
+            esc_url( $link['url'] ),
+            esc_html( $link['label'] )
+        );
+    }
+    echo $extra_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
+    echo '</ul>';
+}
+
+/**
+ * The site logo: the Customizer logo when set, otherwise the site name.
+ */
+function suburbancm_logo() {
+    if ( has_custom_logo() ) {
+        $logo_id = get_theme_mod( 'custom_logo' );
+        echo wp_get_attachment_image( $logo_id, 'full', false, [
+            'class' => 'custom-logo',
+            'alt'   => get_bloginfo( 'name' ),
+        ] );
+        return;
+    }
+    bloginfo( 'name' );
+}
 
 // Custom Fields on Menu Items
 // Add a post selector field to 2nd level menu items only

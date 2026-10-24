@@ -1,152 +1,111 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, TextControl, Button } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
+import apiFetch from '@wordpress/api-fetch';
 
-const Edit = ({ attributes, setAttributes }) => {
-    const { selectedProjects, title, description, buttonText, buttonUrl } = attributes;
-    const [projects, setProjects] = useState([]);
-    const [previewProjects, setPreviewProjects] = useState([]);
+const Tile = ( { project, feature } ) => {
+	const img = project._embedded?.[ 'wp:featuredmedia' ]?.[ 0 ]?.source_url;
+	const type = project._embedded?.[ 'wp:term' ]?.flat().find( ( t ) => t.taxonomy === 'project_type' )?.name;
+	return (
+		<div className={ `scm-tile ${ feature ? 'scm-tile--feature' : 'scm-tile--side' }` }>
+			{ img && <img src={ img } alt="" /> }
+			<span className="scm-tile__label">
+				{ type && <span className="scm-eyebrow scm-gold">{ type }</span> }
+				<span
+					className="scm-d scm-tile__title"
+					dangerouslySetInnerHTML={ { __html: project.title.rendered } }
+				/>
+				{ feature && <span className="scm-tile__more">{ __( 'View project →', 'suburbancm' ) }</span> }
+			</span>
+		</div>
+	);
+};
 
-    useEffect(() => {
-        // Fetch projects from the REST API with _embed to include featured media
-        wp.apiFetch({ path: '/wp/v2/projects?per_page=100&_embed' }).then((posts) => {
-            setProjects(posts);
-        });
-    }, []);
+const Edit = ( { attributes, setAttributes } ) => {
+	const { selectedProjects = [], title, description, buttonText, buttonUrl } = attributes;
+	const [ projects, setProjects ] = useState( [] );
+	const [ preview, setPreview ] = useState( [] );
 
-    useEffect(() => {
-        // Fetch selected projects for preview with _embed
-        if (selectedProjects.length > 0) {
-            wp.apiFetch({ path: `/wp/v2/projects?include=${selectedProjects.join(',')}&_embed` }).then((posts) => {
-                setPreviewProjects(posts);
-            });
-        } else {
-            setPreviewProjects([]);
-        }
-    }, [selectedProjects]);
+	useEffect( () => {
+		apiFetch( { path: '/wp/v2/projects?per_page=100&_fields=id,title' } ).then( setProjects );
+	}, [] );
 
-    const updateSelectedProjects = (projectIds) => {
-        setAttributes({ selectedProjects: projectIds });
-    };
+	useEffect( () => {
+		if ( ! selectedProjects.length ) {
+			setPreview( [] );
+			return;
+		}
+		apiFetch( { path: `/wp/v2/projects?include=${ selectedProjects.join( ',' ) }&orderby=include&_embed` } ).then( setPreview );
+	}, [ selectedProjects ] );
 
-    const blockProps = useBlockProps({
-        className: 'suburbancm-projects-block',
-    });
+	const blockProps = useBlockProps( { className: 'scm-projects scm-bg-ink' } );
 
-    return (
-        <>
-            {/* Sidebar Controls */}
-            <InspectorControls>
-                <PanelBody title={__('Select Projects', 'suburbancm')} initialOpen={true}>
-                    <SelectControl
-                        multiple
-                        label={__('Projects', 'suburbancm')}
-                        value={selectedProjects || []}
-                        options={projects.map((project) => ({
-                            label: project.title.rendered,
-                            value: project.id,
-                        }))}
-                        onChange={(newSelected) => updateSelectedProjects(newSelected)}
-                    />
-                </PanelBody>
-                <PanelBody title={__('Button Settings', 'suburbancm')} initialOpen={false}>
-                    <TextControl
-                        label={__('Button Text', 'suburbancm')}
-                        value={buttonText || ''}
-                        onChange={(value) => setAttributes({ buttonText: value })}
-                    />
-                    <TextControl
-                        label={__('Button URL', 'suburbancm')}
-                        value={buttonUrl || ''}
-                        onChange={(value) => setAttributes({ buttonUrl: value })}
-                    />
-                </PanelBody>
-            </InspectorControls>
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Projects', 'suburbancm' ) } initialOpen={ true }>
+					<SelectControl
+						multiple
+						label={ __( 'Choose projects (the first is shown large)', 'suburbancm' ) }
+						value={ selectedProjects.map( String ) }
+						options={ projects.map( ( p ) => ( { label: p.title.rendered, value: String( p.id ) } ) ) }
+						onChange={ ( ids ) => setAttributes( { selectedProjects: ids.map( Number ) } ) }
+					/>
+				</PanelBody>
+				<PanelBody title={ __( 'Link', 'suburbancm' ) } initialOpen={ false }>
+					<TextControl
+						label={ __( 'Link text', 'suburbancm' ) }
+						value={ buttonText || '' }
+						onChange={ ( value ) => setAttributes( { buttonText: value } ) }
+						help={ __( 'e.g. All projects →', 'suburbancm' ) }
+					/>
+					<TextControl
+						label={ __( 'Link URL', 'suburbancm' ) }
+						value={ buttonUrl || '' }
+						onChange={ ( value ) => setAttributes( { buttonUrl: value } ) }
+					/>
+				</PanelBody>
+			</InspectorControls>
 
-            {/* Block Content */}
-            <div {...blockProps}>
-                <section id="projects" className="py-16 lg:py-24 bg-[#ffffff] dark:bg-[#2a2a2a] overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <RichText
-                            tagName="h2"
-                            className="text-3xl font-bold text-center text-white mb-4 dark:text-[#ffffff]"
-                            value={title}
-                            onChange={(value) => setAttributes({ title: value })}
-                            placeholder={__('Enter title…', 'suburbancm')}
-                        />
-                        <div className="mt-4 mb-12 text-center text-lg text-[#80703a] dark:text-[#e4d198]/80">
-                            <RichText
-                                tagName="span"
-                                className=""
-                                value={description}
-                                onChange={(value) => setAttributes({ description: value })}
-                                placeholder={__('Enter optional description…', 'suburbancm')}
-                            />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {previewProjects.map((project) => (
-                                <div
-                                    key={project.id}
-                                    className="bg-[#f6f5ec] dark:bg-[#1f1f1f] rounded-lg shadow-md overflow-hidden group border border-[#e4d198]/50 dark:border-[#80703a]/50 hover:shadow-xl transition-all duration-300 ease-in-out"
-                                >
-                                    <div className="overflow-hidden">
-                                        {project._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
-                                            <img
-                                                src={project._embedded['wp:featuredmedia'][0].source_url}
-                                                alt={project.title.rendered}
-                                                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
-                                            />
-                                        )}
-                                    </div>
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-semibold mb-2 text-white dark:text-[#ffffff]">
-                                            {project.title.rendered}
-                                        </h3>
-                                        <p className="text-[#80703a] dark:text-[#e4d198]/80 mb-4 text-sm">
-                                            {project.excerpt?.rendered
-                                                ? project.excerpt.rendered.replace(/<[^>]+>/g, '')
-                                                : project.content?.rendered
-                                                    .replace(/<[^>]+>/g, '') // Strip HTML tags
-                                                    .split(/\s+/) // Split into words
-                                                    .slice(0, 20) // Take the first 20 words
-                                                    .join(' ') + '...' // Join and append ellipsis
-                                            }
-                                        </p>
-                                        <a
-                                            href={project.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-[#a38f50] hover:text-[#80703a] font-medium text-sm relative after:absolute after:bg-[#a38f50] dark:after:bg-[#e4d198] after:bottom-0 after:left-0 after:h-px after:w-full after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-out"
-                                        >
-                                            {__('View Details →', 'suburbancm')}
-                                        </a>
-                                    </div>
-                                </div>
-                            ))}
-                            {previewProjects.length === 0 && (
-                                <p className="text-center">
-                                    {__('No projects selected. Use the sidebar to select projects.', 'suburbancm')}
-                                </p>
-                            )}
-                        </div>
-                        {buttonText && (
-                            <div className="text-center mt-8">
-                                <Button
-                                    type="button"
-                                    className="btn primary"
-                                    disabled
-                                >
-                                    {buttonText}
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                </section>
-            </div>
-        </>
-    );
+			<section { ...blockProps }>
+				<div className="scm-wrap scm-section">
+					<header className="scm-projects__head">
+						<div>
+							<RichText
+								tagName="h2"
+								className="scm-d scm-h-l"
+								value={ title }
+								onChange={ ( value ) => setAttributes( { title: value } ) }
+								placeholder={ __( 'Featured projects', 'suburbancm' ) }
+							/>
+							<RichText
+								tagName="p"
+								className="scm-lede"
+								value={ description }
+								onChange={ ( value ) => setAttributes( { description: value } ) }
+								placeholder={ __( 'Optional intro…', 'suburbancm' ) }
+							/>
+						</div>
+						{ buttonText && <span className="scm-link">{ buttonText }</span> }
+					</header>
+
+					{ preview.length === 0 ? (
+						<p className="scm-lede">{ __( 'Choose projects in the sidebar.', 'suburbancm' ) }</p>
+					) : (
+						<div className="scm-projects__grid">
+							<Tile project={ preview[ 0 ] } feature />
+							{ preview.length > 1 && (
+								<div className="scm-projects__side">
+									{ preview.slice( 1, 3 ).map( ( p ) => <Tile key={ p.id } project={ p } /> ) }
+								</div>
+							) }
+						</div>
+					) }
+				</div>
+			</section>
+		</>
+	);
 };
 
 export default Edit;

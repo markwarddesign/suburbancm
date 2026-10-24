@@ -6,7 +6,7 @@
   "title": "Services",
   "category": "suburban",
   "icon": "tool",
-  "description": "A section showcasing general contracting and construction management services.",
+  "description": "Numbered service rows on a light background. \"Rows\" suits Home; \"Groups\" adds a photo per service and shows each feature written \"Title: description\" as a sub-heading.",
   "attributes": {
     "title": {
       "type": "string",
@@ -85,6 +85,14 @@
             "Change Order Management"
           ]
         }
+      ]
+    },
+    "layout": {
+      "type": "string",
+      "default": "rows",
+      "enum": [
+        "rows",
+        "groups"
       ]
     }
   },

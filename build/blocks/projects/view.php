@@ -1,62 +1,105 @@
 <?php
-$selected_projects = isset($attributes['selectedProjects']) ? $attributes['selectedProjects'] : [];
-$title = isset($attributes['title']) ? $attributes['title'] : __('Featured Projects', 'suburbancm');
-$description = isset($attributes['description']) ? $attributes['description'] : '';
-$buttonText = isset($attributes['buttonText']) ? $attributes['buttonText'] : '';
-$buttonUrl = isset($attributes['buttonUrl']) ? $attributes['buttonUrl'] : '';
+/**
+ * Featured Projects — one large photo tile and two stacked beside it; any extras run in a row below.
+ *
+ * @package suburbancm
+ */
 
-if (!empty($selected_projects)) :
-    $args = [
-        'post_type' => 'projects',
-        'post__in'  => $selected_projects,
-        'orderby'   => 'post__in',
-    ];
-    $query = new WP_Query($args);
-    if ($query->have_posts()) : ?>
-        <section id="projects" class="py-16 lg:py-24 bg-[#2a2a2a] overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Title -->
-                <h2 class="text-3xl font-bold text-center text-[#ffffff] mb-4 opacity-0 transition-opacity duration-700 ease-out animate-on-scroll ">
-                    <?php echo wp_kses_post($title); ?>
-                </h2>
+$selected_projects = array_map( 'intval', (array) ( $attributes['selectedProjects'] ?? [] ) );
+$title             = $attributes['title'] ?? '';
+$description       = $attributes['description'] ?? '';
+$button_text       = $attributes['buttonText'] ?? '';
+$button_url        = $attributes['buttonUrl'] ?? '';
 
-                <!-- Description -->
-                <?php if (!empty($description)) : ?>
-                    <p class="text-center text-[#e4d198]/80 mb-12">
-                        <?php echo wp_kses_post($description); ?>
-                    </p>
-                <?php endif; ?>
+if ( '' === trim( wp_strip_all_tags( $title ) ) ) {
+	$title = __( 'Featured projects', 'suburbancm' );
+}
 
-                <!-- Projects Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <?php while ($query->have_posts()) : $query->the_post(); ?>
-                        <div class="bg-[#1f1f1f] rounded-lg shadow-md overflow-hidden group border border-[#80703a]/50 hover:shadow-xl transition-all opacity-0 transition-opacity duration-700 ease-out animate-on-scroll ">
-                            <div class="overflow-hidden">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <img src="<?php the_post_thumbnail_url('medium'); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-                                <?php endif; ?>
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#ffffff]"><?php the_title(); ?></h3>
-                                <p class="text-[#e4d198]/80 mb-4 text-sm"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                                <a href="<?php the_permalink(); ?>" class="text-[#a38f50] hover:text-[#ffffff] font-medium text-sm relative after:absolute after:bg-[#e4d198] after:bottom-0 after:left-0 after:h-px after:w-full after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-out">
-                                    <?php esc_html_e('View Details →', 'suburbancm'); ?>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
-                </div>
+if ( empty( $selected_projects ) ) {
+	return;
+}
 
-                <!-- View All Button -->
-                <?php if (!empty($buttonText) && !empty($buttonUrl)) : ?>
-                    <div class="text-center mt-8">
-                        <a href="<?php echo esc_url($buttonUrl); ?>" target="_blank" rel="noopener noreferrer" class="btn primary">
-                            <?php echo wp_kses_post($buttonText); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </section>
-        <?php wp_reset_postdata(); ?>
-    <?php endif;
-endif;
+$query = new WP_Query(
+	[
+		'post_type'      => 'projects',
+		'post__in'       => $selected_projects,
+		'orderby'        => 'post__in',
+		'posts_per_page' => count( $selected_projects ),
+		'no_found_rows'  => true,
+	]
+);
+
+if ( ! $query->have_posts() ) {
+	return;
+}
+
+$tiles = [];
+while ( $query->have_posts() ) {
+	$query->the_post();
+	$terms   = get_the_terms( get_the_ID(), 'project_type' );
+	$tiles[] = [
+		'title' => get_the_title(),
+		'url'   => get_permalink(),
+		'thumb' => get_post_thumbnail_id(),
+		'type'  => ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '',
+	];
+}
+wp_reset_postdata();
+
+$tile = static function ( $item, $size_class ) {
+	?>
+	<a class="scm-tile <?php echo esc_attr( $size_class ); ?>" href="<?php echo esc_url( $item['url'] ); ?>">
+		<?php
+		if ( $item['thumb'] ) {
+			echo wp_get_attachment_image( $item['thumb'], 'large', false, [ 'alt' => '', 'loading' => 'lazy' ] );
+		}
+		?>
+		<span class="scm-tile__label">
+			<?php if ( $item['type'] ) : ?>
+				<span class="scm-eyebrow scm-gold"><?php echo esc_html( $item['type'] ); ?></span>
+			<?php endif; ?>
+			<span class="scm-d scm-tile__title"><?php echo esc_html( $item['title'] ); ?></span>
+			<?php if ( 'scm-tile--feature' === $size_class ) : ?>
+				<span class="scm-tile__more"><?php esc_html_e( 'View project →', 'suburbancm' ); ?></span>
+			<?php endif; ?>
+		</span>
+	</a>
+	<?php
+};
+
+$wrapper_attributes = get_block_wrapper_attributes( [ 'id' => 'projects', 'class' => 'scm-projects scm-bg-ink' ] );
+?>
+<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<div class="scm-wrap scm-section">
+		<header class="scm-projects__head">
+			<div>
+				<h2 class="scm-d scm-h-l"><?php echo wp_kses_post( $title ); ?></h2>
+				<?php if ( $description ) : ?>
+					<p class="scm-lede"><?php echo wp_kses_post( $description ); ?></p>
+				<?php endif; ?>
+			</div>
+			<?php if ( $button_text && $button_url ) : ?>
+				<a class="scm-link" href="<?php echo esc_url( $button_url ); ?>"><?php echo wp_kses_post( $button_text ); ?></a>
+			<?php endif; ?>
+		</header>
+
+		<div class="scm-projects__grid">
+			<?php $tile( $tiles[0], 'scm-tile--feature' ); ?>
+			<?php if ( count( $tiles ) > 1 ) : ?>
+				<div class="scm-projects__side">
+					<?php foreach ( array_slice( $tiles, 1, 2 ) as $item ) : ?>
+						<?php $tile( $item, 'scm-tile--side' ); ?>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+
+		<?php if ( count( $tiles ) > 3 ) : ?>
+			<div class="scm-projects__more">
+				<?php foreach ( array_slice( $tiles, 3 ) as $item ) : ?>
+					<?php $tile( $item, 'scm-tile--side' ); ?>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+	</div>
+</section>

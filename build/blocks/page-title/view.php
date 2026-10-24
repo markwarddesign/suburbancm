@@ -1,29 +1,55 @@
 <?php
 /**
- * All of the parameters passed to the function where this file is being required are accessible in this scope:
- *
- * @param array    $attributes     The array of attributes for this block.
- * @param string   $content        Rendered block output. ie. <InnerBlocks.Content />.
- * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+ * Page Title — inner-page hero: headline (optional gold second line), tagline, intro, button, photo band.
  *
  * @package suburbancm
  */
 
-$title    = $attributes['title'] ?? '';
-$subtitle = $attributes['subtitle'] ?? '';
+$title           = $attributes['title'] ?? '';
+$title_highlight = $attributes['titleHighlight'] ?? '';
+$subtitle        = $attributes['subtitle'] ?? '';
+$tagline         = $attributes['tagline'] ?? '';
+$background      = ( $attributes['background'] ?? 'ink' ) === 'gold' ? 'gold' : 'ink';
+$button_text     = $attributes['buttonText'] ?? '';
+$button_url      = $attributes['buttonUrl'] ?? '';
+$image_id        = $attributes['imageId'] ?? 0;
+$image_url       = $attributes['imageUrl'] ?? '';
+$image_alt       = $attributes['imageAlt'] ?? '';
 
+$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-page-title scm-bg-' . $background ] );
 ?>
-<section id="page-title" class="bg-gradient-to-br from-brand-bg-alt-dark to-brand-bg-dark flex items-center justify-center text-center py-24 px-4 sm:px-6 lg:px-8 min-h-[50vh]">
-    <div class="max-w-3xl">
-        <?php if ( ! empty( $title ) ) : ?>
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight opacity-0 translate-y-4 transition-all duration-700 ease-out" data-animate-on-load>
-                <?php echo wp_kses_post( $title ); ?>
-            </h1>
-        <?php endif; ?>
-        <?php if ( ! empty( $subtitle ) ) : ?>
-            <p class="mt-4 text-lg sm:text-xl text-brand-text-dark/80 max-w-2xl mx-auto opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200" data-animate-on-load>
-                <?php echo wp_kses_post( $subtitle ); ?>
-            </p>
-        <?php endif; ?>
-    </div>
-</section>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<section class="scm-wrap scm-page-title__text">
+		<h1 class="scm-d scm-h-xl">
+			<span class="scm-line"><?php echo wp_kses_post( $title ); ?></span>
+			<?php if ( '' !== trim( wp_strip_all_tags( $title_highlight ) ) ) : ?>
+				<span class="scm-line scm-page-title__highlight"><?php echo wp_kses_post( $title_highlight ); ?></span>
+			<?php endif; ?>
+		</h1>
+		<?php if ( $tagline ) : ?>
+			<p class="scm-d scm-page-title__tagline"><?php echo wp_kses_post( $tagline ); ?></p>
+		<?php endif; ?>
+		<?php if ( $subtitle || ( $button_text && $button_url ) ) : ?>
+			<div class="scm-page-title__row">
+				<?php if ( $subtitle ) : ?>
+					<p class="scm-lede"><?php echo wp_kses_post( $subtitle ); ?></p>
+				<?php endif; ?>
+				<?php if ( $button_text && $button_url ) : ?>
+					<a class="scm-btn<?php echo 'gold' === $background ? ' scm-btn--ink' : ''; ?>" href="<?php echo esc_url( $button_url ); ?>"><?php echo wp_kses_post( $button_text ); ?></a>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+	</section>
+
+	<?php if ( $image_id || $image_url ) : ?>
+		<figure class="scm-photo-band">
+			<?php
+			if ( $image_id ) {
+				echo wp_get_attachment_image( $image_id, 'full', false, [ 'alt' => $image_alt, 'sizes' => '100vw' ] );
+			} else {
+				printf( '<img src="%s" alt="%s">', esc_url( $image_url ), esc_attr( $image_alt ) );
+			}
+			?>
+		</figure>
+	<?php endif; ?>
+</div>

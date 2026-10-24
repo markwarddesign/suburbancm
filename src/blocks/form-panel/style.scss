@@ -1,0 +1,127 @@
+.scm-form-panel__inner {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 48px clamp(40px, 6vw, 96px);
+}
+.scm-form-panel.is-aside-left .scm-form-panel__inner { flex-direction: row-reverse; }
+.scm-form-panel__form {
+	flex: 2 1 560px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.scm-form-panel__form.is-boxed {
+	background: #fff;
+	border: 4px solid var(--scm-ink);
+	padding: clamp(24px, 4vw, 48px);
+}
+.scm-form-panel__note { margin: 0; font-size: 15px; line-height: 1.5; color: var(--scm-muted-on-light); }
+.scm-form-panel__aside {
+	flex: 1 1 340px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.scm-form-panel__text { margin: 0; font-size: 17px; line-height: 1.6; color: var(--scm-muted-on-light); }
+.scm-form-panel__image { height: 240px; background: var(--scm-bone-2); overflow: hidden; }
+.scm-form-panel__image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.scm-office {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 32px;
+	background: var(--scm-ink);
+	color: var(--scm-bone);
+}
+.scm-office p { margin: 0; }
+.scm-office__title { font-size: min(40px, calc((100vw - 120px) / 6)); }
+.scm-office__text { font-size: 17px; line-height: 1.7; color: var(--scm-muted-on-dark); }
+
+.scm-heavy-list { margin: 0; padding: 0; list-style: none; font-size: 18px; font-weight: 700; }
+.scm-heavy-list li { padding: 16px 0; border-top: 3px solid var(--scm-ink); }
+.scm-heavy-list li:last-child { border-bottom: 3px solid var(--scm-ink); }
+
+.scm-link-card {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 24px 28px;
+	border: 4px solid var(--scm-ink);
+	color: var(--scm-ink);
+	text-decoration: none;
+}
+.scm-link-card__title { font-size: min(32px, calc((100vw - 120px) / 7.6)); }
+.scm-link-card__text { font-size: 16px; line-height: 1.5; color: var(--scm-muted-on-light); }
+
+/* Form fields — plain HTML forms and WPForms (set WPForms › Settings › Include Form Styling to "No styling") */
+.scm-form form { display: flex; flex-direction: column; gap: 24px; margin: 0; }
+.scm-form label,
+.scm-form legend,
+.scm-form .wpforms-field-label {
+	display: block;
+	margin: 0 0 8px;
+	padding: 0;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--scm-ink);
+}
+.scm-form .wpforms-field-sublabel { margin: 6px 0 0; font-size: 13px; font-weight: 600; color: var(--scm-muted-on-light); }
+.scm-form .wpforms-required-label,
+.scm-form div.wpforms-container-full .wpforms-form .wpforms-required-label { color: var(--scm-ink); }
+.scm-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.scm-form .wpforms-field-container { display: flex; flex-direction: column; gap: 24px; }
+.scm-form .wpforms-field { padding: 0; margin: 0; }
+.scm-form .wpforms-field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px 20px; }
+.scm-form .wpforms-field-row-block { width: auto; padding: 0; margin: 0; float: none; }
+.scm-form input[type="text"],
+.scm-form input[type="email"],
+.scm-form input[type="tel"],
+.scm-form input[type="url"],
+.scm-form input[type="number"],
+.scm-form select,
+.scm-form textarea {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+	min-height: 52px;
+	padding: 14px 16px;
+	font: inherit;
+	font-size: 17px;
+	color: var(--scm-ink);
+	background: #fff;
+	border: 2px solid var(--scm-ink);
+	border-radius: 0;
+	box-shadow: none;
+}
+.scm-form textarea { min-height: 160px; resize: vertical; }
+.scm-form input:focus-visible,
+.scm-form select:focus-visible,
+.scm-form textarea:focus-visible { outline: 3px solid var(--scm-ink); outline-offset: 2px; }
+.scm-form .wpforms-error,
+.scm-form label.wpforms-error { margin-top: 6px; font-size: 14px; font-weight: 600; color: #a1260d; }
+.scm-form button[type="submit"],
+.scm-form input[type="submit"],
+.scm-form .wpforms-submit {
+	align-self: flex-start;
+	min-height: 56px;
+	padding: 18px 32px;
+	font: inherit;
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--scm-gold);
+	background: var(--scm-ink);
+	border: 0;
+	border-radius: 0;
+	cursor: pointer;
+}
+.scm-form .wpforms-submit-container { padding: 0; margin: 0; }
+.scm-form .wpforms-confirmation-container-full {
+	padding: 24px;
+	background: var(--scm-ink);
+	color: var(--scm-bone);
+	border: 0;
+}

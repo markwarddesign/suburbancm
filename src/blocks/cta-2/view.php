@@ -1,39 +1,36 @@
 <?php
 /**
- * All of the parameters passed to the function where this file is being required are accessible in this scope:
- *
- * @param array    $attributes     The array of attributes for this block.
- * @param string   $content        Rendered block output. ie. <InnerBlocks.Content />.
- * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
+ * CTA Two — charcoal band: headline (optional gold second line) and two buttons.
  *
  * @package suburbancm
  */
 
-$title              = $attributes['title'] ?? '';
-$subtitle           = $attributes['subtitle'] ?? '';
-$primaryButtonText  = $attributes['primaryButtonText'] ?? '';
-$primaryButtonUrl   = $attributes['primaryButtonUrl'] ?? '#';
-$secondaryButtonText = $attributes['secondaryButtonText'] ?? '';
-$secondaryButtonUrl = $attributes['secondaryButtonUrl'] ?? '#';
+$title          = $attributes['title'] ?? '';
+$subtitle       = $attributes['subtitle'] ?? '';
+$primary_text   = $attributes['primaryButtonText'] ?? '';
+$primary_url    = $attributes['primaryButtonUrl'] ?? '';
+$secondary_text = $attributes['secondaryButtonText'] ?? '';
+$secondary_url  = $attributes['secondaryButtonUrl'] ?? '';
 
+$wrapper_attributes = get_block_wrapper_attributes( [ 'id' => 'cta2', 'class' => 'scm-cta scm-cta--ink scm-bg-ink-2' ] );
 ?>
-<section id="cta2" class="bg-[#1f1f1f] opacity-0 transition-opacity duration-700 ease-out animate-on-scroll bg-dark-wave">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-        <h2 class="text-3xl font-extrabold tracking-tight text-[#ffffff] sm:text-4xl">
-            <span class="block"><?php echo wp_kses_post( $title ); ?></span>
-            <span class="block text-[#e4d198]"><?php echo wp_kses_post( $subtitle ); ?></span>
-        </h2>
-        <div class="mt-8 flex flex-col md:flex-row lg:mt-0 gap-3 lg:flex-shrink-0">
-            <div class="md:mb-0 md:inline-flex rounded-md shadow">
-                <a href="<?php echo esc_url( $primaryButtonUrl ); ?>" class="w-full btn primary-inverse transition duration-200 hover:scale-105 transform">
-                    <?php echo wp_kses_post( $primaryButtonText ); ?>
-                </a>
-            </div>
-            <div class="md:inline-flex rounded-md shadow">
-                <a href="<?php echo esc_url( $secondaryButtonUrl ); ?>" class="w-full btn secondary transition duration-200 hover:scale-105 transform">
-                    <?php echo wp_kses_post( $secondaryButtonText ); ?>
-                </a>
-            </div>
-        </div>
-    </div>
+<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<div class="scm-wrap scm-section--sm scm-cta__inner">
+		<div class="scm-cta__text">
+			<h2 class="scm-d scm-h-l">
+				<span class="scm-line"><?php echo wp_kses_post( $title ); ?></span>
+				<?php if ( $subtitle ) : ?>
+					<span class="scm-line scm-gold"><?php echo wp_kses_post( $subtitle ); ?></span>
+				<?php endif; ?>
+			</h2>
+		</div>
+		<div class="scm-btns">
+			<?php if ( $secondary_text && $secondary_url ) : ?>
+				<a class="scm-btn scm-btn--line" href="<?php echo esc_url( $secondary_url ); ?>"><?php echo wp_kses_post( $secondary_text ); ?></a>
+			<?php endif; ?>
+			<?php if ( $primary_text && $primary_url ) : ?>
+				<a class="scm-btn" href="<?php echo esc_url( $primary_url ); ?>"><?php echo wp_kses_post( $primary_text ); ?></a>
+			<?php endif; ?>
+		</div>
+	</div>
 </section>

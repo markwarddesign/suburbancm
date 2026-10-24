@@ -1,1 +1,0 @@
-console.log("Hello from suburbancm/bid-header view.js!");

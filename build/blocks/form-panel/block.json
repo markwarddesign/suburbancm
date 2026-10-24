@@ -1,0 +1,79 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/form-panel",
+  "version": "1.0.0",
+  "title": "Form Panel",
+  "category": "suburban",
+  "icon": "feedback",
+  "description": "A form (place your WPForms block inside) beside supporting info: an office box, link cards, or a heading, list and photo.",
+  "attributes": {
+    "formTitle": {
+      "type": "string",
+      "default": "Send us a message."
+    },
+    "formNote": {
+      "type": "string",
+      "default": ""
+    },
+    "boxed": {
+      "type": "boolean",
+      "default": false
+    },
+    "asidePosition": {
+      "type": "string",
+      "default": "right",
+      "enum": [
+        "right",
+        "left"
+      ]
+    },
+    "asideTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "asideText": {
+      "type": "string",
+      "default": ""
+    },
+    "asideList": {
+      "type": "array",
+      "default": []
+    },
+    "asideImage": {
+      "type": "string",
+      "default": ""
+    },
+    "asideImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "officeLabel": {
+      "type": "string",
+      "default": ""
+    },
+    "officeTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "officeText": {
+      "type": "string",
+      "default": ""
+    },
+    "links": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
+  },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "render": "file:./view.php"
+}

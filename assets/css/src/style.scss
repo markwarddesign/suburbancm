@@ -1,10 +1,16 @@
 /* Typefaces
 --------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* Icons
 --------------------------------------------- */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Design system (see design.md)
+--------------------------------------------- */
+@import './_tokens.scss';
+@import './_design.scss';
+@import './_templates.scss';
 
 @tailwind base;
 @tailwind components;
@@ -14,7 +20,7 @@
 --------------------------------------------- */
 @layer base {
   h1 {
-    @apply text-4xl font-extrabold text-white mb-6 sm:text-5xl md:text-6xl leading-tight;
+    @apply text-4xl font-extrabold mb-6 sm:text-5xl md:text-6xl leading-tight;
     /* Notes:
        - Sizes from hero section.
        - leading-tight from hero h1.
@@ -22,7 +28,7 @@
     */
   }
   h2 {
-    @apply text-3xl font-bold text-white mb-5 sm:text-4xl;
+    @apply text-3xl font-bold mb-5 sm:text-4xl;
     /* Notes:
        - Sizes from section titles.
        - font-bold is common for h2s in your example.
@@ -30,21 +36,21 @@
     */
   }
   h3 {
-    @apply text-2xl font-semibold text-white mb-4;
+    @apply text-2xl font-semibold mb-4;
     /* Notes:
        - text-2xl is a common size for h3s (e.g., service item titles).
        - mb-4 for sub-section title spacing.
     */
   }
   h4 {
-    @apply text-xl font-semibold text-white mb-3;
+    @apply text-xl font-semibold mb-3;
     /* Notes:
        - text-xl from smaller headings like "Why Choose Us" items.
        - mb-3 for spacing.
     */
   }
   h5 {
-    @apply text-lg font-semibold text-white mb-2;
+    @apply text-lg font-semibold mb-2;
     /* Notes:
        - text-lg as a logical step down.
        - mb-2 for smaller spacing.
@@ -172,9 +178,6 @@ a {
     align-self: flex-end; /* Align the close button to the top-right */
 }
 
-.custom-logo-link {
-    @apply max-w-[300px] max-h-[53px] inline-block transition-transform duration-200 ease-in-out hover:scale-105
-}
 
 
 // Regular Dropdown Menu
@@ -282,7 +285,7 @@ mark{
 /* Paragraph Prose Styles
 --------------------------------------------- */
 p {
-  @apply text-base text-white leading-relaxed mb-5;
+  @apply text-base leading-relaxed mb-5;
   /* For gold-accented paragraphs, add .prose-gold class below */
 }
 .prose-gold {

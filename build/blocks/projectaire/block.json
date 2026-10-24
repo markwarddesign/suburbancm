@@ -1,0 +1,141 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "suburbancm/projectaire",
+  "version": "1.0.0",
+  "title": "ProjectAire",
+  "category": "suburban",
+  "icon": "desktop",
+  "description": "Shows clients what they get on ProjectAire. \"Band\" suits Home; \"Detailed\" walks through during construction and the Owner's Manual at handoff. Uses built-in screenshots until you choose your own.",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Your project,"
+    },
+    "titleHighlight": {
+      "type": "string",
+      "default": "live."
+    },
+    "text": {
+      "type": "string",
+      "default": "Every SuburbanCM project runs on ProjectAire — the platform that grew out of our own job sites. You see what we see, the day it happens."
+    },
+    "features": {
+      "type": "array",
+      "default": [
+        "Schedule and progress at a glance",
+        "Daily reports and site photos",
+        "RFIs and submittals, tracked to close",
+        "An Owner's Manual of your building at handoff"
+      ]
+    },
+    "image": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": "ProjectAire project overview showing the live project feed, a site photo and the Owner's Manual"
+    },
+    "phoneImage": {
+      "type": "string",
+      "default": ""
+    },
+    "caption": {
+      "type": "string",
+      "default": "ProjectAire on desktop and phone · sample project"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "How we use it"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "/the-suburban-difference/#projectaire"
+    },
+    "secondaryText": {
+      "type": "string",
+      "default": "Client login ↗"
+    },
+    "secondaryUrl": {
+      "type": "string",
+      "default": "https://projectaire.app/login"
+    },
+    "layout": {
+      "type": "string",
+      "default": "band",
+      "enum": [
+        "band",
+        "detailed"
+      ]
+    },
+    "eyebrow": {
+      "type": "string",
+      "default": "Our platform"
+    },
+    "duringTitle": {
+      "type": "string",
+      "default": "During construction"
+    },
+    "duringText": {
+      "type": "string",
+      "default": "One live feed for the whole job, open to you from day one."
+    },
+    "duringFeatures": {
+      "type": "array",
+      "default": [
+        "Schedule and progress",
+        "Daily reports, observations and site photos",
+        "RFIs and submittals, tracked to close",
+        "Safety reports and permits"
+      ]
+    },
+    "duringCaption": {
+      "type": "string",
+      "default": "Project overview · sample project"
+    },
+    "handoffTitle": {
+      "type": "string",
+      "default": "At handoff"
+    },
+    "handoffLead": {
+      "type": "string",
+      "default": "You don't get a box of binders. You get an Owner's Manual of your building."
+    },
+    "handoffText": {
+      "type": "string",
+      "default": "Every installed product, organized by CSI division — with its room, photos, inspection status and warranty term. Search it, share it, export it to PDF. It's yours for the life of the building."
+    },
+    "handoffImage": {
+      "type": "string",
+      "default": ""
+    },
+    "handoffImageAlt": {
+      "type": "string",
+      "default": "ProjectAire Owner's Manual organized by CSI division, with installed products, rooms and warranty terms"
+    },
+    "handoffCaption": {
+      "type": "string",
+      "default": "Owner's Manual · sample project"
+    },
+    "aboutText": {
+      "type": "string",
+      "default": "About ProjectAire ↗"
+    },
+    "aboutUrl": {
+      "type": "string",
+      "default": "https://projectaire.app"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
+  },
+  "textdomain": "suburbancm",
+  "editorScript": "file:./index.js",
+  "style": "file:./style.css",
+  "render": "file:./view.php"
+}

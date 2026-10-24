@@ -1,15 +1,46 @@
-/* Soft gold glow behind the badge so it reads as an award, not a generic image. */
-	.suburbancm-award-callout__badge {
-		position: relative;
-	}
-	.suburbancm-award-callout__badge::before {
-			content: '';
-			position: absolute;
-			inset: -12%;
-			border-radius: 9999px;
-			background: radial-gradient(circle, rgba(228, 209, 152, 0.35) 0%, rgba(228, 209, 152, 0) 70%);
-			pointer-events: none;
-		}
-	.suburbancm-award-callout__badge img {
-			position: relative;
-		}
+.scm-award {
+	display: flex;
+	flex-wrap: wrap;
+}
+.scm-award__text {
+	flex: 1 1 600px;
+	min-width: 0;
+	box-sizing: border-box;
+	padding: clamp(56px, 7vw, 112px) var(--scm-gutter);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 24px;
+}
+.scm-award__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 8px 32px;
+}
+.scm-award__rank {
+	font-size: clamp(160px, 18vw, 280px);
+	line-height: .78;
+}
+.scm-award__head h2 {
+	flex: 1 1 260px;
+	min-width: 0;
+	padding-bottom: 6px;
+}
+.scm-award .scm-btns {
+	align-self: flex-start;
+}
+.scm-award__image {
+	flex: 1 1 440px;
+	min-width: 0;
+	aspect-ratio: 1 / 1;
+	max-height: 760px;
+	background: var(--scm-bone);
+}
+.scm-award__image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	   object-fit: cover;
+}

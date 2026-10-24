@@ -1,85 +1,36 @@
 <?php
 /**
- * Server-side rendering for suburbancm/project-page block.
+ * Project Page — the body of a project: featured photo, facts bar, and the overview
+ * (the block's inner content) on a light band.
  *
- * @param array $attributes Block attributes.
- * @param string $content Inner blocks content.
- * @return string
+ * @package suburbancm
  */
 
-global $post;
-$post_id = isset( $post ) ? $post->ID : 0;
-$featured_image_url = get_the_post_thumbnail_url($post_id, 'full');
-
+$post_id = get_the_ID();
+$info    = [
+	'client'     => $attributes['client'] ?? '',
+	'location'   => $attributes['location'] ?? '',
+	'size'       => $attributes['size'] ?? '',
+	'start'      => $attributes['startDate'] ?? '',
+	'completion' => $attributes['completionDate'] ?? '',
+];
+$has_overview = '' !== trim( wp_strip_all_tags( (string) $content ) );
 ?>
+<div <?php echo get_block_wrapper_attributes( [ 'class' => 'scm-project-body' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<?php if ( has_post_thumbnail( $post_id ) ) : ?>
+		<figure class="scm-photo-band scm-photo-band--tall">
+			<?php echo get_the_post_thumbnail( $post_id, 'full', [ 'alt' => '', 'sizes' => '100vw' ] ); ?>
+		</figure>
+	<?php endif; ?>
 
-<?php if ($featured_image_url): ?>
-    <div class="w-full mb-16">
-        <img src="<?php echo esc_url($featured_image_url); ?>" alt="" class="w-full object-cover rounded-lg" style="object-fit:cover;width:100%;" />
-    </div>
-<?php endif; ?>
+	<?php suburbancm_project_spec( $info ); ?>
 
-<div class="wp-block-suburbancm-project-page flex gap-x-8">
-    <div class="w-1/3">
-        <h2 class="text-lg font-bold mb-4">Project Details</h2>
-        <?php if (!empty($attributes['client'])): ?>
-            <div class="project-detail-item mb-4">
-                <h3 class="project-detail-label text-sm font-bold mb-1"><?php esc_html_e('Client', 'suburbancm'); ?></h3>
-                <div class="project-detail-value"><?php echo wp_kses_post($attributes['client']); ?></div>
-            </div>
-        <?php endif; ?>
-        <?php if (!empty($attributes['location'])): ?>
-            <div class="project-detail-item mb-4">
-                <h3 class="project-detail-label text-sm font-bold mb-1"><?php esc_html_e('Location', 'suburbancm'); ?></h3>
-                <div class="project-detail-value"><?php echo wp_kses_post($attributes['location']); ?></div>
-            </div>
-        <?php endif; ?>
-        <?php if (!empty($attributes['size'])): ?>
-            <div class="project-detail-item mb-4">
-                <h3 class="project-detail-label text-sm font-bold mb-1"><?php esc_html_e('Size', 'suburbancm'); ?></h3>
-                <div class="project-detail-value"><?php echo wp_kses_post($attributes['size']); ?></div>
-            </div>
-        <?php endif; ?>
-        <?php if (!empty($attributes['startDate'])): ?>
-            <div class="project-detail-item mb-4">
-                <h3 class="project-detail-label text-sm font-bold mb-1"><?php esc_html_e('Start Date', 'suburbancm'); ?></h3>
-                <div class="project-detail-value">
-                    <?php
-                    $start_date = $attributes['startDate'];
-                    if ($start_date) {
-                        // Format as Month Day, Year (e.g., January 1, 2024)
-                        $timestamp = strtotime($start_date);
-                        echo wp_kses_post( date_i18n( 'F j, Y', $timestamp ) );
-                    }
-                    ?>
-                </div>
-            </div>
-        <?php endif; ?>
-        <?php
-        $completion_date = !empty($attributes['completionDate']) ? $attributes['completionDate'] : '';
-        ?>
-        <?php if (!empty($attributes['startDate'])): ?>
-        <div class="project-detail-item mb-4">
-            <h3 class="project-detail-label text-sm font-bold mb-1"><?php esc_html_e('Completion Date', 'suburbancm'); ?></h3>
-            <div class="project-detail-value">
-                <?php
-                if ($completion_date) {
-                    $timestamp = strtotime($completion_date);
-                    echo wp_kses_post( date_i18n( 'F j, Y', $timestamp ) );
-                } else {
-                    if (!empty($attributes['startDate'])) {
-                        // If start date is available, show TBD
-                        esc_html_e('TBD', 'suburbancm');
-                    } 
-                }
-                ?>
-            </div>
-        </div>
-        <?php endif; ?>
-
-    </div>
-    <div class="w-2/3">
-        <h2>Project Overview</h2>
-        <?php echo $content; ?>
-    </div>
+	<?php if ( $has_overview ) : ?>
+		<section class="scm-project-overview scm-bg-bone">
+			<div class="scm-wrap scm-section scm-project-overview__inner">
+				<h2 class="scm-d scm-h-l"><?php esc_html_e( 'Project overview.', 'suburbancm' ); ?></h2>
+				<div class="scm-project-overview__body"><?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inner blocks. ?></div>
+			</div>
+		</section>
+	<?php endif; ?>
 </div>

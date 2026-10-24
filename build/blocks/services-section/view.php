@@ -1,60 +1,91 @@
 <?php
-$title = $attributes['title'] ?? '';
+/**
+ * Services — numbered, heavily ruled rows on bone.
+ *
+ * Layout "rows" (Home): number · title + description · feature list.
+ * Layout "groups" (Services page): number + title + photo · sub-items, where a
+ * feature written "Title: description" shows as a bold title over its text.
+ *
+ * @package suburbancm
+ */
+
+$title       = $attributes['title'] ?? '';
 $description = $attributes['description'] ?? '';
-$services = $attributes['services'] ?? [];
+$services    = $attributes['services'] ?? [];
+$layout      = ( $attributes['layout'] ?? 'rows' ) === 'groups' ? 'groups' : 'rows';
+
+$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-services scm-bg-bone scm-services--' . $layout ] );
 ?>
+<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<div class="scm-wrap scm-section">
+		<?php if ( $title || $description ) : ?>
+			<header class="scm-services__head">
+				<?php if ( $title ) : ?>
+					<h2 class="scm-d scm-h-l"><?php echo wp_kses_post( $title ); ?></h2>
+				<?php endif; ?>
+				<?php if ( $description ) : ?>
+					<p class="scm-lede"><?php echo wp_kses_post( $description ); ?></p>
+				<?php endif; ?>
+			</header>
+		<?php endif; ?>
 
-<section class="py-12 bg-[#1f1f1f] sm:py-16 lg:py-20 overflow-hidden wp-block-suburbancm-services-section">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-white py-20">
-        <div class="text-center mb-12 mx-auto max-w-4xl opacity-0 transition-opacity duration-700 ease-out animate-on-scroll">
-            <?php if ($title): ?>
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl"><?php echo wp_kses_post($title); ?></h2>
-            <?php endif; ?>
-            <?php if ($description): ?>
-                <p class="mt-4 text-lg text-[#e4d198]/80"><?php echo wp_kses_post($description); ?></p>
-            <?php endif; ?>
-        </div>
-        <?php foreach ($services as $i => $service): ?>
-            <?php
-                // Alternate row direction for every other service
-                $rowClass = ($i % 2 === 1)
-                    ? 'flex-col md:flex-row-reverse'
-                    : 'flex-col md:flex-row';
-                // Optional: stagger animation delay
-                $delayClass = 'delay-' . (($i + 1) * 100);
-            ?>
-            <div class="flex <?php echo $rowClass; ?> items-center bg-[#2a2a2a] rounded-lg shadow-xl overflow-hidden mb-12 opacity-0 translate-y-5 transition-all duration-500 ease-out animate-on-scroll <?php echo $delayClass; ?>">
-                <div class="w-full md:w-1/3 flex-shrink-0 overflow-hidden relative">
-                    <?php if (!empty($service['image'])): ?>
-                        <img src="<?php echo esc_url($service['image']); ?>" alt="<?php echo esc_attr($service['alt'] ?? ''); ?>" class="w-full h-64 md:h-full object-cover" />
-                    <?php endif; ?>
-                </div>
-                <div class="w-full md:w-2/3 p-6 md:p-8 flex-grow">
-                    <?php if (!empty($service['title'])): ?>
-                        <h3 class="text-2xl font-semibold text-white mb-3"><?php echo wp_kses_post($service['title']); ?></h3>
-                    <?php endif; ?>
-                    <?php if (!empty($service['description'])): ?>
-                        <p class="text-gray-300 mb-5"><?php echo wp_kses_post($service['description']); ?></p>
-                    <?php endif; ?>
-                    <?php if (!empty($service['features']) && is_array($service['features'])): ?>
-                        <div class="space-y-3">
-                            <?php foreach ($service['features'] as $feature): ?>
-                                <div class="flex items-center gap-2">
-                                    <?php if (!empty($service['bulletIcon'])): ?>
-                                        <!-- Font Awesome Icon -->
-                                        <i class="far <?php echo $service['bulletIcon']; ?> text-[#80703a] mr-2"></i>
-                                    <?php else: ?>
-                                        <!-- Default Bullet Point -->
-                                        <i class="far fa-circle-check text-[#80703a] mr-2"></i>
-                                    <?php endif; ?>
-
-                                    <span class="text-gray-300"><?php echo wp_kses_post($feature); ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+		<?php foreach ( $services as $i => $service ) : ?>
+			<?php
+			$number   = str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT );
+			$features = array_filter( (array) ( $service['features'] ?? [] ), static fn( $f ) => '' !== trim( wp_strip_all_tags( (string) $f ) ) );
+			?>
+			<article class="scm-services__row">
+				<?php if ( 'groups' === $layout ) : ?>
+					<div class="scm-services__lead">
+						<div class="scm-services__title">
+							<span class="scm-d scm-services__num" aria-hidden="true"><?php echo esc_html( $number ); ?></span>
+							<?php if ( ! empty( $service['title'] ) ) : ?>
+								<h3 class="scm-d scm-h-s"><?php echo wp_kses_post( $service['title'] ); ?></h3>
+							<?php endif; ?>
+						</div>
+						<?php if ( ! empty( $service['description'] ) ) : ?>
+							<p class="scm-services__desc"><?php echo wp_kses_post( $service['description'] ); ?></p>
+						<?php endif; ?>
+						<?php if ( ! empty( $service['image'] ) ) : ?>
+							<div class="scm-services__img">
+								<img src="<?php echo esc_url( $service['image'] ); ?>" alt="<?php echo esc_attr( $service['alt'] ?? '' ); ?>" loading="lazy">
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="scm-services__items">
+						<?php foreach ( $features as $feature ) : ?>
+							<?php
+							$parts = explode( ':', wp_strip_all_tags( (string) $feature ), 2 );
+							?>
+							<div class="scm-services__item">
+								<?php if ( 2 === count( $parts ) ) : ?>
+									<h4><?php echo esc_html( trim( $parts[0] ) ); ?></h4>
+									<p><?php echo esc_html( trim( $parts[1] ) ); ?></p>
+								<?php else : ?>
+									<h4><?php echo esc_html( trim( $parts[0] ) ); ?></h4>
+								<?php endif; ?>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php else : ?>
+					<span class="scm-d scm-services__num" aria-hidden="true"><?php echo esc_html( $number ); ?></span>
+					<div class="scm-services__body">
+						<?php if ( ! empty( $service['title'] ) ) : ?>
+							<h3 class="scm-d scm-h-s"><?php echo wp_kses_post( $service['title'] ); ?></h3>
+						<?php endif; ?>
+						<?php if ( ! empty( $service['description'] ) ) : ?>
+							<p class="scm-services__desc"><?php echo wp_kses_post( $service['description'] ); ?></p>
+						<?php endif; ?>
+					</div>
+					<?php if ( $features ) : ?>
+						<ul class="scm-services__features">
+							<?php foreach ( $features as $feature ) : ?>
+								<li><?php echo wp_kses_post( $feature ); ?></li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endif; ?>
+				<?php endif; ?>
+			</article>
+		<?php endforeach; ?>
+	</div>
 </section>

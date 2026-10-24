@@ -3,10 +3,10 @@
   "apiVersion": 3,
   "name": "suburbancm/hero",
   "version": "1.0.0",
-  "title": "Suburban Primary Hero",
+  "title": "Hero",
   "category": "suburban",
   "icon": "cover-image",
-  "description": "A hero section with heading, paragraph, two buttons, and optional background image.",
+  "description": "Big two-line headline with intro text, two buttons and an optional full-width photo below. Use it at the top of Home and other main pages.",
   "attributes": {
     "headingLine1": {
       "type": "string",
@@ -40,6 +40,14 @@
       "type": "number"
     },
     "backgroundImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageCaption": {
       "type": "string",
       "default": ""
     }

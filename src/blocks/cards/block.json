@@ -3,28 +3,45 @@
 	"apiVersion": 3,
 	"name": "cards/cards",
 	"version": "0.1.0",
-	"title": "Cards",
+	"title": "Values List",
 	"category": "theme",
 	"icon": "screenoptions",
-	"description": "A bootstrapped block. Build something beautiful!",
+	"description": "A heading followed by big ruled rows \u2014 each a large title beside a short description. Light or charcoal.",
 	"attributes": {
-    "title": {
-      "type": "string",
-      "default": ""
-    },
-    "cards": {
-      "type": "array",
-      "default": [],
-      "items": {
-        "type": "object",
-        "properties": {
-          "icon": { "type": "string", "default": "" },
-          "cardTitle": { "type": "string", "default": "" },
-          "description": { "type": "string", "default": "" }
-        }
-      }
-    }
-  },
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"cards": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"icon": {
+						"type": "string",
+						"default": ""
+					},
+					"cardTitle": {
+						"type": "string",
+						"default": ""
+					},
+					"description": {
+						"type": "string",
+						"default": ""
+					}
+				}
+			}
+		},
+		"background": {
+			"type": "string",
+			"default": "bone",
+			"enum": [
+				"bone",
+				"ink"
+			]
+		}
+	},
 	"supports": {
 		"html": false,
 		"align": [
@@ -36,6 +53,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

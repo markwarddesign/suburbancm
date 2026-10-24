@@ -941,6 +941,16 @@ body.scm-menu-open { overflow: hidden; }
 
 .scm div.wpforms-container-full .wpforms-form textarea { min-height: 160px; }
 
+/* Side-by-side sub-fields (First / Last name). WPForms' row is flex but keeps clearfix
+   pseudo-elements, which become invisible flex items and push the pair onto two lines. */
+
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-row { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-row::before,
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-row::after { display: none; }
+
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-row > .wpforms-field-row-block { flex: 1 1 200px; width: auto; min-width: 0; margin: 0; padding: 0; }
+
 .scm div.wpforms-container-full .wpforms-form input:focus-visible,
 .scm div.wpforms-container-full .wpforms-form select:focus-visible,
 .scm div.wpforms-container-full .wpforms-form textarea:focus-visible { outline: 3px solid var(--scm-gold); outline-offset: 2px; box-shadow: none; }
@@ -1621,6 +1631,10 @@ h5 {
 
 .visible {
   visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .static {

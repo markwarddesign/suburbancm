@@ -131,6 +131,64 @@ function suburbancm_project_card( $post_id, $variant = 'card' ) {
 }
 
 /**
+ * Minutes to read a post, at a relaxed 220 words a minute.
+ *
+ * @param int $post_id Post ID.
+ * @return int
+ */
+function suburbancm_reading_time( $post_id ) {
+	$words = str_word_count( wp_strip_all_tags( strip_shortcodes( (string) get_post_field( 'post_content', $post_id ) ) ) );
+	return max( 1, (int) round( $words / 220 ) );
+}
+
+/**
+ * Date and reading time for a post, e.g. "October 24, 2026 · 4 min read".
+ *
+ * @param int $post_id Post ID.
+ * @return string
+ */
+function suburbancm_post_meta_line( $post_id ) {
+	/* translators: %d: minutes */
+	$minutes = sprintf( _n( '%d min read', '%d min read', suburbancm_reading_time( $post_id ), 'suburbancm' ), suburbancm_reading_time( $post_id ) );
+	return get_the_date( '', $post_id ) . ' · ' . $minutes;
+}
+
+/**
+ * A blog post card, in the same shape as the project cards.
+ *
+ * @param int    $post_id Post ID.
+ * @param string $variant card | feature.
+ */
+function suburbancm_post_card( $post_id, $variant = 'card' ) {
+	$category = suburbancm_first_term( $post_id, 'category' );
+	?>
+	<a class="scm-card scm-card--post scm-card--<?php echo esc_attr( $variant ); ?>" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+		<span class="scm-card__pic">
+			<?php
+			if ( has_post_thumbnail( $post_id ) ) {
+				echo get_the_post_thumbnail( $post_id, 'feature' === $variant ? 'full' : 'large', [ 'alt' => '', 'loading' => 'lazy' ] );
+			}
+			?>
+		</span>
+		<span class="scm-card__body">
+			<span class="scm-card__head">
+				<?php if ( $category && 'Uncategorized' !== $category ) : ?>
+					<span class="scm-eyebrow scm-gold"><?php echo esc_html( $category ); ?></span>
+				<?php endif; ?>
+				<span class="scm-d scm-card__title"><?php echo esc_html( get_the_title( $post_id ) ); ?></span>
+			</span>
+			<span class="scm-card__meta">
+				<?php if ( has_excerpt( $post_id ) ) : ?>
+					<span class="scm-card__excerpt"><?php echo esc_html( get_the_excerpt( $post_id ) ); ?></span>
+				<?php endif; ?>
+				<span class="scm-card__date"><?php echo esc_html( suburbancm_post_meta_line( $post_id ) ); ?></span>
+			</span>
+		</span>
+	</a>
+	<?php
+}
+
+/**
  * Print the Page Title block from a template.
  *
  * @param array $attrs suburbancm/page-title attributes.

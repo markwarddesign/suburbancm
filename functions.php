@@ -124,6 +124,9 @@ include_once get_theme_file_path('/inc/template-tags.php');
 // Schema, archive titles, meta description and alt fallbacks, font loading
 include_once get_theme_file_path('/inc/seo.php');
 
+// Google Analytics 4 (live site, logged-out visitors only)
+include_once get_theme_file_path('/inc/analytics.php');
+
 // Custom Post Types
 include_once get_theme_file_path('/src/cpt/projects.php');
 include_once get_theme_file_path('/src/cpt/team.php');

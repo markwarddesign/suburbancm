@@ -121,6 +121,9 @@ include_once get_theme_file_path('/src/menu/menu.php');
 // Template helpers for the project, team and bidding templates
 include_once get_theme_file_path('/inc/template-tags.php');
 
+// Schema, archive titles, meta description and alt fallbacks, font loading
+include_once get_theme_file_path('/inc/seo.php');
+
 // Custom Post Types
 include_once get_theme_file_path('/src/cpt/projects.php');
 include_once get_theme_file_path('/src/cpt/team.php');

@@ -18,6 +18,14 @@ $background_image_url = $attributes['backgroundImageUrl'] ?? '';
 $image_alt            = $attributes['imageAlt'] ?? '';
 $image_caption        = $attributes['imageCaption'] ?? '';
 
+// The ID wins, but a deleted attachment falls back to the saved URL rather than an empty band.
+$background_image = $background_image_id
+	? wp_get_attachment_image( $background_image_id, 'full', false, [ 'alt' => $image_alt, 'sizes' => '100vw', 'fetchpriority' => 'high', 'loading' => 'eager' ] )
+	: '';
+if ( ! $background_image && $background_image_url ) {
+	$background_image = sprintf( '<img src="%s" alt="%s" fetchpriority="high">', esc_url( set_url_scheme( $background_image_url ) ), esc_attr( $image_alt ) );
+}
+
 $wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-hero' ] );
 ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
@@ -47,15 +55,9 @@ $wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-hero' ] );
 		</div>
 	</section>
 
-	<?php if ( $background_image_id || $background_image_url ) : ?>
+	<?php if ( $background_image ) : ?>
 		<figure class="scm-photo-band">
-			<?php
-			if ( $background_image_id ) {
-				echo wp_get_attachment_image( $background_image_id, 'full', false, [ 'alt' => $image_alt, 'sizes' => '100vw' ] );
-			} else {
-				printf( '<img src="%s" alt="%s">', esc_url( $background_image_url ), esc_attr( $image_alt ) );
-			}
-			?>
+			<?php echo $background_image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php if ( $image_caption ) : ?>
 				<figcaption><?php echo esc_html( $image_caption ); ?></figcaption>
 			<?php endif; ?>

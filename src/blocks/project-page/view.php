@@ -19,7 +19,7 @@ $has_overview = '' !== trim( wp_strip_all_tags( (string) $content ) );
 <div <?php echo get_block_wrapper_attributes( [ 'class' => 'scm-project-body' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<?php if ( has_post_thumbnail( $post_id ) ) : ?>
 		<figure class="scm-photo-band scm-photo-band--tall">
-			<?php echo get_the_post_thumbnail( $post_id, 'full', [ 'alt' => '', 'sizes' => '100vw' ] ); ?>
+			<?php echo get_the_post_thumbnail( $post_id, 'full', [ 'alt' => suburbancm_image_alt( get_post_thumbnail_id( $post_id ), get_the_title( $post_id ) ), 'sizes' => '100vw', 'fetchpriority' => 'high', 'loading' => 'eager' ] ); ?>
 		</figure>
 	<?php endif; ?>
 

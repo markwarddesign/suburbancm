@@ -35,7 +35,7 @@ while ( have_posts() ) :
 			} else {
 				// Projects written without the Project Page block still get the photo, facts and overview.
 				if ( has_post_thumbnail() ) {
-					echo '<figure class="scm-photo-band scm-photo-band--tall">' . get_the_post_thumbnail( $post_id, 'full', [ 'alt' => '', 'sizes' => '100vw' ] ) . '</figure>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<figure class="scm-photo-band scm-photo-band--tall">' . get_the_post_thumbnail( $post_id, 'full', [ 'alt' => suburbancm_image_alt( get_post_thumbnail_id( $post_id ), get_the_title( $post_id ) ), 'sizes' => '100vw', 'fetchpriority' => 'high', 'loading' => 'eager' ] ) . '</figure>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 				suburbancm_project_spec( $info );
 				the_content();

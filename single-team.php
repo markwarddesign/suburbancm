@@ -16,7 +16,9 @@ while ( have_posts() ) :
 	$note       = suburbancm_field( 'personal_note', $post_id );
 	$related    = (array) suburbancm_field( 'related_projects', $post_id );
 	$first_name = strtok( get_the_title(), ' ' );
-	$skills     = is_array( $skills ) ? $skills : array_filter( array_map( 'trim', preg_split( '/[,\n]+/', (string) $skills ) ) );
+	$skills     = is_array( $skills ) ? $skills : preg_split( '/[,\n]+/', (string) $skills );
+	// The ACF repeater gives rows of [ 'skill' => '…' ]; plain meta gives strings.
+	$skills     = array_filter( array_map( static fn( $s ) => trim( (string) ( is_array( $s ) ? ( $s['skill'] ?? reset( $s ) ) : $s ) ), $skills ) );
 	$related    = array_filter( array_map( static fn( $p ) => is_object( $p ) ? $p->ID : (int) $p, $related ) );
 	?>
 	<main id="site-content" class="scm-profile">

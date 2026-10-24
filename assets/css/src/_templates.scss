@@ -1,0 +1,235 @@
+/* Template-level layouts: project list and detail, team, bidding.
+   (Blocks keep their own styles in src/blocks/<block>/style.scss.)
+--------------------------------------------- */
+
+/* Filter chips */
+.scm-filters { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 32px; }
+.scm-chip {
+  display: inline-flex; align-items: center;
+  min-height: 44px; box-sizing: border-box; padding: 10px 18px;
+  font-size: 15px; font-weight: 700; line-height: 1.2;
+  text-decoration: none;
+  border: 2px solid var(--scm-rule-dark);
+}
+.scm-chip.is-active { background: var(--scm-gold); border-color: var(--scm-gold); color: var(--scm-ink); }
+
+/* Project cards */
+.scm-card-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.scm-projects-list .scm-card-grid { padding-bottom: var(--scm-section); }
+.scm-card {
+  flex: 1 1 520px; min-width: 0;
+  display: flex; flex-direction: column;
+  background: var(--scm-ink-2);
+  text-decoration: none;
+}
+.scm-card--feature { flex-basis: 100%; border-bottom: 6px solid var(--scm-gold); }
+.scm-card__pic { position: relative; display: block; height: 400px; overflow: hidden; background: var(--scm-ink-3); }
+.scm-card--feature .scm-card__pic { height: clamp(320px, 42vw, 620px); }
+.scm-card__pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scm-card__body { display: flex; flex-direction: column; gap: 10px; padding: 24px 24px 28px; }
+.scm-card--feature .scm-card__body { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; }
+.scm-card__head { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.scm-card--feature .scm-card__head { flex: 1 1 520px; }
+.scm-card__title { font-size: clamp(min(32px, calc((100vw - 96px) / 7)), 2.8vw, 40px); }
+.scm-card--feature .scm-card__title { font-size: clamp(min(36px, calc((100vw - 96px) / 7)), 4vw, 64px); }
+.scm-card__meta { font-size: 15px; line-height: 1.5; color: var(--scm-muted-on-dark); }
+.scm-card--feature .scm-card__meta { flex: 0 1 380px; }
+
+/* Pagination */
+.scm-pagination { padding-bottom: var(--scm-section); margin-top: calc(var(--scm-section) * -0.5); }
+.scm-pagination .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.scm-pagination .page-numbers {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 0 14px;
+  font-weight: 700; text-decoration: none;
+  border: 2px solid var(--scm-rule-dark);
+}
+.scm-pagination .page-numbers.current { background: var(--scm-gold); border-color: var(--scm-gold); color: var(--scm-ink); }
+
+/* Empty states */
+.scm-empty {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px 48px;
+  padding: clamp(32px, 5vw, 64px);
+  margin-bottom: var(--scm-section);
+  border: 4px solid var(--scm-rule-dark);
+}
+.scm-empty__text { flex: 1 1 480px; min-width: 0; }
+.scm-empty__text p { margin: 14px 0 0; font-size: 18px; line-height: 1.6; color: var(--scm-muted-on-dark); max-width: 620px; }
+
+/* Breadcrumb back-link */
+.scm-back {
+  display: inline-block; padding: 12px 0;
+  font-size: 15px; font-weight: 700; text-decoration: none;
+  color: var(--scm-muted-on-dark);
+}
+
+/* Content area of single templates: core blocks read as text, theme blocks run full width */
+.scm-entry { background: var(--scm-ink); color: var(--scm-muted-on-dark); }
+.scm-entry--bone { background: var(--scm-bone); color: var(--scm-muted-on-light); }
+.scm-entry > :where(:not([class*="scm-"]):not(.alignfull)) {
+  max-width: 900px; box-sizing: border-box;
+  margin-left: auto; margin-right: auto;
+  padding-left: var(--scm-gutter); padding-right: var(--scm-gutter);
+}
+.scm-entry > :where(:not([class*="scm-"]):not(.alignfull)):first-child { padding-top: var(--scm-section-sm); }
+.scm-entry > :where(:not([class*="scm-"]):not(.alignfull)):last-child { padding-bottom: var(--scm-section-sm); }
+/* Plain content only: direct children and core groups — theme blocks keep their own type */
+.scm .scm-entry > p, .scm .scm-entry > ul li, .scm .scm-entry > ol li, .scm .scm-entry > .wp-block-group p { font-size: 18px; line-height: 1.7; color: inherit; }
+.scm .scm-entry > ul, .scm .scm-entry > ol { color: inherit; list-style: revert; padding-left: calc(var(--scm-gutter) + 22px); }
+.scm .scm-entry > h2, .scm .scm-entry > h3 {
+  font-family: var(--scm-font-display); font-stretch: 66%; font-weight: 900; text-transform: uppercase;
+  line-height: .92; text-wrap: balance; color: var(--scm-bone);
+}
+.scm .scm-entry--bone > h2, .scm .scm-entry--bone > h3 { color: var(--scm-ink); }
+.scm .scm-entry > h2 { font-size: clamp(32px, 3.6vw, 52px); margin-top: 48px; margin-bottom: 16px; }
+.scm .scm-entry > h3 { font-size: clamp(26px, 2.6vw, 36px); margin-top: 32px; margin-bottom: 12px; }
+.scm .scm-entry > p a:not([class]), .scm .scm-entry > ul a:not([class]) { color: inherit; text-decoration: underline; text-decoration-color: var(--scm-gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* Galleries and images inside project and bid content */
+.scm .scm-entry > .wp-block-gallery,
+.scm .scm-entry > .wp-block-image { max-width: var(--scm-max); padding-top: 20px; padding-bottom: 20px; }
+.scm .scm-entry .wp-block-gallery.has-nested-images { gap: 20px; }
+.scm .scm-entry .wp-block-image img { border-radius: 0; }
+
+/* Single project */
+.scm-photo-band--tall { height: clamp(320px, 48vw, 720px); }
+.scm-project-head { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; gap: 20px; }
+.scm-project-head .scm-back { align-self: flex-start; margin-bottom: clamp(12px, 3vw, 36px); }
+.scm-project-head .scm-lede { max-width: 720px; font-size: clamp(18px, 1.6vw, 22px); }
+.scm-next {
+  display: flex; flex-wrap: wrap;
+  background: var(--scm-ink-2); border-top: 1px solid var(--scm-rule-dark);
+  text-decoration: none;
+}
+.scm-next__text {
+  flex: 1 1 520px; min-width: 0; box-sizing: border-box;
+  display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  padding: clamp(40px, 5vw, 72px) var(--scm-gutter);
+}
+.scm-next__text .scm-eyebrow { color: var(--scm-muted-on-dark); }
+.scm-next__title { font-size: clamp(min(36px, calc((100vw - 48px) / 7)), 4.6vw, 72px); }
+.scm-next__pic { flex: 1 1 420px; min-width: 0; min-height: 320px; overflow: hidden; background: var(--scm-ink-3); }
+.scm-next__pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Team profile */
+.scm-profile__head { padding-top: clamp(40px, 5vw, 72px); padding-bottom: var(--scm-section); }
+.scm-profile__head .scm-back { margin-bottom: clamp(20px, 3vw, 44px); }
+.scm-profile__head .scm-member { align-items: flex-end; }
+.scm-profile__head .scm-member__photo { flex: 0 1 480px; background: var(--scm-ink-2); border-bottom: 6px solid var(--scm-gold); }
+.scm-profile__head .scm-member__photo img { display: block; width: 100%; height: auto; }
+.scm-tags { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.scm-tags li { padding: 10px 14px; border: 2px solid var(--scm-gold); font-size: 15px; font-weight: 700; line-height: 1.3; }
+.scm-profile__bio-inner { display: flex; flex-wrap: wrap; gap: 32px clamp(40px, 6vw, 96px); }
+.scm-profile__bio-inner > h2 { flex: 1 1 320px; min-width: 0; }
+.scm-profile__content { flex: 2 1 560px; min-width: 0; background: none; }
+.scm .scm-profile__content > * { max-width: none; padding-left: 0; padding-right: 0; }
+.scm .scm-profile__content > :first-child { padding-top: 0; margin-top: 0; }
+.scm .scm-profile__content > :last-child { padding-bottom: 0; margin-bottom: 0; }
+.scm-profile__note { max-width: 900px; }
+.scm-profile__note p:last-child { margin: 14px 0 0; font-size: clamp(20px, 1.8vw, 24px); line-height: 1.5; color: var(--scm-bone); }
+.scm-profile__related-title { margin-bottom: 40px; }
+
+/* Team list */
+.scm-people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+  padding-bottom: var(--scm-section);
+}
+.scm-person { display: flex; flex-direction: column; background: var(--scm-ink-2); text-decoration: none; border-bottom: 6px solid var(--scm-gold); }
+.scm-person__photo { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--scm-ink-3); }
+.scm-person__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scm-person__text { display: flex; flex-direction: column; gap: 8px; padding: 22px 24px 26px; }
+.scm-person__name { font-size: clamp(30px, 2.6vw, 40px); }
+.scm-person__more { font-size: 15px; font-weight: 600; color: var(--scm-muted-on-dark); }
+
+/* Shared by blocks and templates: team photo split, project facts bar */
+.scm-member {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px clamp(40px, 6vw, 96px);
+}
+.scm-member + .scm-member { margin-top: clamp(56px, 7vw, 96px); }
+.scm-member__photo {
+  flex: 0 1 460px;
+  min-width: 0;
+  background: var(--scm-ink-2);
+  border-bottom: 6px solid var(--scm-gold);
+}
+.scm-member__photo img { display: block; width: 100%; height: auto; }
+.scm-member__text {
+  flex: 1 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.scm-member__text .scm-lede { max-width: 620px; }
+.scm-spec { background: var(--scm-ink-2); border-bottom: 1px solid var(--scm-rule-dark); }
+.scm-spec__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.scm-spec__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 22px 24px;
+  border-left: 1px solid var(--scm-rule-dark);
+}
+.scm-spec__item:last-child { border-right: 1px solid var(--scm-rule-dark); }
+.scm-spec dt { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--scm-muted-on-dark); }
+.scm-spec dd { margin: 0; font-size: 19px; font-weight: 700; color: var(--scm-bone); overflow-wrap: break-word; }
+
+/* Call-to-action bands (CTA One, CTA Two, bid page) */
+.scm-cta__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px 40px;
+}
+.scm-cta__text {
+  flex: 1 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.scm-cta__text .scm-lede { max-width: 640px; }
+
+/* Bid opportunities list */
+.scm-bids__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 32px; }
+.scm-bids__count { font-size: 15px; font-weight: 700; color: var(--scm-muted-on-dark); }
+.scm-bid-list { margin: 0; padding: 0; list-style: none; border-top: 4px solid var(--scm-gold); }
+.scm-bid {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 20px clamp(24px, 4vw, 56px);
+  padding: 28px 0;
+  border-bottom: 1px solid var(--scm-rule-dark);
+  text-decoration: none;
+}
+.scm-bid__due { flex: 0 0 150px; display: flex; flex-direction: column; gap: 4px; }
+.scm-bid__due-label { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--scm-muted-on-dark); }
+.scm-bid__due-date { font-size: 48px; color: var(--scm-gold); }
+.scm-bid__due-year { font-size: 14px; font-weight: 600; color: var(--scm-muted-on-dark); }
+.scm-bid__body { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.scm-bid__title { font-size: clamp(min(30px, calc((100vw - 48px) / 7)), 3vw, 44px); }
+.scm-bid__excerpt { font-size: 16px; line-height: 1.6; color: var(--scm-muted-on-dark); }
+.scm-bid__more { flex: 0 0 auto; font-size: 15px; font-weight: 700; color: var(--scm-gold); }
+
+/* Single bid */
+.scm-bid-page__row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px 40px; margin-top: 8px; }
+.scm-due {
+  display: inline-flex; flex-direction: column; gap: 6px; margin: 0;
+  padding: 16px 20px; border-left: 6px solid var(--scm-gold); background: var(--scm-ink-2);
+}
+.scm-due__label { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--scm-muted-on-dark); }
+.scm-due__date { font-size: clamp(28px, 3vw, 40px); color: var(--scm-gold); }
+.scm-due.is-past { border-left-color: var(--scm-rule-dark); }
+.scm-due.is-past .scm-due__date { color: var(--scm-muted-on-dark); text-decoration: line-through; }
+.scm-bid-page__dates { margin: 0; font-size: 14px; color: var(--scm-muted-on-dark); }
+.scm-bid-page__content { border-top: 6px solid var(--scm-gold); }

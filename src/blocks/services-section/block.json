@@ -6,92 +6,103 @@
 	"title": "Services",
 	"category": "suburban",
 	"icon": "tool",
-	"description": "A section showcasing general contracting and construction management services.",
-    "attributes": {
-        "title": {
-            "type": "string",
-            "default": "General Contracting & Construction Management"
-        },
-        "description": {
-            "type": "string",
-            "default": "Comprehensive solutions tailored to your project's needs."
-        },
-        "services": {
-            "type": "array",
-            "query": {
-                "image": {
-                    "type": "string",
-                    "default": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Planningg"
-                },
-                "alt": {
-                    "type": "string",
-                    "default": "Construction project planning and scheduling"
-                },
-                "title": {
-                    "type": "string",
-                    "default": "Project Planning & Scheduling"          
-                },
-                "description": {
-                    "type": "string",
-                    "default": "Laying the groundwork for success with meticulous planning, resource allocation, and realistic timelines to keep your project on track and within budget."
-                },
-                "bulletIcon": {
-                    "type": "string",
-                    "default": "fa-circle-check"
-                },
-                "features": {
-                    "type": "array",
-                    "items": {
-                        "type": "string",
-                        "default": [
-                            "Detailed Timeline Creation",
-                            "Resource Allocation & Management",
-                            "Risk Assessment & Mitigation"
-                        ]
-                    }
-                }
-            },
-            "default": [
-                {
-                    "image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Planning",
-                    "alt": "Construction project planning and scheduling",
-                    "title": "Project Planning & Scheduling",
-                    "description": "Laying the groundwork for success with meticulous planning, resource allocation, and realistic timelines to keep your project on track and within budget.",
-                    "features": [
-                        "Detailed Timeline Creation",
-                        "Resource Allocation & Management",
-                        "Risk Assessment & Mitigation"
-                    ]
-                },
-                {
-                    "image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Supervision",
-                    "alt": "Construction site supervision and quality control",
-                    "title": "On-Site Supervision & Quality Control",
-                    "description": "Ensuring efficient execution, adherence to safety standards, and superior quality through constant site presence and rigorous inspections.",
-                    "features": [
-                        "Daily Site Monitoring & Reporting",
-                        "Strict Quality Assurance Checks",
-                        "Safety Protocol Enforcement"
-                    ]
-                },
-                {
-                    "image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Budgeting",
-                    "alt": "Construction budget management and cost control",
-                    "title": "Budget Management & Cost Control",
-                    "description": "Keeping your project financially sound through transparent cost tracking, value engineering, and proactive budget management from start to finish.",
-                    "features": [
-                        "Transparent Cost Tracking",
-                        "Value Engineering Solutions",
-                        "Change Order Management"
-                    ]
-                }
-            ]
-        }
-    },
+	"description": "Numbered service rows on a light background. \"Rows\" suits Home; \"Groups\" adds a photo per service and shows each feature written \"Title: description\" as a sub-heading.",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "General Contracting & Construction Management"
+		},
+		"description": {
+			"type": "string",
+			"default": "Comprehensive solutions tailored to your project's needs."
+		},
+		"services": {
+			"type": "array",
+			"query": {
+				"image": {
+					"type": "string",
+					"default": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Planningg"
+				},
+				"alt": {
+					"type": "string",
+					"default": "Construction project planning and scheduling"
+				},
+				"title": {
+					"type": "string",
+					"default": "Project Planning & Scheduling"
+				},
+				"description": {
+					"type": "string",
+					"default": "Laying the groundwork for success with meticulous planning, resource allocation, and realistic timelines to keep your project on track and within budget."
+				},
+				"bulletIcon": {
+					"type": "string",
+					"default": "fa-circle-check"
+				},
+				"features": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"default": [
+							"Detailed Timeline Creation",
+							"Resource Allocation & Management",
+							"Risk Assessment & Mitigation"
+						]
+					}
+				}
+			},
+			"default": [
+				{
+					"image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Planning",
+					"alt": "Construction project planning and scheduling",
+					"title": "Project Planning & Scheduling",
+					"description": "Laying the groundwork for success with meticulous planning, resource allocation, and realistic timelines to keep your project on track and within budget.",
+					"features": [
+						"Detailed Timeline Creation",
+						"Resource Allocation & Management",
+						"Risk Assessment & Mitigation"
+					]
+				},
+				{
+					"image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Supervision",
+					"alt": "Construction site supervision and quality control",
+					"title": "On-Site Supervision & Quality Control",
+					"description": "Ensuring efficient execution, adherence to safety standards, and superior quality through constant site presence and rigorous inspections.",
+					"features": [
+						"Daily Site Monitoring & Reporting",
+						"Strict Quality Assurance Checks",
+						"Safety Protocol Enforcement"
+					]
+				},
+				{
+					"image": "https://fakeimg.pl/600x400/a38f50/ffffff?text=Budgeting",
+					"alt": "Construction budget management and cost control",
+					"title": "Budget Management & Cost Control",
+					"description": "Keeping your project financially sound through transparent cost tracking, value engineering, and proactive budget management from start to finish.",
+					"features": [
+						"Transparent Cost Tracking",
+						"Value Engineering Solutions",
+						"Change Order Management"
+					]
+				}
+			]
+		},
+		"layout": {
+			"type": "string",
+			"default": "rows",
+			"enum": [
+				"rows",
+				"groups"
+			]
+		}
+	},
 	"supports": {
-      "html": false,
-      "align": [ "full", "wide" ]
-    },
+		"html": false,
+		"align": [
+			"full",
+			"wide"
+		]
+	},
 	"textdomain": "suburbancm",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

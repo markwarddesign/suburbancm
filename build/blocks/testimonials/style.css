@@ -1,6 +1,36 @@
-.suburbancm-testimonials__title {
-		text-align: center;
-		text-decoration: underline;
-		/* stylelint-disable-next-line color-named */
-		text-decoration-color: red;
-	}
+.scm-quotes { border-top: 1px solid var(--scm-rule-dark); }
+.scm-quotes__title { margin-bottom: 32px; }
+.scm-quote {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px clamp(24px, 4vw, 64px);
+	margin: 0;
+}
+.scm-quote + .scm-quote { margin-top: clamp(56px, 7vw, 96px); }
+.scm-quote__mark {
+	flex: 0 0 auto;
+	font-size: clamp(140px, 16vw, 240px);
+	line-height: .7;
+	color: var(--scm-gold);
+}
+.scm-quote__body { flex: 1 1 520px; min-width: 0; }
+.scm-quote blockquote {
+	margin: 0;
+	max-width: 1000px;
+	font-size: clamp(22px, 2.3vw, 34px);
+	line-height: 1.4;
+	font-weight: 500;
+}
+.scm-quote figcaption {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 14px;
+	max-width: 1000px;
+	margin-top: 32px;
+	padding-top: 20px;
+	border-top: 2px solid var(--scm-gold);
+}
+.scm-quote figcaption img { width: 48px; height: 48px; -o-object-fit: cover; object-fit: cover; }
+.scm-quote__name { font-size: 18px; font-weight: 700; }
+.scm-quote__role { font-size: 16px; color: var(--scm-muted-on-dark); }

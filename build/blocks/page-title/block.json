@@ -6,7 +6,7 @@
   "title": "Page Title",
   "category": "suburban",
   "icon": "heading",
-  "description": "A block for displaying a page title with a subtitle.",
+  "description": "Top of an inner page: big headline with an optional gold second line, intro text, optional tagline and button, and an optional full-width photo below. Can sit on charcoal or gold.",
   "attributes": {
     "title": {
       "type": "string",
@@ -15,6 +15,41 @@
     "subtitle": {
       "type": "string",
       "default": "Building lasting relationships through quality construction and expert management since [Year Founded]."
+    },
+    "titleHighlight": {
+      "type": "string",
+      "default": ""
+    },
+    "tagline": {
+      "type": "string",
+      "default": ""
+    },
+    "background": {
+      "type": "string",
+      "default": "ink",
+      "enum": [
+        "ink",
+        "gold"
+      ]
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
@@ -28,6 +63,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
-  "render": "file:./view.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./view.php"
 }

@@ -3,10 +3,10 @@
   "apiVersion": 3,
   "name": "suburbancm/callout",
   "version": "0.1.0",
-  "title": "Callout",
+  "title": "Safety Callout",
   "category": "suburban",
   "icon": "shield",
-  "description": "A highlighted callout block for safety or other key messages.",
+  "description": "Gold band: headline, paragraph, a bold closing line and button on the left; a heavy-ruled list on the right.",
   "attributes": {
     "icon": {
       "type": "string",
@@ -33,6 +33,14 @@
     "afterText": {
       "type": "string",
       "default": "Our goal is zero incidents. We firmly believe that a safe project is fundamental to a successful project."
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Report a safety concern →"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "/safety-report/"
     }
   },
   "supports": {
@@ -46,6 +54,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
-  "render": "file:./view.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./view.php"
 }

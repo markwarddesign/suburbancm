@@ -3,14 +3,22 @@
 	"apiVersion": 3,
 	"name": "suburbancm/phases",
 	"version": "0.1.0",
-	"title": "Phases",
+	"title": "Process Phases",
 	"category": "suburban",
 	"icon": "schedule",
-	"description": "A multi-phase process block with repeatable steps for each phase.",
+	"description": "A section heading, then each phase as a huge gold \"Phase\" label and title beside a grid of steps.",
 	"attributes": {
 		"phases": {
-		"type": "array",
-		"default": []
+			"type": "array",
+			"default": []
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
@@ -24,6 +32,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

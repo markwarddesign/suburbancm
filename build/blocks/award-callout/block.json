@@ -6,7 +6,7 @@
   "title": "Award Callout",
   "category": "suburban",
   "icon": "awards",
-  "description": "A highlighted callout for an award or recognition, with a logo, headline, description and links. Defaults to the BoiseDev Peak 43 #1 win.",
+  "description": "Gold award band: a giant rank, headline and story link, with the award graphic as a square beside it. Defaults to the BoiseDev Peak 43 #1 win.",
   "attributes": {
     "image": {
       "type": "string",
@@ -15,6 +15,10 @@
     "imageAlt": {
       "type": "string",
       "default": "Peak 43 2026 Winner"
+    },
+    "rank": {
+      "type": "string",
+      "default": "#1"
     },
     "eyebrow": {
       "type": "string",

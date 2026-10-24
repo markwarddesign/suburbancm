@@ -6,3 +6,6 @@ Thumbs.db
 # ignore dependencies
 node_modules/
 
+
+# Compiled copies of SCSS partials (imported into style.css, not used on their own)
+assets/css/dist/_*.css

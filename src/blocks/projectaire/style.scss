@@ -1,0 +1,87 @@
+.scm-pa { border-bottom: 1px solid var(--scm-rule-dark); }
+.scm-pa__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 56px clamp(40px, 6vw, 96px);
+}
+.scm-pa__text {
+	flex: 1 1 400px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.scm-pa__logo { display: block; width: 220px; max-width: 70%; height: auto; }
+.scm-pa__text .scm-lede { max-width: 520px; }
+.scm-pa__text .scm-btns { margin-top: 4px; }
+.scm-pa__shots {
+	flex: 1.5 1 560px;
+	min-width: 0;
+	margin: 0;
+	position: relative;
+	padding-bottom: 32px;
+}
+.scm-pa__desktop {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--scm-rule-dark);
+	border-bottom: 6px solid var(--scm-gold);
+}
+.scm-pa__phone {
+	position: absolute;
+	right: -8px;
+	bottom: 0;
+	width: 23%;
+	height: auto;
+	border: 6px solid var(--scm-ink);
+	background: var(--scm-ink);
+}
+.scm-pa__shots figcaption { margin-top: 14px; font-size: 13px; color: var(--scm-muted-on-dark); }
+@media (max-width: 600px) {
+	.scm-pa__phone { display: none; }
+}
+
+/* Detailed layout (The Difference) */
+.scm-pa--detailed { border-bottom: 0; }
+.scm-pa__head {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 24px clamp(40px, 6vw, 96px);
+	margin-bottom: clamp(48px, 6vw, 80px);
+}
+.scm-pa__head-title { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.scm-pa__head .scm-lede { flex: 1 1 400px; min-width: 0; }
+.scm-pa__part {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 40px clamp(40px, 6vw, 96px);
+	padding: 40px 0 64px;
+	border-top: 4px solid var(--scm-ink);
+}
+.scm-pa__part:last-child { padding-bottom: 0; }
+.scm-pa__part--reverse { flex-wrap: wrap-reverse; }
+.scm-pa__part-text {
+	flex: 1 1 380px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+.scm-pa__part-text p { margin: 0; font-size: 17px; line-height: 1.6; color: var(--scm-muted-on-light); }
+.scm-pa__part-text .scm-pa__lead { font-size: 18px; font-weight: 600; color: var(--scm-ink); }
+.scm-pa__part-text .scm-btns { margin-top: 6px; }
+.scm-pa__shot { flex: 1.5 1 560px; min-width: 0; margin: 0; }
+.scm-pa__shot img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--scm-rule-light);
+	border-bottom: 6px solid var(--scm-ink);
+}
+.scm-pa__shot--gold img { border-bottom-color: var(--scm-gold); }
+.scm-pa__shot figcaption { margin-top: 12px; font-size: 13px; color: var(--scm-muted-on-light); }

@@ -2,7 +2,7 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <!-- Favicon -->
@@ -14,73 +14,58 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class( 'bg-[#1f1f1f] text-[#e4d198] antialiased' ); ?>>
+<body <?php body_class( 'scm' ); ?>>
 
 <?php do_action( 'tailpress_site_before' ); ?>
 
-<header>
-    <nav id="main-nav" class="bg-[#2a2a2a] shadow-black-70 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+<a class="screen-reader-text" href="#site-content"><?php esc_html_e( 'Skip to content', 'suburbancm' ); ?></a>
 
-            <div class="flex-shrink-0">
-                <?php if ( has_custom_logo() ) : ?>
-                    <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="text-xl font-bold text-[#e4d198]">
-                        <?php bloginfo( 'name' ); ?>
-                    </a>
-                <?php endif; ?>
-            </div>
+<?php if ( is_front_page() ) : ?>
+    <a class="scm-strip" href="#award">
+        <strong>#1</strong>
+        <span><?php esc_html_e( 'Fastest-growing business in Idaho', 'suburbancm' ); ?></span><span class="scm-strip__extra"> — <?php esc_html_e( 'BoiseDev Peak 43, 2026', 'suburbancm' ); ?></span>
+        <span aria-hidden="true">→</span>
+    </a>
+<?php endif; ?>
 
-                <div class="hidden md:flex items-center space-x-1 lg:space-x-4 h-full">
-                    <?php
-                    wp_nav_menu(
-                        array(
-                            'theme_location'  => 'primary-menu',
-                            'container'       => false,
-                            'menu_class'      => 'flex space-x-4 h-full items-center',
-                            'fallback_cb'     => false,
-                            'depth'           => 2,
-                            'walker'          => new Suburban_Walker_Nav_Menu(),
-                        )
-                    );
-                    ?>
-                </div>
+<header class="scm-header">
+    <div class="scm-wrap scm-header__inner">
+        <a class="scm-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) . ', ' . __( 'home', 'suburbancm' ) ); ?>">
+            <?php suburbancm_logo(); ?>
+        </a>
 
-                <div class="md:hidden">
-                    <button id="mobile-menu-open-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-[#e4d198] hover:text-[#ffffff] hover:bg-[#444444] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#a38f50]" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
+        <nav class="scm-nav" aria-label="<?php esc_attr_e( 'Primary', 'suburbancm' ); ?>">
+            <?php suburbancm_flat_menu( 'primary-menu', 'primary' ); ?>
+        </nav>
 
-                <!-- Mobile Menu -->
-                <div id="mobile-menu" class="hidden bg-[#2a2a2a]">
-                    <button id="mobile-menu-close-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-[#e4d198] hover:text-[#ffffff] hover:bg-[#444444] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#a38f50]">
-                        <span class="sr-only">Close menu</span>
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    <nav class="mt-4">
-                        <?php
-                        wp_nav_menu(
-                            array(
-                                'theme_location' => 'primary-menu',
-                                'container'      => false,
-                                'menu_class'     => 'space-y-10',
-                                'fallback_cb'    => false,
-                                'depth'          => 1,
-                            )
-                        );
-                        ?>
-                    </nav>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+        <button type="button" class="scm-menu-btn" aria-expanded="false" aria-controls="scm-menu" data-scm-menu-open>
+            <?php esc_html_e( 'Menu', 'suburbancm' ); ?>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 5h16M2 10h16M2 15h16"/></svg>
+        </button>
+    </div>
 </header>
+
+<div id="scm-menu" class="scm-menu" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Site menu', 'suburbancm' ); ?>" inert>
+    <div class="scm-menu__top">
+        <a class="scm-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) . ', ' . __( 'home', 'suburbancm' ) ); ?>">
+            <?php suburbancm_logo(); ?>
+        </a>
+        <button type="button" class="scm-menu__close" data-scm-menu-close>
+            <?php esc_html_e( 'Close', 'suburbancm' ); ?>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3l12 12M15 3L3 15"/></svg>
+        </button>
+    </div>
+    <nav class="scm-menu__nav" aria-label="<?php esc_attr_e( 'Mobile', 'suburbancm' ); ?>">
+        <?php suburbancm_flat_menu( 'primary-menu', 'primary' ); ?>
+    </nav>
+    <div class="scm-menu__foot">
+        <a class="scm-btn" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Request a consultation', 'suburbancm' ); ?></a>
+        <div class="scm-menu__links">
+            <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'suburbancm' ); ?></a>
+            <a href="<?php echo esc_url( home_url( '/safety-report/' ) ); ?>"><?php esc_html_e( 'Safety report', 'suburbancm' ); ?></a>
+            <a href="<?php echo esc_url( SUBURBANCM_CLIENT_LOGIN_URL ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Client login ↗', 'suburbancm' ); ?></a>
+        </div>
+        <p class="scm-menu__note"><?php esc_html_e( 'Twin Falls, Idaho', 'suburbancm' ); ?></p>
+        <p class="scm-menu__award"><?php esc_html_e( '#1 Fastest-growing business in Idaho · Peak 43, 2026', 'suburbancm' ); ?></p>
+    </div>
+</div>

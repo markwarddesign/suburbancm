@@ -68,6 +68,18 @@ function suburbancm_enqueue_editor_styles() {
 }
 add_action('enqueue_block_editor_assets', 'suburbancm_enqueue_editor_styles', 20);
 
+// Blocks that show theme images in the editor need the theme's URL.
+function suburbancm_editor_theme_uri() {
+    wp_register_script('suburbancm-editor-globals', false, [], null, true);
+    wp_enqueue_script('suburbancm-editor-globals');
+    wp_add_inline_script(
+        'suburbancm-editor-globals',
+        'window.suburbancmTheme = ' . wp_json_encode(['uri' => get_theme_file_uri()]) . ';',
+        'before'
+    );
+}
+add_action('enqueue_block_editor_assets', 'suburbancm_editor_theme_uri');
+
 function suburbancm_enqueue_styles() {
     // Enqueue frontend styles
     wp_enqueue_style(
@@ -80,8 +92,9 @@ function suburbancm_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'suburbancm_enqueue_styles');
 
 function suburbancm_enqueue_testimonials_slider() {
-    // Check if the block is present on the page
-    if (has_block('suburbancm/testimonials')) {
+    // Retired: testimonials now render as stacked pull quotes with no slider.
+    // Kept behind a filter in case an old layout still needs it.
+    if (apply_filters('suburbancm_use_testimonials_slider', false) && has_block('suburbancm/testimonials')) {
         wp_enqueue_script(
             'suburbancm-testimonials-slider',
             get_theme_file_uri('/src/blocks/testimonials/slider.js'),
@@ -104,6 +117,9 @@ add_action('wp_enqueue_scripts', 'suburban_enqueue_glightbox');
 
 // Menu
 include_once get_theme_file_path('/src/menu/menu.php');
+
+// Template helpers for the project, team and bidding templates
+include_once get_theme_file_path('/inc/template-tags.php');
 
 // Custom Post Types
 include_once get_theme_file_path('/src/cpt/projects.php');

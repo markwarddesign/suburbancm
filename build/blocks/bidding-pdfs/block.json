@@ -1,10 +1,10 @@
 {
   "apiVersion": 2,
   "name": "suburbancm/bidding-pdfs",
-  "title": "Bidding PDFs",
+  "title": "Bid Documents",
   "category": "widgets",
   "icon": "media-document",
-  "description": "Upload, name, and reorder PDF documents for bidding projects.",
+  "description": "List of bid documents (plans, specs, addenda) with download links.",
   "supports": {
     "html": false
   },
@@ -12,6 +12,10 @@
     "pdfs": {
       "type": "array",
       "default": []
+    },
+    "blockTitle": {
+      "type": "string",
+      "default": "Bid documents"
     }
   },
   "editorScript": "file:./index.js",

@@ -6,7 +6,7 @@
 	"title": "Team",
 	"category": "suburban",
 	"icon": "heart",
-	"description": "A bootstrapped block. Build something beautiful!",
+	"description": "Team members from the Team post type, each as a large photo beside their role, name, short bio and links.",
 	"attributes": {
 		"title": {
 			"type": "string",
@@ -26,6 +26,14 @@
 				"type": "number"
 			},
 			"default": []
+		},
+		"ctaText": {
+			"type": "string",
+			"default": "Schedule a consultation"
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": "/contact/"
 		}
 	},
 	"supports": {
@@ -39,6 +47,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

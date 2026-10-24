@@ -1,29 +1,36 @@
 <?php
 /**
- * Bidding PDFs Block View
+ * Bid Documents — one row per file with its name, type and a download link.
  *
- * @var array $attributes Block attributes, expects 'pdfs' => [ [ 'url' => ..., 'name' => ... ], ... ]
+ * @package suburbancm
  */
-$pdfs = isset($attributes['pdfs']) && is_array($attributes['pdfs']) ? $attributes['pdfs'] : [];
-$title = !empty($attributes['blockTitle']) ? wp_kses_post($attributes['blockTitle']) : 'Downloads';
-if (!empty($pdfs)) : ?>
-  <div class="wp-block-bidding-pdfs bg-[#181818] border border-[#80703a] rounded-lg p-8 shadow-md my-6">
-    <h3 class="text-2xl font-bold text-[#e4d198] mb-6 text-center"><?php echo $title; ?></h3>
-    <ul class="flex flex-wrap gap-8 mb-6 mt-6 justify-center">
-      <?php foreach ($pdfs as $pdf) :
-        $url = esc_url($pdf['url'] ?? '');
-        $name = wp_kses_post($pdf['name'] ?? basename($url));
-        if ($url): ?>
-          <li class="flex flex-col items-center w-40">
-            <a href="<?php echo $url; ?>" class="flex flex-col items-center group" target="_blank" rel="noopener">
-              <i class="fas fa-file-pdf text-5xl mb-3 text-[#e4d198] group-hover:text-[#a38f50]"></i>
-              <span class="block text-center text-base text-white group-hover:text-[#e4d198]"><?php echo $name; ?></span>
-            </a>
-          </li>
-        <?php endif; ?>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-<?php else : ?>
-  <p class="text-base text-[#e4d198]">No bidding documents available.</p>
-<?php endif; ?>
+
+$pdfs  = array_filter( (array) ( $attributes['pdfs'] ?? [] ), static fn( $p ) => ! empty( $p['url'] ) );
+$title = $attributes['blockTitle'] ?? '';
+$title = $title ?: __( 'Bid documents', 'suburbancm' );
+?>
+<section <?php echo get_block_wrapper_attributes( [ 'class' => 'scm-docs' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<div class="scm-docs__inner">
+		<h2 class="scm-d scm-h-s"><?php echo wp_kses_post( $title ); ?></h2>
+		<?php if ( $pdfs ) : ?>
+			<ul class="scm-docs__list">
+				<?php foreach ( $pdfs as $pdf ) : ?>
+					<?php
+					$url  = $pdf['url'];
+					$name = ! empty( $pdf['name'] ) ? $pdf['name'] : basename( wp_parse_url( $url, PHP_URL_PATH ) );
+					$ext  = strtoupper( pathinfo( wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
+					?>
+					<li>
+						<a class="scm-doc" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener">
+							<span class="scm-doc__type"><?php echo esc_html( $ext ?: __( 'File', 'suburbancm' ) ); ?></span>
+							<span class="scm-doc__name"><?php echo esc_html( wp_strip_all_tags( $name ) ); ?></span>
+							<span class="scm-doc__action"><?php esc_html_e( 'Download ↓', 'suburbancm' ); ?></span>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php else : ?>
+			<p class="scm-docs__empty"><?php esc_html_e( 'Documents will be posted here.', 'suburbancm' ); ?></p>
+		<?php endif; ?>
+	</div>
+</section>

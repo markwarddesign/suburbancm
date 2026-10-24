@@ -1,26 +1,14 @@
-.inner-blocks-column{
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+/* Facts bar (.scm-spec) lives in assets/css/src/_templates.scss — the project template uses it too. */
+.scm-project-overview__inner { display: flex; flex-wrap: wrap; gap: 32px clamp(40px, 6vw, 96px); }
+.scm-project-overview__inner > h2 { flex: 1 1 360px; min-width: 0; }
+.scm-project-overview__body {
+	flex: 2 1 560px;
+	min-width: 0;
+	font-size: 18px;
+	line-height: 1.7;
+	color: var(--scm-muted-on-light);
 }
-
-/* Gallery image hover effect for images linked to a file */
-
-.wp-block-gallery a[href$='.jpg'],
-.wp-block-gallery a[href$='.jpeg'],
-.wp-block-gallery a[href$='.png'],
-.wp-block-gallery a[href$='.gif'] {
-    display: inline-block;
-    transition: box-shadow 0.2s, transform 0.2s;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.wp-block-gallery a[href$='.jpg']:hover img,
-.wp-block-gallery a[href$='.jpeg']:hover img,
-.wp-block-gallery a[href$='.png']:hover img,
-.wp-block-gallery a[href$='.gif']:hover img {
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
-    transform: scale(1.03);
-    filter: brightness(0.92) saturate(1.1);
-}
+.scm-project-overview__body p { margin: 0 0 22px; font-size: inherit; line-height: inherit; color: inherit; }
+.scm-project-overview__body p:first-of-type { font-size: clamp(20px, 1.8vw, 24px); line-height: 1.5; font-weight: 600; color: var(--scm-ink); }
+.scm-project-overview__body > :last-child, .scm-project-overview__body .inner-blocks-column > :last-child { margin-bottom: 0; }
+.scm-project-overview__body .meta-column:empty { display: none; }

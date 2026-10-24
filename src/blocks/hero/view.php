@@ -1,62 +1,64 @@
 <?php
 /**
- * PHP file to render the Hero Section block dynamically.
+ * Hero — big two-line headline, intro, two buttons, optional full-bleed photo below.
+ * Used for the home hero and as a page hero (Services, The Difference).
  *
- * @package BlockThemeStarter
+ * @package suburbancm
  */
 
-// Defaults ensure the block doesn't break if attributes are missing.
-$heading_line1      = $attributes['headingLine1'] ?? 'Building Your Vision, ';
-$heading_highlight  = $attributes['headingHighlight'] ?? 'Managing Every Detail';
-$paragraph          = $attributes['paragraph'] ?? 'Expert construction management services ensuring your project is completed on time, within budget, and to the highest standards.';
-$button1_text       = $attributes['button1Text'] ?? 'Request a Consultation';
-$button1_link       = $attributes['button1Link'] ?? '#cta1';
-$button2_text       = $attributes['button2Text'] ?? 'View Our Projects';
-$button2_link       = $attributes['button2Link'] ?? '#projects';
+$heading_line1        = $attributes['headingLine1'] ?? 'Building your vision.';
+$heading_highlight    = $attributes['headingHighlight'] ?? 'Managing every detail.';
+$paragraph            = $attributes['paragraph'] ?? '';
+$button1_text         = $attributes['button1Text'] ?? '';
+$button1_link         = $attributes['button1Link'] ?? '';
+$button2_text         = $attributes['button2Text'] ?? '';
+$button2_link         = $attributes['button2Link'] ?? '';
+$background_image_id  = $attributes['backgroundImageId'] ?? 0;
 $background_image_url = $attributes['backgroundImageUrl'] ?? '';
+$image_alt            = $attributes['imageAlt'] ?? '';
+$image_caption        = $attributes['imageCaption'] ?? '';
 
-// --- Prepare Wrapper Attributes ---
-$wrapper_attributes = get_block_wrapper_attributes(); // Base attributes (includes class, alignment etc.)
-$style_attribute    = '';
-$extra_classes = 'relative z-1 w-full flex items-center justify-center text-center py-20 px-4 sm:px-6 lg:px-8 z-10 bg-[#1f1f1f] text-[#e4d198] antialiased'; // Updated classes
-
-if ( ! empty( $background_image_url ) ) {
-    // Add background image styles and classes
-    $style_attribute = sprintf( 'style="background-image: url(%s); background-size: cover; background-position: center;"', esc_url( $background_image_url ) );
-}
-
-// Manually merge the extra classes into the wrapper attributes string
-$wrapper_attributes = str_replace( 'class="', 'class="' . esc_attr( $extra_classes ) . ' ', $wrapper_attributes );
-
+$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-hero' ] );
 ?>
-<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-    <div class="absolute inset-0" <?php echo $style_attribute; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>></div>
-    <div class="relative max-w-4xl mx-auto">
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<section class="scm-wrap scm-hero__text">
+		<h1 class="scm-d scm-h-xl">
+			<span class="scm-line"><?php echo wp_kses_post( $heading_line1 ); ?></span>
+			<?php if ( '' !== trim( wp_strip_all_tags( $heading_highlight ) ) ) : ?>
+				<span class="scm-line scm-gold"><?php echo wp_kses_post( $heading_highlight ); ?></span>
+			<?php endif; ?>
+		</h1>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
-            <?php echo $heading_line1; ?>
-        </h1>
+		<div class="scm-hero__row">
+			<?php if ( ! empty( $paragraph ) ) : ?>
+				<p class="scm-lede"><?php echo wp_kses_post( $paragraph ); ?></p>
+			<?php endif; ?>
 
-        <?php if ( ! empty( $paragraph ) ) : ?>
-            <p class="mt-4 text-lg sm:text-xl text-[#e4d198]/80 max-w-2xl mx-auto">
-                <?php echo $paragraph; ?>
-            </p>
-        <?php endif; ?>
+			<?php if ( ( $button1_text && $button1_link ) || ( $button2_text && $button2_link ) ) : ?>
+				<div class="scm-btns">
+					<?php if ( $button1_text && $button1_link ) : ?>
+						<a class="scm-btn" href="<?php echo esc_url( $button1_link ); ?>"><?php echo wp_kses_post( $button1_text ); ?></a>
+					<?php endif; ?>
+					<?php if ( $button2_text && $button2_link ) : ?>
+						<a class="scm-btn scm-btn--line" href="<?php echo esc_url( $button2_link ); ?>"><?php echo wp_kses_post( $button2_text ); ?></a>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+	</section>
 
-        <div class="mt-8 flex flex-col md:flex-row justify-center gap-4">
-
-            <?php if ( ! empty( $button1_text ) && ! empty( $button1_link ) ) : ?>
-                <a href="<?php echo esc_url( $button1_link ); ?>" class="btn primary wp-block-suburbancm-hero-section-button1">
-                    <?php echo wp_kses_post( $button1_text ); ?>
-                </a>
-            <?php endif; ?>
-
-            <?php if ( ! empty( $button2_text ) && ! empty( $button2_link ) ) : ?>
-                <a href="<?php echo esc_url( $button2_link ); ?>" class="btn secondary wp-block-suburbancm-hero-section-button2 inline-block bg-[#444444] text-[#e4d198] border border-[#80703a] hover:bg-[#555555] px-8 py-3 rounded-md text-lg font-semibold transition duration-200 no-underline">
-                    <?php echo wp_kses_post( $button2_text ); ?>
-                </a>
-            <?php endif; ?>
-        </div>
-
-    </div> 
-</section>
+	<?php if ( $background_image_id || $background_image_url ) : ?>
+		<figure class="scm-photo-band">
+			<?php
+			if ( $background_image_id ) {
+				echo wp_get_attachment_image( $background_image_id, 'full', false, [ 'alt' => $image_alt, 'sizes' => '100vw' ] );
+			} else {
+				printf( '<img src="%s" alt="%s">', esc_url( $background_image_url ), esc_attr( $image_alt ) );
+			}
+			?>
+			<?php if ( $image_caption ) : ?>
+				<figcaption><?php echo esc_html( $image_caption ); ?></figcaption>
+			<?php endif; ?>
+		</figure>
+	<?php endif; ?>
+</div>

@@ -1,3 +1,42 @@
-.suburbancm-services-section {
-	
+.scm-services__head {
+	display: flex;
+	flex-direction: column;
+	gap: clamp(24px, 3vw, 36px);
+	margin-bottom: clamp(40px, 5vw, 72px);
 }
+.scm-services__head .scm-lede { max-width: 640px; }
+.scm-services__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px 40px;
+	padding: 36px 0;
+	border-top: 4px solid var(--scm-ink);
+}
+.scm-services__row:last-child { border-bottom: 4px solid var(--scm-ink); }
+.scm-services__num { flex: 0 0 110px; font-size: 72px; line-height: .8; }
+.scm-services__body { flex: 1 1 420px; min-width: 0; }
+.scm-services__body h3 { margin-bottom: 14px; }
+.scm-services__desc { margin: 0; max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--scm-muted-on-light); }
+.scm-services__features {
+	flex: 1 1 260px;
+	margin: 0; padding: 0; list-style: none;
+	display: flex; flex-direction: column; gap: 10px;
+	font-size: 15px; font-weight: 600;
+}
+.scm-services__features li { padding-bottom: 10px; border-bottom: 1px solid var(--scm-rule-light); }
+.scm-services__features li:last-child { padding-bottom: 0; border-bottom: 0; }
+
+/* Grouped layout (Services page) */
+.scm-services--groups .scm-services__row { gap: 32px clamp(32px, 4vw, 64px); padding: 40px 0 56px; }
+.scm-services--groups .scm-services__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.scm-services__lead { flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.scm-services__title { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; }
+.scm-services--groups .scm-services__num { flex: 0 0 auto; }
+.scm-services__img { height: 280px; background: var(--scm-bone-2); overflow: hidden; }
+.scm-services__img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scm-services__items { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; }
+.scm-services__item { padding: 24px 0; border-bottom: 1px solid var(--scm-rule-light); }
+.scm-services__item:first-child { padding-top: 0; }
+.scm-services__item:last-child { border-bottom: 0; padding-bottom: 0; }
+.scm-services__item h4 { margin: 0 0 8px; font-size: 20px; font-weight: 700; color: var(--scm-ink); text-wrap: balance; }
+.scm-services__item p { margin: 0; font-size: 17px; line-height: 1.6; color: var(--scm-muted-on-light); }

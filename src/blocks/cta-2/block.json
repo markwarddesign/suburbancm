@@ -5,35 +5,35 @@
 	"version": "0.1.0",
 	"title": "CTA Two",
 	"category": "suburban",
-    "icon": "megaphone",
-    "description": "A call-to-action block with two buttons.",
-    "textdomain": "suburbancm",
+	"icon": "megaphone",
+	"description": "Charcoal call-to-action band: headline with an optional gold second line and two buttons.",
+	"textdomain": "suburbancm",
 	"attributes": {
-        "title": {
-            "type": "string",
-            "default": "Have Specific Questions?"
-        },
-        "subtitle": {
-            "type": "string",
-            "default": "Our Team is Here to Help."
-        },
-        "primaryButtonText": {
-            "type": "string",
-            "default": "Contact Us"
-        },
-        "primaryButtonUrl": {
-            "type": "string",
-            "default": "#"
-        },
-        "secondaryButtonText": {
-            "type": "string",
-            "default": "Explore Services"
-        },
-        "secondaryButtonUrl": {
-            "type": "string",
-            "default": "#services-section"
-        }
-    },
+		"title": {
+			"type": "string",
+			"default": "Have Specific Questions?"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "Our Team is Here to Help."
+		},
+		"primaryButtonText": {
+			"type": "string",
+			"default": "Contact Us"
+		},
+		"primaryButtonUrl": {
+			"type": "string",
+			"default": "#"
+		},
+		"secondaryButtonText": {
+			"type": "string",
+			"default": "Explore Services"
+		},
+		"secondaryButtonUrl": {
+			"type": "string",
+			"default": "#services-section"
+		}
+	},
 	"supports": {
 		"html": false,
 		"align": [
@@ -44,6 +44,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

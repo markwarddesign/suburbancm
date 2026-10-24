@@ -6,7 +6,7 @@
   "title": "Bid Header",
   "icon": "admin-site-alt3",
   "category": "suburban",
-  "description": "Project header with editable title and button.",
+  "description": "On a bid: an extra button (the title and due date are already in the page header). On a regular page: a page heading with a breadcrumb and button.",
   "attributes": {
     "title": {
       "type": "string",
@@ -36,6 +36,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
-  "render": "file:./view.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./view.php"
 }

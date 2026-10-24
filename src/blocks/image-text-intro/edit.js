@@ -1,145 +1,95 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, MediaUpload, MediaUploadCheck, RichText } from '@wordpress/block-editor';
-import { Button, Icon } from '@wordpress/components';
-import { image, trash } from '@wordpress/icons';
+import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, SelectControl, TextControl, Button } from '@wordpress/components';
+import { ImageControl, updateItem } from '../_shared/media';
 
-export default function Edit({ attributes, setAttributes }) {
-    const { image: imgUrl, imageAlt, text } = attributes;
+export default function Edit( { attributes, setAttributes } ) {
+	const { title, image, imageAlt, lead, text, chipsLabel, chips = [], chipLinks = [], background } = attributes;
+	const blockProps = useBlockProps( { className: `scm-split scm-bg-${ background }` } );
 
-    const blockProps = useBlockProps({
-        className: 'py-16 lg:py-20 bg-[#ffffff] dark:bg-[#2a2a2a]'
-    });
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Style', 'suburbancm' ) }>
+					<SelectControl
+						label={ __( 'Background', 'suburbancm' ) }
+						value={ background }
+						options={ [
+							{ label: __( 'Light (bone)', 'suburbancm' ), value: 'bone' },
+							{ label: __( 'Charcoal', 'suburbancm' ), value: 'ink' },
+						] }
+						onChange={ ( value ) => setAttributes( { background: value } ) }
+					/>
+					<ImageControl
+						label={ __( 'Image under the heading (optional, e.g. a logo)', 'suburbancm' ) }
+						url={ image }
+						alt={ imageAlt }
+						onChange={ ( { url, alt } ) => setAttributes( { image: url, imageAlt: alt } ) }
+					/>
+				</PanelBody>
+				<PanelBody title={ __( 'Tag chips', 'suburbancm' ) } initialOpen={ false }>
+					<TextControl label={ __( 'Label above the chips', 'suburbancm' ) } value={ chipsLabel } onChange={ ( value ) => setAttributes( { chipsLabel: value } ) } />
+					{ chips.map( ( chip, i ) => (
+						<div key={ i } style={ { borderTop: '1px solid #ddd', paddingTop: 8, marginTop: 8 } }>
+							<TextControl label={ __( 'Chip text', 'suburbancm' ) } value={ chip } onChange={ ( value ) => setAttributes( { chips: updateItem( chips, i, value ) } ) } />
+							<TextControl
+								label={ __( 'Link (optional — linked chips are filled)', 'suburbancm' ) }
+								value={ chipLinks[ i ] || '' }
+								onChange={ ( value ) => {
+									const next = [ ...chipLinks ];
+									next[ i ] = value;
+									setAttributes( { chipLinks: next } );
+								} }
+							/>
+							<Button
+								variant="link"
+								isDestructive
+								onClick={ () =>
+									setAttributes( {
+										chips: chips.filter( ( _, j ) => j !== i ),
+										chipLinks: chipLinks.filter( ( _, j ) => j !== i ),
+									} )
+								}
+							>
+								{ __( 'Remove chip', 'suburbancm' ) }
+							</Button>
+						</div>
+					) ) }
+					<Button variant="secondary" onClick={ () => setAttributes( { chips: [ ...chips, '' ] } ) }>
+						{ __( 'Add chip', 'suburbancm' ) }
+					</Button>
+				</PanelBody>
+			</InspectorControls>
 
-    return (
-        <section id="image-text-intro" {...blockProps}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-on-scroll">
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                    <div
-                        className="md:w-2/5 flex-shrink-0"
-                    >
-                        <MediaUploadCheck>
-                            <MediaUpload
-                                onSelect={(media) => setAttributes({ image: media.url, imageAlt: media.alt || '' })}
-                                allowedTypes={['image']}
-                                value={imgUrl}
-                                render={({ open }) => (
-                                    <div style={{ position: 'relative' }}>
-                                        {imgUrl ? (
-                                            <div style={{ marginBottom: 0, position: 'relative' }}>
-                                                <img
-                                                    src={imgUrl}
-                                                    alt={imageAlt}
-                                                    className="w-full h-auto rounded-xl shadow-lg object-cover"
-                                                    style={{
-                                                        width: '100%',
-                                                        height: 220,
-                                                        objectFit: 'cover',
-                                                        borderRadius: 12,
-                                                        boxShadow: '0 2px 8px 0 rgba(0,0,0,0.18)',
-                                                        margin: '0 auto',
-                                                        display: 'block'
-                                                    }}
-                                                />
-                                                {/* Overlayed image controls */}
-                                                <div style={{
-                                                    position: 'absolute',
-                                                    top: 0,
-                                                    left: 0,
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    gap: 8,
-                                                    pointerEvents: 'none',
-                                                }}>
-                                                    <div style={{ display: 'flex', gap: 8 }}>
-                                                        <Button
-                                                            onClick={open}
-                                                            isSecondary
-                                                            size="small"
-                                                            style={{
-                                                                background: '#000',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                pointerEvents: 'auto',
-                                                                opacity: 0.85,
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                gap: 6,
-                                                            }}
-                                                        >
-                                                            <Icon icon={image} style={{ fill: '#fff', width: 20, height: 20 }} />
-                                                            {__('Replace', 'suburbancm')}
-                                                        </Button>
-                                                        <Button
-                                                            onClick={() => setAttributes({ image: '', imageAlt: '' })}
-                                                            isDestructive
-                                                            size="small"
-                                                            style={{
-                                                                background: '#000',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                pointerEvents: 'auto',
-                                                                opacity: 0.85,
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                gap: 6,
-                                                            }}
-                                                        >
-                                                            <Icon icon={trash} style={{ fill: '#fff', width: 20, height: 20 }} />
-                                                            {__('Remove', 'suburbancm')}
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div style={{
-                                                position: 'relative',
-                                                width: '100%',
-                                                height: 220,
-                                                background: '#232323',
-                                                borderRadius: 12,
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}>
-                                                <Button
-                                                    onClick={open}
-                                                    isSecondary
-                                                    style={{
-                                                        background: '#000',
-                                                        color: '#fff',
-                                                        border: 'none',
-                                                        pointerEvents: 'auto',
-                                                        opacity: 0.85,
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: 6,
-                                                    }}
-                                                >
-                                                    <Icon icon={image} style={{ fill: '#fff', width: 22, height: 22 }} />
-                                                    {__('Add Image', 'suburbancm')}
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            />
-                        </MediaUploadCheck>
-                    </div>
-                    <div className="md:w-3/5 text-center md:text-left">
-                        <RichText
-                            tagName="p"
-                            className="text-xl md:text-2xl text-[#000000] dark:text-[#e4d198] leading-relaxed font-normal"
-                            placeholder={__('Enter intro text…', 'suburbancm')}
-                            value={text}
-                            onChange={(val) => setAttributes({ text: val })}
-                        />
-                        <hr className="mt-8 border-t border-[#a38f50]/30 dark:border-[#e4d198]/30 w-24 mx-auto md:mx-0" />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+			<section { ...blockProps }>
+				<div className="scm-wrap scm-section scm-split__inner">
+					<div className="scm-split__head">
+						<RichText tagName="h2" className="scm-d scm-h-l" value={ title } onChange={ ( value ) => setAttributes( { title: value } ) } placeholder={ __( 'Heading…', 'suburbancm' ) } />
+						{ image && <img className="scm-split__image" src={ image } alt={ imageAlt } /> }
+					</div>
+					<div className="scm-split__body">
+						<RichText tagName="p" className="scm-split__lead" value={ lead } onChange={ ( value ) => setAttributes( { lead: value } ) } placeholder={ __( 'Optional bold lead line…', 'suburbancm' ) } />
+						<RichText
+							tagName="p"
+							value={ text }
+							onChange={ ( value ) => setAttributes( { text: value } ) }
+							placeholder={ __( 'Text… (Shift+Enter twice starts a new paragraph)', 'suburbancm' ) }
+						/>
+						{ chips.length > 0 && (
+							<div className="scm-split__chips">
+								{ chipsLabel && <p className="scm-eyebrow">{ chipsLabel }</p> }
+								<ul>
+									{ chips.map( ( chip, i ) => (
+										<li key={ i }>
+											<span className={ chipLinks[ i ] ? 'is-linked' : undefined }>{ chip }</span>
+										</li>
+									) ) }
+								</ul>
+							</div>
+						) }
+					</div>
+				</div>
+			</section>
+		</>
+	);
 }

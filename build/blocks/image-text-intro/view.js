@@ -1,1 +1,0 @@
-console.log("Hello from suburbancm/image-text-intro view.js!");

@@ -2,10 +2,10 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
   "name": "suburbancm/why-choose-us",
-  "title": "Why Choose Us",
+  "title": "Feature Grid",
   "category": "suburban",
   "icon": "admin-users",
-  "description": "A block to showcase reasons to choose your services with a title, description, features, and a call-to-action button.",
+  "description": "Section heading with a short intro or link, then a grid of points, each under a gold rule. Charcoal or light.",
   "textdomain": "suburbancm",
   "attributes": {
     "title": {
@@ -26,20 +26,15 @@
     },
     "items": {
       "type": "array",
-      "query": {
-        "icon": {
-          "type": "string",
-          "default": "fa-star"
-        },
-        "title": {
-          "type": "string",
-          "default": "Expertise"
-        },
-        "description": {
-          "type": "string",
-          "default": "Our team brings years of experience and knowledge to every project."
-        }
-      }
+      "default": []
+    },
+    "background": {
+      "type": "string",
+      "default": "ink",
+      "enum": [
+        "ink",
+        "bone"
+      ]
     }
   },
   "example": {

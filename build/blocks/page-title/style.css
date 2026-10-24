@@ -1,3 +1,23 @@
-.suburbancm-page-title {
-	/* Custom styles go here */
+.scm-page-title__text {
+	padding-top: clamp(56px, 8vw, 120px);
+	padding-bottom: clamp(40px, 5vw, 64px);
 }
+.scm-page-title.scm-bg-gold .scm-page-title__text { padding-bottom: clamp(56px, 7vw, 104px); }
+.scm-page-title__highlight,
+.scm-page-title h1 span span { display: block; color: var(--scm-gold); }
+.scm-page-title.scm-bg-gold .scm-page-title__highlight { color: var(--scm-ink); }
+.scm-page-title__tagline {
+	margin-top: clamp(20px, 2.4vw, 32px);
+	font-size: clamp(min(28px, calc((100vw - 48px) / 7)), 3.4vw, 52px);
+	line-height: 1;
+	color: var(--scm-gold);
+}
+.scm-page-title__row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	gap: 32px;
+	margin-top: clamp(28px, 3.4vw, 48px);
+}
+.scm-page-title__row .scm-lede { max-width: 760px; }

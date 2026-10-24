@@ -2,135 +2,73 @@ import { __ } from '@wordpress/i18n';
 import { RichText, MediaUpload, useBlockProps } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 
-const Edit = ({ attributes, setAttributes }) => {
-    const { title, testimonials } = attributes;
+const Edit = ( { attributes, setAttributes } ) => {
+	const { title, testimonials = [] } = attributes;
 
-    const blockProps = useBlockProps({
-        className: 'suburbancm-testimonials relative z-1 w-full flex flex-col items-center justify-center text-center py-20 px-4 sm:px-6 lg:px-8 z-10 bg-[#f6f5ec] text-[#000000] dark:bg-[#1f1f1f] dark:text-[#e4d198] antialiased',
-    });
+	const blockProps = useBlockProps( { className: 'scm-quotes scm-bg-ink-2' } );
 
-    const updateTestimonial = (index, key, value) => {
-        const updatedTestimonials = [...testimonials];
-        updatedTestimonials[index][key] = value;
-        setAttributes({ testimonials: updatedTestimonials });
-    };
+	const update = ( index, key, value ) =>
+		setAttributes( { testimonials: testimonials.map( ( t, i ) => ( i === index ? { ...t, [ key ]: value } : t ) ) } );
+	const add = () =>
+		setAttributes( { testimonials: [ ...testimonials, { image: '', alt: '', quote: '', name: '', role: '' } ] } );
+	const remove = ( index ) => setAttributes( { testimonials: testimonials.filter( ( _, i ) => i !== index ) } );
 
-    const addTestimonial = () => {
-        setAttributes({
-            testimonials: [
-                ...testimonials,
-                {
-                    image: '',
-                    alt: '',
-                    quote: '',
-                    name: '',
-                    role: '',
-                },
-            ],
-        });
-    };
-
-    const removeTestimonial = (index) => {
-        const updatedTestimonials = [...testimonials];
-        updatedTestimonials.splice(index, 1);
-        setAttributes({ testimonials: updatedTestimonials });
-    };
-
-    return (
-        <section {...blockProps}>
-            <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <h2 className='text-3xl font-bold text-center text-white'>
-                    <RichText
-                        tagName="span"
-                        className=""
-                        placeholder={__('Enter title…', 'suburbancm')}
-                        value={title}
-                        onChange={(newTitle) => setAttributes({ title: newTitle })}
-                    />
-                </h2>
-                
-                <div className="space-y-8 mt-12">
-                    {testimonials.map((testimonial, index) => (
-                        <div
-                            key={index}
-                            className="testimony relative group bg-[#ffffff] dark:bg-[#2a2a2a] p-6 rounded-lg shadow-md text-center"
-                        >
-                            {/* Hover Controls */}
-                            <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                <MediaUpload
-                                    onSelect={(media) =>
-                                        updateTestimonial(index, 'image', media.url)
-                                    }
-                                    allowedTypes={['image']}
-                                    render={({ open }) => (
-                                        <Button
-                                            icon="format-image"
-                                            label={__('Select Image', 'suburbancm')}
-                                            onClick={open}
-                                            className="text-white bg-[#a38f50] hover:bg-[#80703a] dark:bg-[#e4d198] dark:hover:bg-[#a38f50] rounded-full p-2"
-                                        />
-                                    )}
-                                />
-                                <Button
-                                    icon="trash"
-                                    label={__('Remove Testimonial', 'suburbancm')}
-                                    onClick={() => removeTestimonial(index)}
-                                    className="text-white bg-red-500 hover:bg-red-600 rounded-full p-2"
-                                />
-                            </div>
-
-                            {/* Testimonial Content */}
-                            {testimonial.image && (
-                                <img
-                                    src={testimonial.image}
-                                    alt={testimonial.alt}
-                                    className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-[#a38f50] dark:border-[#e4d198] overflow-hidden"
-									style={ {
-										aspectRatio: '1 / 1',
-										borderRadius: '50%',
-										border: '2px solid #a38f50',
-										overflow: 'hidden',
-										objectFit: 'cover',
-									}
-									}
-                                />
-                            )}
-                            <RichText
-                                tagName="blockquote"
-                                className="text-[#80703a] dark:text-[#e4d198]/80 italic mb-4"
-                                placeholder={__('Enter quote…', 'suburbancm')}
-                                value={testimonial.quote}
-                                onChange={(newQuote) =>
-                                    updateTestimonial(index, 'quote', newQuote)
-                                }
-                            />
-                            <RichText
-                                tagName="p"
-                                className="font-semibold text-[#000000] dark:text-[#ffffff]"
-                                placeholder={__('Enter name…', 'suburbancm')}
-                                value={testimonial.name}
-                                onChange={(newName) =>
-                                    updateTestimonial(index, 'name', newName)
-                                }
-                            />
-                            <RichText
-                                tagName="p"
-                                className="text-sm text-[#80703a] dark:text-[#e4d198]/70"
-                                placeholder={__('Enter role…', 'suburbancm')}
-                                value={testimonial.role}
-                                onChange={(newRole) =>
-                                    updateTestimonial(index, 'role', newRole)
-                                }
-                            />
-                        </div>
-                    ))}
-                    <Button isPrimary onClick={addTestimonial} className="mt-4">
-                        {__('Add Testimonial', 'suburbancm')}
-                    </Button>
-                </div>
-            </div>
-        </section>
-    );
+	return (
+		<section { ...blockProps }>
+			<div className="scm-wrap scm-section">
+				<RichText
+					tagName="h2"
+					className="scm-eyebrow scm-gold scm-quotes__title"
+					placeholder={ __( 'Optional small label, e.g. Client testimonials', 'suburbancm' ) }
+					value={ title }
+					onChange={ ( value ) => setAttributes( { title: value } ) }
+				/>
+				{ testimonials.map( ( testimonial, index ) => (
+					<figure key={ index } className="scm-quote">
+						<div className="scm-d scm-quote__mark">“</div>
+						<div className="scm-quote__body">
+							<RichText
+								tagName="blockquote"
+								placeholder={ __( 'Quote…', 'suburbancm' ) }
+								value={ testimonial.quote }
+								onChange={ ( value ) => update( index, 'quote', value ) }
+							/>
+							<figcaption>
+								{ testimonial.image && <img src={ testimonial.image } alt={ testimonial.alt } /> }
+								<RichText
+									tagName="span"
+									className="scm-quote__name"
+									placeholder={ __( 'Name', 'suburbancm' ) }
+									value={ testimonial.name }
+									onChange={ ( value ) => update( index, 'name', value ) }
+								/>
+								<RichText
+									tagName="span"
+									className="scm-quote__role"
+									placeholder={ __( 'Role, company', 'suburbancm' ) }
+									value={ testimonial.role }
+									onChange={ ( value ) => update( index, 'role', value ) }
+								/>
+								<MediaUpload
+									onSelect={ ( media ) => update( index, 'image', media.url ) }
+									allowedTypes={ [ 'image' ] }
+									render={ ( { open } ) => (
+										<Button size="small" variant="secondary" onClick={ open }>
+											{ testimonial.image ? __( 'Change photo', 'suburbancm' ) : __( 'Add photo (optional)', 'suburbancm' ) }
+										</Button>
+									) }
+								/>
+								<Button size="small" isDestructive icon="trash" label={ __( 'Remove testimonial', 'suburbancm' ) } onClick={ () => remove( index ) } />
+							</figcaption>
+						</div>
+					</figure>
+				) ) }
+				<Button variant="primary" onClick={ add } style={ { marginTop: 24 } }>
+					{ __( 'Add testimonial', 'suburbancm' ) }
+				</Button>
+			</div>
+		</section>
+	);
 };
 
 export default Edit;

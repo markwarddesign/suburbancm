@@ -1,165 +1,51 @@
 import { __ } from '@wordpress/i18n';
-import { RichText, useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck, URLInput, LinkControl } from '@wordpress/block-editor';
-import { Button, TextControl, ToggleControl, PanelBody, Popover } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { RichText, useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
+import { ImageControl } from '../_shared/media';
 
 /**
- * suburbancm/mission Gutenberg block
+ * suburbancm/mission editor view — mirrors view.php.
  *
  * @param {Object} props props
  * @return {Object} JSX
  */
-const Edit = (props) => {
-    const { attributes, setAttributes } = props;
-    const { title, description, buttonText, buttonUrl, imageUrl, imageAlt, rowReverse } = attributes;
+const Edit = ( { attributes, setAttributes } ) => {
+	const { title, quote, description, buttonText, buttonUrl, imageUrl, imageAlt, rowReverse } = attributes;
+	const blockProps = useBlockProps( { className: `scm-mission scm-bg-gold${ imageUrl ? ' has-image' : '' }${ rowReverse ? ' is-reversed' : '' }` } );
 
-    const [isLinkPopoverOpen, setIsLinkPopoverOpen] = useState(false);
-
-    const blockProps = useBlockProps({
-        className: 'suburbancm-mission py-16 lg:py-24',
-    });
-
-    return (
-        <>
-            <InspectorControls>
-                <PanelBody title={__('Mission Block Settings', 'suburbancm')} initialOpen={true}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-                        <MediaUpload
-                            onSelect={(media) => setAttributes({ imageUrl: media.url, imageAlt: media.alt })}
-                            allowedTypes={['image']}
-                            value={imageUrl}
-                            render={({ open }) => (
-                                <div>
-                                    <Button onClick={open} variant="primary">
-                                        {imageUrl ? __('Replace Image', 'suburbancm') : __('Select Image', 'suburbancm')}
-                                    </Button>
-                                    {imageUrl && (
-                                        <img
-                                            src={imageUrl}
-                                            alt={imageAlt || __('Selected image', 'suburbancm')}
-                                            className="rounded-lg shadow-md w-full object-cover mt-4"
-                                            style={{ marginTop: 12 }}
-                                        />
-                                    )}
-                                </div>
-                            )}
-                        />
-                        <TextControl
-                            label={__('Image Alt Text', 'suburbancm')}
-                            value={imageAlt}
-                            onChange={(newAlt) => setAttributes({ imageAlt: newAlt })}
-                            placeholder={__('Enter image alt text…', 'suburbancm')}
-                        />
-                        <ToggleControl
-                            label={__('Reverse Row on Desktop', 'suburbancm')}
-                            checked={!!rowReverse}
-                            onChange={(val) => setAttributes({ rowReverse: val })}
-                            help={__('Reverse the order of text and image on desktop (mobile order stays the same).', 'suburbancm')}
-                        />
-                    </div>
-                </PanelBody>
-            </InspectorControls>
-            <section {...blockProps}>
-                <div className={
-                    `max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-center` +
-                    (rowReverse ? ' md:flex-row-reverse' : '')
-                }>
-                    <div className="relative w-full">
-                        <RichText
-                            tagName="h2"
-                            className="text-3xl font-extrabold text-brand-text-light dark:text-white sm:text-4xl mb-4"
-                            placeholder={__('Title here…', 'suburbancm')}
-                            value={title}
-                            onChange={(newTitle) => setAttributes({ title: newTitle })}
-                        />
-                        <RichText
-                            tagName="p"
-                            className="text-light-gold text-lg mb-6"
-                            placeholder={__('Description here…', 'suburbancm')}
-                            value={description}
-                            onChange={(newDescription) => setAttributes({ description: newDescription })}
-                        />
-                        <div style={{ display: 'inline-block', position: 'relative' }}>
-                            <Button
-                                className="btn primary"
-                                href={buttonUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setIsLinkPopoverOpen((open) => !open);
-                                }}
-                            >
-                                {buttonText || __('Learn More', 'suburbancm')}
-                            </Button>
-                            {isLinkPopoverOpen && (
-                                <div style={{ position: 'absolute', left: 0, top: '100%', zIndex: 1000, minWidth: 320 }}>
-                                    <Popover
-                                        placement="bottom-start"
-                                        onClose={() => setIsLinkPopoverOpen(false)}
-                                        focusOnMount={false}
-                                        anchorRef={null}
-                                        // The anchorRef is null so Popover will use the parent div as anchor
-                                    >
-                                        <div style={{ minWidth: 280, padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                                            <TextControl
-                                                label={__('Button Text', 'suburbancm')}
-                                                value={buttonText}
-                                                onChange={(newText) => setAttributes({ buttonText: newText })}
-                                                placeholder={__('Enter button text…', 'suburbancm')}
-                                                autoFocus
-                                            />
-                                            <LinkControl
-                                                value={{
-                                                    url: buttonUrl || '',
-                                                    title: buttonText || '',
-                                                }}
-                                                onChange={({ url }) => setAttributes({ buttonUrl: url })}
-                                                showSuggestions
-                                                withCreateSuggestion
-                                                forceIsEditingLink
-                                            />
-                                            <Button
-                                                variant="primary"
-                                                onClick={() => setIsLinkPopoverOpen(false)}
-                                                style={{ marginTop: 8 }}
-                                            >
-                                                {__('Done', 'suburbancm')}
-                                            </Button>
-                                        </div>
-                                    </Popover>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                    <div className="relative w-full">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#a38f50] to-[#80703a] opacity-50 rounded-lg">
-                            <MediaUploadCheck>
-                                <MediaUpload
-                                    onSelect={(media) => setAttributes({ imageUrl: media.url })}
-                                    allowedTypes={['image']}
-                                    render={({ open }) => (
-                                        <Button
-                                            className="absolute inset-0 w-full h-full bg-gray-200 flex items-center justify-center"
-                                            onClick={open}
-                                        >
-                                            {__('Select Image', 'suburbancm')}
-                                        </Button>
-                                    )}
-                                />
-                            </MediaUploadCheck>
-                        </div>
-                        <img
-                            src={imageUrl || 'https://fakeimg.pl/600x400/cccccc/909090?text=Team+Working'}
-                            alt={imageAlt || __('Team collaborating on blueprints', 'suburbancm')}
-                            className="rounded-lg shadow-md w-full object-cover"
-                        />
-                    </div>
-                </div>
-            </section>
-        </>
-    );
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Button and photo', 'suburbancm' ) }>
+					<TextControl label={ __( 'Button link', 'suburbancm' ) } value={ buttonUrl } onChange={ ( value ) => setAttributes( { buttonUrl: value } ) } />
+					<ImageControl
+						label={ __( 'Photo (optional)', 'suburbancm' ) }
+						url={ imageUrl }
+						alt={ imageAlt }
+						onChange={ ( { url, alt } ) => setAttributes( { imageUrl: url, imageAlt: alt } ) }
+					/>
+					{ imageUrl && (
+						<ToggleControl label={ __( 'Photo on the left', 'suburbancm' ) } checked={ !! rowReverse } onChange={ ( value ) => setAttributes( { rowReverse: value } ) } />
+					) }
+				</PanelBody>
+			</InspectorControls>
+			<section { ...blockProps }>
+				<div className="scm-wrap scm-section scm-mission__inner">
+					<div className="scm-mission__text">
+						<RichText tagName="p" className="scm-eyebrow" value={ title } onChange={ ( value ) => setAttributes( { title: value } ) } placeholder={ __( 'Label, e.g. Our mission', 'suburbancm' ) } />
+						<RichText tagName="blockquote" className="scm-d scm-mission__quote" value={ quote } onChange={ ( value ) => setAttributes( { quote: value } ) } placeholder={ __( 'The mission, as a big statement…', 'suburbancm' ) } />
+						<RichText tagName="p" className="scm-lede" value={ description } onChange={ ( value ) => setAttributes( { description: value } ) } placeholder={ __( 'Supporting paragraph…', 'suburbancm' ) } />
+						<RichText tagName="span" className="scm-btn scm-btn--ink" value={ buttonText } onChange={ ( value ) => setAttributes( { buttonText: value } ) } placeholder={ __( 'Optional button', 'suburbancm' ) } allowedFormats={ [] } />
+					</div>
+					{ imageUrl && (
+						<div className="scm-mission__image">
+							<img src={ imageUrl } alt={ imageAlt } />
+						</div>
+					) }
+				</div>
+			</section>
+		</>
+	);
 };
 
 export default Edit;

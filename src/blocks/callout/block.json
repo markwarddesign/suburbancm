@@ -3,36 +3,44 @@
 	"apiVersion": 3,
 	"name": "suburbancm/callout",
 	"version": "0.1.0",
-	"title": "Callout",
+	"title": "Safety Callout",
 	"category": "suburban",
 	"icon": "shield",
-	"description": "A highlighted callout block for safety or other key messages.",
+	"description": "Gold band: headline, paragraph, a bold closing line and button on the left; a heavy-ruled list on the right.",
 	"attributes": {
 		"icon": {
 			"type": "string",
 			"default": "fa-shield-alt"
 		},
 		"title": {
-		"type": "string",
-		"default": "Safety: Our Unwavering Commitment"
+			"type": "string",
+			"default": "Safety: Our Unwavering Commitment"
 		},
 		"description": {
-		"type": "string",
-		"default": "At SuburbanCM, safety is paramount. It's a non-negotiable core value integrated into every phase of our work. We are dedicated to creating and maintaining the safest possible environments for our team, subcontractors, clients, and the communities we serve."
+			"type": "string",
+			"default": "At SuburbanCM, safety is paramount. It's a non-negotiable core value integrated into every phase of our work. We are dedicated to creating and maintaining the safest possible environments for our team, subcontractors, clients, and the communities we serve."
 		},
 		"list": {
-		"type": "array",
-		"default": [
-			"Rigorous adherence to all OSHA standards and local safety regulations.",
-			"Continuous safety training, certifications, and toolbox talks for all personnel.",
-			"Development and implementation of site-specific safety plans tailored to each project.",
-			"Proactive hazard identification, risk assessment, and regular safety audits.",
-			"Fostering a culture where every individual is empowered and responsible for safety."
-		]
+			"type": "array",
+			"default": [
+				"Rigorous adherence to all OSHA standards and local safety regulations.",
+				"Continuous safety training, certifications, and toolbox talks for all personnel.",
+				"Development and implementation of site-specific safety plans tailored to each project.",
+				"Proactive hazard identification, risk assessment, and regular safety audits.",
+				"Fostering a culture where every individual is empowered and responsible for safety."
+			]
 		},
 		"afterText": {
-		"type": "string",
-		"default": "Our goal is zero incidents. We firmly believe that a safe project is fundamental to a successful project."
+			"type": "string",
+			"default": "Our goal is zero incidents. We firmly believe that a safe project is fundamental to a successful project."
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Report a safety concern \u2192"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": "/safety-report/"
 		}
 	},
 	"supports": {
@@ -46,6 +54,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

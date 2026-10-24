@@ -27,7 +27,8 @@ while ( have_posts() ) :
 				<p class="scm-lede"><?php echo esc_html( get_the_excerpt() ); ?></p>
 			<?php endif; ?>
 			<p class="scm-post-meta">
-				<?php if ( get_the_author() ) : ?>
+				<?php // A bare username ("adipietro") reads badly as a byline; show it only once the profile has a real name. ?>
+				<?php if ( str_contains( trim( (string) get_the_author() ), ' ' ) ) : ?>
 					<?php
 					/* translators: %s: author name */
 					printf( esc_html__( 'By %s', 'suburbancm' ), esc_html( get_the_author() ) );

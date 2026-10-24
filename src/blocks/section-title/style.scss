@@ -1,3 +1,20 @@
-.suburbancm-section-title {
-	/* Custom styles go here */
+.scm-section-title {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	max-width: 980px;
+	margin: 0 auto clamp(40px, 5vw, 64px);
+	padding: 0 var(--scm-gutter);
+	box-sizing: border-box;
+}
+.scm-section-title.is-left { margin-left: 0; align-items: flex-start; text-align: left; }
+.scm-section-title.is-center { align-items: center; text-align: center; }
+.scm-section-title.is-right { margin-right: 0; align-items: flex-end; text-align: right; }
+.scm-section-title__text {
+	margin: 0;
+	max-width: 680px;
+	font-size: clamp(17px, 1.4vw, 20px);
+	line-height: 1.55;
+	color: inherit;
+	opacity: .8;
 }

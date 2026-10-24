@@ -6,7 +6,7 @@
   "title": "Section Title",
   "category": "suburban",
   "icon": "editor-textcolor",
-  "description": "A heading (h1-h5) with an optional description.",
+  "description": "A big condensed heading with an optional intro line. Inherits the colour of the section it sits in.",
   "keywords": [
     "heading",
     "title",
@@ -42,6 +42,5 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style.css",
-  "render": "file:./view.php",
-  "viewScript": "file:./view.js"
+  "render": "file:./view.php"
 }

@@ -1,30 +1,27 @@
 <?php
-$title = $attributes['title'] ?? '';
-$description = $attributes['description'] ?? '';
-$level = isset($attributes['level']) ? intval($attributes['level']) : 2;
-$level = ($level >= 1 && $level <= 5) ? $level : 2;
-$align = $attributes['align'] ?? 'center';
-$HeadingTag = "h{$level}";
-$hideTitle = $attributes['hideTitle'] ?? false;
+/**
+ * Section Title — big condensed heading and optional intro line, in the colours of its section.
+ *
+ * @package suburbancm
+ */
 
-// Tailwind alignment class
-$alignClass = '';
-if (in_array($align, ['left', 'center', 'right', 'justify'])) {
-    $alignClass = 'text-' . $align;
+$title       = $attributes['title'] ?? '';
+$description = $attributes['description'] ?? '';
+$level       = (int) ( $attributes['level'] ?? 2 );
+$level       = ( $level >= 1 && $level <= 5 ) ? $level : 2;
+$align       = in_array( $attributes['align'] ?? 'center', [ 'left', 'center', 'right' ], true ) ? $attributes['align'] : 'center';
+$tag         = 'h' . $level;
+$size        = $level <= 2 ? 'scm-h-l' : 'scm-h-m';
+
+if ( ! $title && ! $description ) {
+	return;
 }
 ?>
-
-<div class="suburbancm-section-title mb-12 lg:mb-16">
-    <div class="suburbancm-section-title__content max-w-3xl mx-auto">
-        <?php if ($title) : ?>
-            <<?php echo esc_attr($HeadingTag); ?> class="suburbancm-section-title__title <?php echo esc_attr($alignClass); ?> text-[#e4d198]">
-                <?php echo wp_kses_post($title); ?>
-            </<?php echo esc_attr($HeadingTag); ?>>
-        <?php endif; ?>
-        <?php if ($description) : ?>
-            <p class="suburbancm-section-title__description <?php echo esc_attr($alignClass); ?> text-[#cccccc]">
-                <?php echo wp_kses_post($description); ?>
-            </p>
-        <?php endif; ?>
-    </div>
+<div <?php echo get_block_wrapper_attributes( [ 'class' => 'scm-section-title is-' . $align ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<?php if ( $title ) : ?>
+		<<?php echo esc_attr( $tag ); ?> class="scm-d <?php echo esc_attr( $size ); ?>"><?php echo wp_kses_post( $title ); ?></<?php echo esc_attr( $tag ); ?>>
+	<?php endif; ?>
+	<?php if ( $description ) : ?>
+		<p class="scm-section-title__text"><?php echo wp_kses_post( $description ); ?></p>
+	<?php endif; ?>
 </div>

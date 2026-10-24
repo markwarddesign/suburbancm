@@ -6,20 +6,25 @@
 	"title": "Section Title",
 	"category": "suburban",
 	"icon": "editor-textcolor",
-	"description": "A heading (h1-h5) with an optional description.",
-	"keywords": ["heading", "title", "section", "description"],
+	"description": "A big condensed heading with an optional intro line. Inherits the colour of the section it sits in.",
+	"keywords": [
+		"heading",
+		"title",
+		"section",
+		"description"
+	],
 	"attributes": {
 		"title": {
-		"type": "string",
-		"default": ""
+			"type": "string",
+			"default": ""
 		},
 		"description": {
-		"type": "string",
-		"default": ""
+			"type": "string",
+			"default": ""
 		},
 		"level": {
-		"type": "number",
-		"default": 2
+			"type": "number",
+			"default": 2
 		},
 		"align": {
 			"type": "string",
@@ -37,6 +42,5 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
-	"render": "file:./view.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./view.php"
 }

@@ -4,7 +4,9 @@
 }
 .scm-page-title.scm-bg-gold .scm-page-title__text { padding-bottom: clamp(56px, 7vw, 104px); }
 .scm-page-title__highlight,
-.scm-page-title h1 span span { display: block; color: var(--scm-gold); }
+.scm-page-title h1 span span,
+.scm-page-title h1 mark { display: block; color: var(--scm-gold); background: none; }
+.scm-page-title h1 br { display: none; }
 .scm-page-title.scm-bg-gold .scm-page-title__highlight { color: var(--scm-ink); }
 .scm-page-title__tagline {
 	margin-top: clamp(20px, 2.4vw, 32px);

@@ -12,33 +12,38 @@
             "defaultDuotone": false,
             "palette": [
                 {
-                    "color": "#1f1f1f",
-                    "name": "Dark Gray",
+                    "color": "#161513",
+                    "name": "Charcoal",
                     "slug": "dark-gray"
                 },
                 {
-                    "color": "#2a2a2a",
-                    "name": "Medium Gray",
+                    "color": "#22201c",
+                    "name": "Charcoal (raised)",
                     "slug": "medium-gray"
                 },
                 {
-                    "color": "#e4d198",
+                    "color": "#e5c15a",
                     "name": "Gold",
                     "slug": "gold"
                 },
                 {
-                    "color": "#80703a",
-                    "name": "Dark Gold",
+                    "color": "#7a5c12",
+                    "name": "Dark gold (text on light)",
                     "slug": "dark-gold"
                 },
                 {
-                    "color": "#a38f50",
-                    "name": "Medium Gold",
+                    "color": "#d8d3c6",
+                    "name": "Bone (dark)",
+                    "slug": "bone-2"
+                },
+                {
+                    "color": "#e5c15a",
+                    "name": "Gold (legacy)",
                     "slug": "medium-gold"
                 },
                 {
-                    "color": "#f6f5ec",
-                    "name": "Light Gold",
+                    "color": "#efece4",
+                    "name": "Bone",
                     "slug": "light-gold"
                 },
                 {
@@ -65,37 +70,84 @@
         "typography": {
             "fontFamilies": [
                 {
-                    "fontFamily": "'Inter', sans-serif",
+                    "fontFamily": "'Archivo', system-ui, sans-serif",
+                    "name": "Archivo (display)",
+                    "slug": "archivo"
+                },
+                {
+                    "fontFamily": "'Inter', system-ui, sans-serif",
                     "name": "Inter",
-                    "slug": "inter",
-                    "fontFace": [
-                        {
-                            "fontFamily": "Inter",
-                            "fontWeight": "100 900",
-                            "fontStyle": "normal",
-                            "fontDisplay": "swap",
-                            "src": [ "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" ]
-                        }
-                    ]
+                    "slug": "inter"
                 }
             ],
             "fluid": true,
             "fontSizes": [
-                { "slug": "xs", "size": "0.75rem", "name": "Extra Small" },
-                { "slug": "sm", "size": "0.875rem", "name": "Small" },
-                { "slug": "base", "size": "1rem", "name": "Base" },
-                { "slug": "lg", "size": "1.125rem", "name": "Large" },
-                { "slug": "xl", "size": "1.25rem", "name": "XL" },
-                { "slug": "2xl", "size": "1.5rem", "name": "2XL" },
-                { "slug": "3xl", "size": "1.875rem", "name": "3XL" },
-                { "slug": "4xl", "size": "2.25rem", "name": "4XL" },
-                { "slug": "5xl", "size": "3rem", "name": "5XL" },
-                { "slug": "6xl", "size": "3.75rem", "name": "6XL" },
-                { "slug": "7xl", "size": "4.5rem", "name": "7XL" }
+                {
+                    "slug": "xs",
+                    "size": "0.75rem",
+                    "name": "Extra Small"
+                },
+                {
+                    "slug": "sm",
+                    "size": "0.875rem",
+                    "name": "Small"
+                },
+                {
+                    "slug": "base",
+                    "size": "1rem",
+                    "name": "Base"
+                },
+                {
+                    "slug": "lg",
+                    "size": "1.125rem",
+                    "name": "Large"
+                },
+                {
+                    "slug": "xl",
+                    "size": "1.25rem",
+                    "name": "XL"
+                },
+                {
+                    "slug": "2xl",
+                    "size": "1.5rem",
+                    "name": "2XL"
+                },
+                {
+                    "slug": "3xl",
+                    "size": "1.875rem",
+                    "name": "3XL"
+                },
+                {
+                    "slug": "4xl",
+                    "size": "2.25rem",
+                    "name": "4XL"
+                },
+                {
+                    "slug": "5xl",
+                    "size": "3rem",
+                    "name": "5XL"
+                },
+                {
+                    "slug": "6xl",
+                    "size": "3.75rem",
+                    "name": "6XL"
+                },
+                {
+                    "slug": "7xl",
+                    "size": "4.5rem",
+                    "name": "7XL"
+                }
             ]
         },
         "spacing": {
-            "units": [ "%", "px", "em", "rem", "vh", "vw" ],
+            "units": [
+                "%",
+                "px",
+                "em",
+                "rem",
+                "vh",
+                "vw"
+            ],
             "spacingScale": {
                 "steps": 20
             },
@@ -105,7 +157,10 @@
             "core/button": {
                 "spacing": {
                     "padding": {
-                        "top": "0.75rem", "bottom": "0.75rem", "left": "2rem", "right": "2rem"
+                        "top": "0.75rem",
+                        "bottom": "0.75rem",
+                        "left": "2rem",
+                        "right": "2rem"
                     }
                 },
                 "border": {
@@ -125,8 +180,14 @@
         },
         "elements": {
             "link": {
-                "color": { "text": "var(--wp--preset--color--medium-gold)" },
-                ":hover": { "color": { "text": "var(--wp--preset--color--dark-gold)" } }
+                "color": {
+                    "text": "inherit"
+                },
+                ":hover": {
+                    "color": {
+                        "text": "inherit"
+                    }
+                }
             }
         }
     }

@@ -233,3 +233,46 @@
 .scm-due.is-past .scm-due__date { color: var(--scm-muted-on-dark); text-decoration: line-through; }
 .scm-bid-page__dates { margin: 0; font-size: 14px; color: var(--scm-muted-on-dark); }
 .scm-bid-page__content { border-top: 6px solid var(--scm-gold); }
+
+/* Editor palette colours inside the new design
+   Text coloured "Gold" in the editor would vanish on gold or light sections — it takes the section's text colour there. */
+.scm :is(.scm-bg-gold, .scm-bg-bone, .scm-entry--bone, .scm-prose, .has-gold-background-color, .has-light-gold-background-color, .has-bone-2-background-color, .has-white-background-color) .has-gold-color { color: inherit !important; }
+.scm .has-light-gold-background-color:not(.has-text-color),
+.scm .has-bone-2-background-color:not(.has-text-color),
+.scm .has-white-background-color:not(.has-text-color),
+.scm .has-gold-background-color:not(.has-text-color) { color: var(--scm-ink); }
+.scm mark.has-inline-color { background: none; }
+
+/* WPForms anywhere on the site (Contact, Safety, bidder sign-up), whatever its block settings */
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-label,
+.scm div.wpforms-container-full .wpforms-form legend.wpforms-field-label { color: inherit; font-size: 14px; font-weight: 700; }
+.scm div.wpforms-container-full .wpforms-form .wpforms-field-sublabel { color: inherit; opacity: .75; font-size: 13px; font-weight: 600; }
+.scm div.wpforms-container-full .wpforms-form .wpforms-required-label { color: inherit; }
+.scm div.wpforms-container-full .wpforms-form input[type="text"],
+.scm div.wpforms-container-full .wpforms-form input[type="email"],
+.scm div.wpforms-container-full .wpforms-form input[type="tel"],
+.scm div.wpforms-container-full .wpforms-form input[type="url"],
+.scm div.wpforms-container-full .wpforms-form input[type="number"],
+.scm div.wpforms-container-full .wpforms-form select,
+.scm div.wpforms-container-full .wpforms-form textarea {
+  min-height: 52px; padding: 14px 16px;
+  font-size: 17px; color: var(--scm-ink); background: #fff;
+  border: 2px solid var(--scm-ink); border-radius: 0; box-shadow: none;
+}
+.scm div.wpforms-container-full .wpforms-form textarea { min-height: 160px; }
+.scm div.wpforms-container-full .wpforms-form input:focus-visible,
+.scm div.wpforms-container-full .wpforms-form select:focus-visible,
+.scm div.wpforms-container-full .wpforms-form textarea:focus-visible { outline: 3px solid var(--scm-gold); outline-offset: 2px; box-shadow: none; }
+.scm div.wpforms-container-full .wpforms-form button[type="submit"],
+.scm div.wpforms-container-full .wpforms-form .wpforms-submit {
+  min-height: 56px; padding: 18px 32px; height: auto;
+  font-size: 16px; font-weight: 700;
+  color: var(--scm-ink); background: var(--scm-gold);
+  border: 0; border-radius: 0; box-shadow: none;
+}
+/* Light sections: charcoal button with gold text, like the rest of the light-background buttons */
+.scm :is(.scm-bg-bone, .scm-form-panel, .has-light-gold-background-color, .has-white-background-color) div.wpforms-container-full .wpforms-form .wpforms-submit { color: var(--scm-gold); background: var(--scm-ink); }
+.scm div.wpforms-container-full .wpforms-form noscript.wpforms-error-noscript { color: inherit; }
+.scm div.wpforms-container-full .wpforms-form label.wpforms-error,
+.scm div.wpforms-container-full .wpforms-form em.wpforms-error { color: #ff8a73; font-weight: 600; }
+.scm :is(.scm-bg-bone, .scm-form-panel) div.wpforms-container-full .wpforms-form label.wpforms-error { color: #a1260d; }

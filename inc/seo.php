@@ -104,6 +104,14 @@ function suburbancm_archive_seo() {
 			__( 'Open bid packages from SuburbanCM in Twin Falls, Idaho. Review scopes, download plans and specs, and submit your bid for current projects.', 'suburbancm' ),
 		];
 	}
+	if ( is_category() ) {
+		$term = get_queried_object();
+		return [
+			/* translators: 1: category name, 2: site name */
+			sprintf( __( '%1$s | %2$s', 'suburbancm' ), $term->name, $brand ),
+			$term->description ? wp_trim_words( wp_strip_all_tags( $term->description ), 30, '…' ) : null,
+		];
+	}
 	if ( is_tax( 'project_type' ) || is_tax( 'services' ) ) {
 		$term = get_queried_object();
 
@@ -151,7 +159,7 @@ function suburbancm_seo_title( $title ) {
 	if ( null === $archive_title ) {
 		return $title;
 	}
-	if ( is_tax() ) {
+	if ( is_tax() || is_category() ) {
 		$custom = class_exists( 'WPSEO_Taxonomy_Meta' ) ? WPSEO_Taxonomy_Meta::get_meta_without_term( 'title' ) : '';
 		if ( $custom ) {
 			return $title;

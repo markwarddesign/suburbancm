@@ -33,7 +33,9 @@ body.scm {
   text-transform: uppercase;
   line-height: .88;
   letter-spacing: -.005em;
-  overflow-wrap: break-word;
+  /* Never split a word: a word that doesn't fit is shrunk instead (sizes below, plus site.js). */
+  overflow-wrap: normal;
+  word-break: normal;
   hyphens: manual;
   text-wrap: balance;
   margin: 0;

@@ -29,3 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 });
+
+// Display headings never break inside a word (see .scm-d). If a word is still wider than its
+// column, shrink that heading just enough to fit rather than let it overflow.
+(() => {
+	const fit = () => {
+		document.querySelectorAll('.scm-d').forEach((el) => {
+			el.style.fontSize = '';
+			for (let i = 0; i < 3 && el.scrollWidth > el.clientWidth + 1 && el.clientWidth > 0; i++) {
+				const size = parseFloat(getComputedStyle(el).fontSize);
+				el.style.fontSize = `${Math.floor(size * (el.clientWidth / el.scrollWidth) * 0.98)}px`;
+			}
+		});
+	};
+	let frame;
+	const schedule = () => {
+		cancelAnimationFrame(frame);
+		frame = requestAnimationFrame(fit);
+	};
+	document.addEventListener('DOMContentLoaded', schedule);
+	window.addEventListener('resize', schedule);
+	if (document.fonts) {
+		document.fonts.ready.then(schedule);
+	}
+})();

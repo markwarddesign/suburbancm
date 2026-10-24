@@ -80,12 +80,13 @@ add_action( 'wp_head', 'suburbancm_fallback_schema' );
  * @return array{0:?string,1:?string}
  */
 function suburbancm_archive_seo() {
-	$brand = get_bloginfo( 'name' );
+	// The short name keeps titles under ~60 characters, where Google cuts them off.
+	$brand = apply_filters( 'suburbancm_seo_brand', 'SuburbanCM' );
 
 	if ( is_post_type_archive( 'projects' ) ) {
 		return [
 			/* translators: %s: site name */
-			sprintf( __( 'Construction Projects in Twin Falls & Southern Idaho | %s', 'suburbancm' ), $brand ),
+			sprintf( __( 'Construction Projects in Southern Idaho | %s', 'suburbancm' ), $brand ),
 			__( 'Public works, healthcare, park and commercial projects delivered by SuburbanCM across the Magic Valley — see the scope, schedule and results of each build.', 'suburbancm' ),
 		];
 	}
@@ -99,12 +100,32 @@ function suburbancm_archive_seo() {
 	if ( is_post_type_archive( 'bidding' ) ) {
 		return [
 			/* translators: %s: site name */
-			sprintf( __( 'Bid Opportunities for Subcontractors & Suppliers | %s', 'suburbancm' ), $brand ),
+			sprintf( __( 'Subcontractor Bid Opportunities | %s', 'suburbancm' ), $brand ),
 			__( 'Open bid packages from SuburbanCM in Twin Falls, Idaho. Review scopes, download plans and specs, and submit your bid for current projects.', 'suburbancm' ),
 		];
 	}
 	if ( is_tax( 'project_type' ) || is_tax( 'services' ) ) {
 		$term = get_queried_object();
+
+		// The service terms double as the service pages, so they target the service search.
+		$services = [
+			'construction-management' => [
+				__( 'Construction Manager in Twin Falls, Idaho', 'suburbancm' ),
+				__( 'Licensed Idaho construction managers for cities, agencies and private owners. CM/GC and CM-at-risk delivery from budget to closeout.', 'suburbancm' ),
+			],
+			'general-contracting'     => [
+				__( 'Commercial General Contractor, Twin Falls ID', 'suburbancm' ),
+				__( 'Licensed Idaho public works and commercial general contractor. Bid and negotiated work across the Magic Valley, delivered on time and on budget.', 'suburbancm' ),
+			],
+			'pre-construction'        => [
+				__( 'Pre-Construction Services in Idaho', 'suburbancm' ),
+				__( 'Budgets, feasibility, constructability reviews and scheduling before you break ground, so your Idaho project starts with fewer surprises.', 'suburbancm' ),
+			],
+		];
+		if ( is_tax( 'services' ) && isset( $services[ $term->slug ] ) ) {
+			return [ $services[ $term->slug ][0] . ' | ' . $brand, $services[ $term->slug ][1] ];
+		}
+
 		$desc = $term->description ? wp_strip_all_tags( $term->description ) : sprintf(
 			/* translators: %s: project type or service, lower case */
 			__( '%s projects delivered by SuburbanCM, a general contractor and construction manager based in Twin Falls, Idaho.', 'suburbancm' ),
@@ -237,3 +258,34 @@ function suburbancm_font_hints( $urls, $relation_type ) {
 	return $urls;
 }
 add_filter( 'wp_resource_hints', 'suburbancm_font_hints', 10, 2 );
+
+/**
+ * Old URLs that other sites still link to, sent to where that content lives now.
+ *
+ * @return array<string,string> Path => destination path.
+ */
+function suburbancm_legacy_redirects() {
+	return apply_filters(
+		'suburbancm_legacy_redirects',
+		[
+			// Linked from the City of Twin Falls bid page (tfid.org, bid 144).
+			'cotf-pw-site' => '/projects/city-of-twin-falls-public-works-site-improvements/',
+		]
+	);
+}
+
+/**
+ * 301 a legacy path, but only when WordPress would otherwise 404 — real pages always win.
+ */
+function suburbancm_redirect_legacy_urls() {
+	if ( ! is_404() ) {
+		return;
+	}
+	$path      = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	$redirects = suburbancm_legacy_redirects();
+	if ( isset( $redirects[ $path ] ) ) {
+		wp_safe_redirect( home_url( $redirects[ $path ] ), 301, 'SuburbanCM' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'suburbancm_redirect_legacy_urls' );

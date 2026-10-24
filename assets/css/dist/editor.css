@@ -429,7 +429,8 @@ body.scm-menu-open { overflow: hidden; }
 .scm-chip.is-active { background: var(--scm-gold); border-color: var(--scm-gold); color: var(--scm-ink); }
 /* Project cards */
 .scm-card-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-.scm-projects-list .scm-card-grid { padding-bottom: var(--scm-section); }
+.scm-projects-list .scm-card-grid,
+.scm-posts-list .scm-card-grid { padding-bottom: var(--scm-section); }
 .scm-card {
   flex: 1 1 520px; min-width: 0;
   display: flex; flex-direction: column;
@@ -590,6 +591,9 @@ body.scm-menu-open { overflow: hidden; }
 .scm-spec dt { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--scm-muted-on-dark); }
 .scm-spec dd { margin: 0; font-size: 19px; font-weight: 700; color: var(--scm-bone); overflow-wrap: break-word; }
 /* Call-to-action bands (CTA One, CTA Two, bid page) */
+/* A heavy ink rule keeps the gold band from bleeding into a light section above it
+   (matches the gold rule on top of the footer). Invisible after dark sections. */
+.scm-cta.scm-bg-gold { border-top: 6px solid var(--scm-ink); }
 .scm-cta__inner {
   display: flex;
   flex-wrap: wrap;

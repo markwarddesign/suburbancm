@@ -15,8 +15,13 @@ $footer_links = [
     ],
 ];
 
-// Templates that end in their own call to action switch this off with the suburbancm_footer_cta filter.
-if ( apply_filters( 'suburbancm_footer_cta', ! is_front_page() ) ) {
+// No footer CTA where it would repeat the page: the home page, the contact and safety forms,
+// the privacy policy, and any page that already ends in its own CTA block.
+// Templates can still switch it off with the suburbancm_footer_cta filter.
+$suburbancm_show_cta = ! is_front_page()
+	&& ! is_page( [ 'contact', 'safety-report', 'privacy-policy' ] )
+	&& ! ( is_singular() && ( has_block( 'suburbancm/cta-1' ) || has_block( 'suburbancm/cta-2' ) ) );
+if ( apply_filters( 'suburbancm_footer_cta', $suburbancm_show_cta ) ) {
     echo do_blocks( '<!-- wp:suburbancm/cta-1 {"buttonText":"Request a consultation →","buttonUrl":"/contact/","align":"full"} /-->' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 ?>

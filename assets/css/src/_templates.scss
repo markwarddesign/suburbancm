@@ -15,7 +15,8 @@
 
 /* Project cards */
 .scm-card-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-.scm-projects-list .scm-card-grid { padding-bottom: var(--scm-section); }
+.scm-projects-list .scm-card-grid,
+.scm-posts-list .scm-card-grid { padding-bottom: var(--scm-section); }
 .scm-card {
   flex: 1 1 520px; min-width: 0;
   display: flex; flex-direction: column;
@@ -186,6 +187,9 @@
 .scm-spec dd { margin: 0; font-size: 19px; font-weight: 700; color: var(--scm-bone); overflow-wrap: break-word; }
 
 /* Call-to-action bands (CTA One, CTA Two, bid page) */
+/* A heavy ink rule keeps the gold band from bleeding into a light section above it
+   (matches the gold rule on top of the footer). Invisible after dark sections. */
+.scm-cta.scm-bg-gold { border-top: 6px solid var(--scm-ink); }
 .scm-cta__inner {
   display: flex;
   flex-wrap: wrap;

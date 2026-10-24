@@ -4,7 +4,7 @@ import { PanelBody, SelectControl, TextControl, Button } from '@wordpress/compon
 import { ImageControl, updateItem } from '../_shared/media';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { title, image, imageAlt, lead, text, chipsLabel, chips = [], chipLinks = [], background } = attributes;
+	const { title, image, imageAlt, imageSize = 'small', imageCaption, lead, text, chipsLabel, chips = [], chipLinks = [], background } = attributes;
 	const blockProps = useBlockProps( { className: `scm-split scm-bg-${ background }` } );
 
 	return (
@@ -26,6 +26,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						alt={ imageAlt }
 						onChange={ ( { url, alt } ) => setAttributes( { image: url, imageAlt: alt } ) }
 					/>
+					{ image && (
+						<>
+							<SelectControl
+								label={ __( 'Image size', 'suburbancm' ) }
+								value={ imageSize }
+								options={ [
+									{ label: __( 'Small (logo)', 'suburbancm' ), value: 'small' },
+									{ label: __( 'Large (photo)', 'suburbancm' ), value: 'large' },
+								] }
+								onChange={ ( value ) => setAttributes( { imageSize: value } ) }
+							/>
+							<TextControl label={ __( 'Caption (optional)', 'suburbancm' ) } value={ imageCaption } onChange={ ( value ) => setAttributes( { imageCaption: value } ) } />
+						</>
+					) }
 				</PanelBody>
 				<PanelBody title={ __( 'Tag chips', 'suburbancm' ) } initialOpen={ false }>
 					<TextControl label={ __( 'Label above the chips', 'suburbancm' ) } value={ chipsLabel } onChange={ ( value ) => setAttributes( { chipsLabel: value } ) } />
@@ -65,7 +79,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				<div className="scm-wrap scm-section scm-split__inner">
 					<div className="scm-split__head">
 						<RichText tagName="h2" className="scm-d scm-h-l" value={ title } onChange={ ( value ) => setAttributes( { title: value } ) } placeholder={ __( 'Heading…', 'suburbancm' ) } />
-						{ image && <img className="scm-split__image" src={ image } alt={ imageAlt } /> }
+						{ image && (
+							<figure className={ `scm-split__figure scm-split__figure--${ imageSize }` }>
+								<img className="scm-split__image" src={ image } alt={ imageAlt } />
+								{ imageCaption && <figcaption>{ imageCaption }</figcaption> }
+							</figure>
+						) }
 					</div>
 					<div className="scm-split__body">
 						<RichText tagName="p" className="scm-split__lead" value={ lead } onChange={ ( value ) => setAttributes( { lead: value } ) } placeholder={ __( 'Optional bold lead line…', 'suburbancm' ) } />

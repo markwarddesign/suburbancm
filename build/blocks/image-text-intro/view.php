@@ -9,6 +9,8 @@
 $title       = $attributes['title'] ?? '';
 $image       = $attributes['image'] ?? '';
 $image_alt   = $attributes['imageAlt'] ?? '';
+$image_size  = ( $attributes['imageSize'] ?? 'small' ) === 'large' ? 'large' : 'small';
+$caption     = $attributes['imageCaption'] ?? '';
 $lead        = $attributes['lead'] ?? '';
 $text        = $attributes['text'] ?? '';
 $chips_label = $attributes['chipsLabel'] ?? '';
@@ -27,7 +29,12 @@ $wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'scm-split scm-
 				<h2 class="scm-d scm-h-l"><?php echo wp_kses_post( $title ); ?></h2>
 			<?php endif; ?>
 			<?php if ( $image ) : ?>
-				<img class="scm-split__image" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy">
+				<figure class="scm-split__figure scm-split__figure--<?php echo esc_attr( $image_size ); ?>">
+					<img class="scm-split__image" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy">
+					<?php if ( $caption ) : ?>
+						<figcaption><?php echo esc_html( $caption ); ?></figcaption>
+					<?php endif; ?>
+				</figure>
 			<?php endif; ?>
 		</div>
 		<div class="scm-split__body">

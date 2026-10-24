@@ -14,7 +14,10 @@
 }
 /* Sized to the column, not the window, so a long word like SUBURBANCM always fits on its line. */
 .scm-split__head .scm-d { font-size: min(var(--scm-display-l), 14.5cqi); }
+.scm-split__figure { margin: 0; }
 .scm-split__image { display: block; width: 280px; max-width: 100%; height: auto; }
+.scm-split__figure--large .scm-split__image { width: 100%; aspect-ratio: 4 / 3; -o-object-fit: cover; object-fit: cover; }
+.scm-split__figure figcaption { margin-top: 12px; padding-top: 10px; border-top: 2px solid var(--scm-gold); font-size: 14px; font-weight: 600; }
 .scm-split__body {
 	flex: 1 1 520px;
 	min-width: 0;

@@ -16,6 +16,18 @@
       "type": "string",
       "default": "Team collaborating on project plans"
     },
+    "imageSize": {
+      "type": "string",
+      "default": "small",
+      "enum": [
+        "small",
+        "large"
+      ]
+    },
+    "imageCaption": {
+      "type": "string",
+      "default": ""
+    },
     "text": {
       "type": "string",
       "default": ""

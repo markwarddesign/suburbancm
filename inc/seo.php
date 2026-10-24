@@ -297,3 +297,16 @@ function suburbancm_redirect_legacy_urls() {
 	}
 }
 add_action( 'template_redirect', 'suburbancm_redirect_legacy_urls' );
+
+/**
+ * No bylines anywhere: drop "Written by" from link previews and the author meta tag.
+ *
+ * @param array $data Slack/Twitter preview labels.
+ * @return array
+ */
+function suburbancm_no_author_preview( $data ) {
+	unset( $data['Written by'] );
+	return $data;
+}
+add_filter( 'wpseo_enhanced_slack_data', 'suburbancm_no_author_preview' );
+add_filter( 'wpseo_meta_author', '__return_empty_string' );

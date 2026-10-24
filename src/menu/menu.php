@@ -337,6 +337,7 @@ function suburbancm_default_links( $set ) {
         [ 'label' => __( 'About', 'suburbancm' ), 'url' => home_url( '/about/' ), 'class' => '' ],
         [ 'label' => __( 'The Difference', 'suburbancm' ), 'url' => home_url( '/the-suburban-difference/' ), 'class' => '' ],
         [ 'label' => __( 'Bidding', 'suburbancm' ), 'url' => home_url( '/bidding/' ), 'class' => '' ],
+        [ 'label' => __( 'News', 'suburbancm' ), 'url' => home_url( '/news/' ), 'class' => '' ],
         [ 'label' => __( 'Request a consultation', 'suburbancm' ), 'url' => home_url( '/contact/' ), 'class' => 'cta-button' ],
     ];
     if ( 'primary' === $set ) {
@@ -348,6 +349,7 @@ function suburbancm_default_links( $set ) {
         [ 'label' => __( 'About', 'suburbancm' ), 'url' => home_url( '/about/' ), 'class' => '' ],
         [ 'label' => __( 'The Difference', 'suburbancm' ), 'url' => home_url( '/the-suburban-difference/' ), 'class' => '' ],
         [ 'label' => __( 'Bid opportunities', 'suburbancm' ), 'url' => home_url( '/bidding/' ), 'class' => '' ],
+        [ 'label' => __( 'News', 'suburbancm' ), 'url' => home_url( '/news/' ), 'class' => '' ],
         [ 'label' => __( 'Safety report', 'suburbancm' ), 'url' => home_url( '/safety-report/' ), 'class' => '' ],
         [ 'label' => __( 'Contact', 'suburbancm' ), 'url' => home_url( '/contact/' ), 'class' => '' ],
         [ 'label' => __( 'Privacy policy', 'suburbancm' ), 'url' => home_url( '/privacy-policy/' ), 'class' => '' ],

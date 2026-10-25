@@ -5,12 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-    <!-- Favicon -->
-<link rel="icon" type="image/png" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon.svg" />
-<link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/apple-touch-icon.png" />
-<link rel="manifest" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/site.webmanifest" />
+	<?php
+	// Favicons. The file's mtime is appended so browsers drop a cached icon when it changes.
+	$scm_icon = function ( $file ) {
+		$path = get_template_directory() . '/assets/images/' . $file;
+		return esc_url( get_template_directory_uri() . '/assets/images/' . $file . '?v=' . ( file_exists( $path ) ? filemtime( $path ) : '1' ) );
+	};
+	?>
+	<link rel="icon" href="<?php echo $scm_icon( 'favicon.ico' ); ?>" sizes="48x48">
+	<link rel="icon" type="image/svg+xml" href="<?php echo $scm_icon( 'favicon.svg' ); ?>">
+	<link rel="icon" type="image/png" sizes="96x96" href="<?php echo $scm_icon( 'favicon-96x96.png' ); ?>">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $scm_icon( 'apple-touch-icon.png' ); ?>">
+	<link rel="manifest" href="<?php echo $scm_icon( 'site.webmanifest' ); ?>">
+	<meta name="theme-color" content="#161513">
 	<?php wp_head(); ?>
 </head>
 
